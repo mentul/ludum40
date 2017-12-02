@@ -39,7 +39,7 @@ public class TimeCounter : MonoBehaviour {
         //= Vector3.Lerp(stoneGameObject.transform.position, stoneGameObject.transform.position + new Vector3(time, 0, 0), 0.1f);
         stoneGameObject.transform.position = new Vector3(x, stoneGameObject.transform.position.y, stoneGameObject.transform.position.z);
         //stoneGameObject.transform.position = Vector3.Lerp(stoneGameObject.transform.position, stoneGameObject.transform.position + new Vector3(time, 0, 0), 0.1f);
-        Debug.Log("aaa");
+        //Debug.Log("aaa");
     }
 
    

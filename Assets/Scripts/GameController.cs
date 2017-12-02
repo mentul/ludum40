@@ -29,6 +29,10 @@ public class GameController : MonoBehaviour {
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
+
+        rabbitScore = 3;
+        elkScore = 17;
+        mammothScore = 33;
        
 
         timeCounter.DoInit();
@@ -53,8 +57,8 @@ public class GameController : MonoBehaviour {
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
-                Debug.Log("KOniec korku");
-               // scoreController.ShowScore();
+                //Debug.Log("KOniec korku");
+                scoreController.ShowScore();
             }
 
             timeCounter.DoUpdate();

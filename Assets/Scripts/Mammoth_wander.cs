@@ -17,7 +17,7 @@ namespace Assets.Scripts
         {
             rigidbody = GetComponent<Rigidbody2D>();
             GetComponent<Rigidbody2D>().velocity = Vector2.right;
-            print(gameObject.name + " entering wander");
+            //print(gameObject.name + " entering wander");
             time = wanderTime;
         }
 
@@ -28,7 +28,7 @@ namespace Assets.Scripts
             {
                 stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
             }
-            print(gameObject.name + " executing wander");
+            //print(gameObject.name + " executing wander");
         }
 
         public override void Exit()
