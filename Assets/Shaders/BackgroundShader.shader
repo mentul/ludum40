@@ -1,6 +1,8 @@
 ﻿Shader "Custom/BackgroundShader" {
 
 	Properties{
+		_PlayerPosition("PlayerPosition", Vector) = (0,0,0,0)
+		_PlayerSpeed("PlayerSpeed", Float) = 0.0
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
@@ -19,6 +21,8 @@
 
 		sampler2D _MainTex;
 		float4 _MainTex_ST;
+		float4 _PlayerPosition;
+		float _PlayerSpeed;
 
 		struct Input {
 			float2 uv_MainTex;
@@ -36,7 +40,10 @@
 		void surf(Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			float2 uv = IN.screenPos.xy;
-			fixed4 c = tex2D(_MainTex, uv * _MainTex_ST.xy + _MainTex_ST.zw) * _Color;
+
+			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9);
+
+			fixed4 c = tex2D(_MainTex, uv * _MainTex_ST.xy + offset) * _Color;
 
 			o.Albedo = c.rgb;
 			o.Metallic = _Metallic;
