@@ -146,7 +146,8 @@ public class GeneratedMap : MonoBehaviour
                    // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
-                    Instantiate(gameObjectTree, position, gameObject.transform.rotation);
+                    Instantiate(gameObjectTree, position, gameObject.transform.rotation).transform.SetParent(this.transform);
+
                 }
             }
 
