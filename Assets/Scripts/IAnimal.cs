@@ -6,5 +6,6 @@ public interface IAnimal {
 
     void InstantiateAnimal();
     void KillAnimal();
+    void OnHit();
 
 }
