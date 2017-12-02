@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
         //Jeżeli coś z WSAD to nadaj velocity
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
+            GetComponent<Animator>().SetBool("Idling", false);
             Vector2 temp = Vector2.zero;
             if (Input.GetKey(KeyCode.W))
             {
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour {
         else //Inaczej wyzeruj velocity
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            GetComponent<Animator>().SetBool("Idling", true);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 
     void ThrowSpear()
     {
-        
+        GetComponent<Animator>().SetBool("HasSpear", false);
         //oblicz kierunek rzutu
         Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
         Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
