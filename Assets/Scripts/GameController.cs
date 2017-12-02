@@ -47,8 +47,6 @@ public class GameController : MonoBehaviour {
     {
         float width = timeCounter.GetLengthToDoStone();
         deltaToMove = width /initialRoundTime;
-        Debug.Log(width + "  " + deltaToMove);
-
     }
 	
 	// Update is called once per frame
@@ -62,16 +60,9 @@ public class GameController : MonoBehaviour {
             DrawingMaterial.SetVector("_PlayerPosition", playerPos);
             DrawingMaterial.SetFloat("_PlayerSpeed", player.speed);
 
-
-            if(roundTime <= initialRoundTime/2 && roundTime >= initialRoundTime / 2 - 0.01f)
-            {
-                UnityEditor.EditorApplication.isPaused = false;
-            }
             //odliczanie czasu
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
-            Debug.Log(roundTime);
-            
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
