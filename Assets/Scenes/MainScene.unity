@@ -2535,7 +2535,7 @@ MonoBehaviour:
   player: {fileID: 30665766}
   BackgroundMaterial: {fileID: 2100000, guid: 07081932bd7dbd74c97d28ea1f6defe9, type: 2}
   DrawingMaterial: {fileID: 2100000, guid: 513936ee5e07c4d4eb8e450e06d8cadf, type: 2}
-  initialRoundTime: 5
+  initialRoundTime: 500
   GeneratedMap: {fileID: 1990837587}
 --- !u!4 &1779320715
 Transform:
