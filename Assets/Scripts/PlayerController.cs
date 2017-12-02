@@ -12,22 +12,34 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.W))
+        //Jeżeli coś z WSAD to nadaj velocity
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
+            Vector2 temp = Vector2.zero;
+            if (Input.GetKey(KeyCode.W))
+            {
+                temp += Vector2.up;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                temp += Vector2.left;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                temp += Vector2.down;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                temp += Vector2.right;
+            }
+            temp.Normalize();
+            GetComponent<Rigidbody2D>().velocity = temp * speed;
         }
-        if (Input.GetKey(KeyCode.A))
+        else //Inaczej wyzeruj velocity
         {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
+
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
