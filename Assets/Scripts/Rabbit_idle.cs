@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class Mammoth_idle : State
+    class Rabbit_idle : State
     {
         public float eatTime = 10f;
         public float time;
@@ -20,7 +20,7 @@ namespace Assets.Scripts
             if (time > 0) time -= Time.deltaTime;
             else
             {
-                stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_wander)));
+                stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_wander)));
             }
             //print(gameObject.name + " executing idle");
         }

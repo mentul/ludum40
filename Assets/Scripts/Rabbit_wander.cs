@@ -1,21 +1,23 @@
 ﻿using StateMachine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class Mammoth_wander : State
+    class Rabbit_wander : State
     {
         public float wanderTime = 20f;
         public float time;
+        CapsuleCollider2D collider;
 
         public override void Enter()
         {
-            Vector2 direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
-            GetComponent<Rigidbody2D>().velocity = direction;
+            collider = GetComponent<CapsuleCollider2D>();
+            Vector2 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
+            /*while (Physics2D.CapsuleCast(transform.position, collider.size, collider.direction, 0f, direction, 0.1f))
+            {
+                direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
+            }*/
+            GetComponent<Rigidbody2D>().velocity = direction*2f;
             //print(gameObject.name + " entering wander");
             time = wanderTime;
         }
@@ -25,7 +27,7 @@ namespace Assets.Scripts
             if (time > 0) time -= Time.deltaTime;
             else
             {
-                stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
+                stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
             }
             //print(gameObject.name + " executing wander");
         }

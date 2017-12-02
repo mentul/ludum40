@@ -57,13 +57,13 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 100
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -82,7 +82,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.58, y: 0.35}
+  m_Offset: {x: 0.58, y: 0.59}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
 --- !u!70 &70862231046557470
@@ -97,7 +97,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.58, y: 0.35}
+  m_Offset: {x: 0.58, y: 0.59}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
 --- !u!114 &114185527290679726
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111c8cf5ac1820943b5c0c255b0796a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderTime: 10
+  wanderTime: 15
   time: 0
 --- !u!114 &114308488029229074
 MonoBehaviour:
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e4a75b47df1e448b9e40dcc9028a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatTime: 5
+  eatTime: 10
   time: 0
 --- !u!114 &114320146574022088
 MonoBehaviour:
