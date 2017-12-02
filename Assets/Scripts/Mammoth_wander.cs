@@ -1,8 +1,4 @@
 ﻿using StateMachine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -11,9 +7,12 @@ namespace Assets.Scripts
     {
         public float wanderTime = 20f;
         public float time;
+        public float playerTriggerDistance = 3f;
+        PlayerController player;
 
         public override void Enter()
         {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             Vector2 direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
             GetComponent<Rigidbody2D>().velocity = direction;
             //print(gameObject.name + " entering wander");
@@ -22,12 +21,19 @@ namespace Assets.Scripts
 
         public override void Execute()
         {
-            if (time > 0) time -= Time.deltaTime;
-            else
+            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance)
             {
-                stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
+                stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_triggered)));
             }
-            //print(gameObject.name + " executing wander");
+            else
+            { 
+                if (time > 0) time -= Time.deltaTime;
+                else
+                {
+                    stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
+                }
+                //print(gameObject.name + " executing wander");
+            }
         }
 
         public override void Exit()
