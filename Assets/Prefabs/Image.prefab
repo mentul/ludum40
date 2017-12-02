@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222928771353848412}
   - component: {fileID: 114773533761737558}
   - component: {fileID: 61817098484333824}
+  - component: {fileID: 95424590550340800}
   m_Layer: 5
   m_Name: Image
   m_TagString: paski
@@ -54,6 +55,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &95424590550340800
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122553671347382}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ff9d1f647ebb83444b9e0d2250c26485, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114773533761737558
 MonoBehaviour:
   m_ObjectHideFlags: 1

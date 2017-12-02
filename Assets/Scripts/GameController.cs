@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
     private int rabbitScore;
     private int elkScore;
     private int mammothScore;
+    private float deltaToMove;
 
     public GameObject GeneratedMap;
 
@@ -37,7 +38,16 @@ public class GameController : MonoBehaviour {
 
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
-        timeCounter.DoLine();
+        //timeCounter.DoLine();
+        CalculateDeltaMoveStone();
+    }
+
+    void CalculateDeltaMoveStone()
+    {
+        float width = timeCounter.GetLengthToDoStone();
+        deltaToMove = width /initialRoundTime;
+        Debug.Log(width + "  " + deltaToMove);
+
     }
 	
 	// Update is called once per frame
@@ -51,14 +61,23 @@ public class GameController : MonoBehaviour {
             DrawingMaterial.SetVector("_PlayerPosition", playerPos);
             DrawingMaterial.SetFloat("_PlayerSpeed", player.speed);
 
+
+            if(roundTime <= initialRoundTime/2 && roundTime >= initialRoundTime / 2 - 0.01f)
+            {
+                UnityEditor.EditorApplication.isPaused = false;
+            }
             //odliczanie czasu
+            timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
-            timeCounter.TranformStone(Time.deltaTime);
+            Debug.Log(roundTime);
+            
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
-                //Debug.Log("KOniec korku");
+               
                 scoreController.ShowScore();
+                timeCounter.SetPositionStartStone();
+
             }
 
             timeCounter.DoUpdate();
