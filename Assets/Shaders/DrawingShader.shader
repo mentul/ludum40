@@ -7,11 +7,11 @@
 		_BackTex("Albedo (RGB)", 2D) = "black" {}
 	}
 	SubShader{
-		Tags{ "RenderType" = "Opaque" }
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		Cull Off
 
 		CGPROGRAM
-		#pragma surface surf Lambert
+		#pragma surface surf Lambert alpha:fade
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -40,14 +40,9 @@
 			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9);
 
 			fixed4 cB = tex2D(_BackTex, uv * _BackTex_ST.xy + offset);
-			if (c.a >= c.r && c.a >= c.g && c.a >= c.b) {
 				c.r = (255 - ((256 * (255 - (cB.r * 255))) / ((c.r * 255) + 1))) / 255;
 				c.g = (255 - ((256 * (255 - (cB.g * 255))) / ((c.g * 255) + 1))) / 255;
 				c.b = (255 - ((256 * (255 - (cB.b * 255))) / ((c.b * 255) + 1))) / 255;
-			}
-			else{
-				clip(-1.0);
-			}
 			o.Albedo = c.rgb;
 				
 			o.Alpha = c.a;

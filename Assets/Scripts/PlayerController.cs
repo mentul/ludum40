@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKey(KeyCode.A))
             {
                 temp += Vector2.left;
+                GetComponent<SpriteRenderer>().flipX = true;
             }
             if (Input.GetKey(KeyCode.S))
             {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKey(KeyCode.D))
             {
                 temp += Vector2.right;
+                GetComponent<SpriteRenderer>().flipX = false;
             }
             temp.Normalize();
             GetComponent<Rigidbody2D>().velocity = temp * speed;
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             ThrowSpear();
         }
@@ -58,7 +60,6 @@ public class PlayerController : MonoBehaviour {
     void ThrowSpear()
     {
         
-
         //oblicz kierunek rzutu
         Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
         Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
