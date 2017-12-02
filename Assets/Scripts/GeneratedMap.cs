@@ -51,7 +51,10 @@ public class GeneratedMap : MonoBehaviour
     // Update is called once per frame
     public void DoUpdate()
     {
+        if (GameController.isRunning)
+        {
 
+        }
     }
 
     void GenerateMap()

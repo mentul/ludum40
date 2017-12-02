@@ -27,6 +27,9 @@ public class SMammoth : MonoBehaviour, IAnimal {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (GameController.isRunning)
+        {
+
+        }
+    }
 }

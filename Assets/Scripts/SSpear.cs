@@ -11,7 +11,10 @@ public class SSpear : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if(GameController.isRunning)
+        {
+
+        }
 	}
 
     private void OnCollisionEnter2D(Collision2D collision)

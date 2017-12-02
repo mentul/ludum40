@@ -13,46 +13,49 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Jeżeli coś z WSAD to nadaj velocity
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (GameController.isRunning)
         {
-            GetComponent<Animator>().SetBool("Idling", false);
-            Vector2 temp = Vector2.zero;
-            if (Input.GetKey(KeyCode.W))
+            //Jeżeli coś z WSAD to nadaj velocity
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
-                temp += Vector2.up;
+                GetComponent<Animator>().SetBool("Idling", false);
+                Vector2 temp = Vector2.zero;
+                if (Input.GetKey(KeyCode.W))
+                {
+                    temp += Vector2.up;
+                }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    temp += Vector2.left;
+                    GetComponent<SpriteRenderer>().flipX = true;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    temp += Vector2.down;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    temp += Vector2.right;
+                    GetComponent<SpriteRenderer>().flipX = false;
+                }
+                temp.Normalize();
+                GetComponent<Rigidbody2D>().velocity = temp * speed;
             }
-            if (Input.GetKey(KeyCode.A))
+            else //Inaczej wyzeruj velocity
             {
-                temp += Vector2.left;
-                GetComponent<SpriteRenderer>().flipX = true;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                GetComponent<Animator>().SetBool("Idling", true);
             }
-            if (Input.GetKey(KeyCode.S))
-            {
-                temp += Vector2.down;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                temp += Vector2.right;
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-            temp.Normalize();
-            GetComponent<Rigidbody2D>().velocity = temp * speed;
-        }
-        else //Inaczej wyzeruj velocity
-        {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            GetComponent<Animator>().SetBool("Idling", true);
-        }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            ThrowSpear();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowSpear();
+            }
 
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
     }
  
