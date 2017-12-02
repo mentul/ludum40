@@ -17,6 +17,8 @@ public class Animal : MonoBehaviour
 
 	protected SpriteRenderer mySprite;
 
+    protected int HP;
+
 	public virtual void DoInit ()
 	{
 		timeToSpawn = Random.Range (minTimeToSpawn, maxTimeToSpawn);
@@ -74,4 +76,26 @@ public class Animal : MonoBehaviour
 		walkCollider.enabled = true;
 		bodyTrigger.enabled = true;
 	}
+
+    public void OnHit()
+    {
+        HP--;
+        if(HP<0)
+        {
+            //Tutaj bedzie zabijanie zwierzaka
+            if(animalType==AnimalType.rabbit)
+            {
+                GameController.setScore(1, 0, 0);
+            }
+            else if (animalType == AnimalType.elk)
+            {
+                GameController.setScore(0, 1, 0);
+            }
+            else if (animalType == AnimalType.mammoth)
+            {
+                GameController.setScore(0, 0, 1);
+            }
+            Destroy(gameObject);
+        }
+    }
 }

@@ -7,6 +7,7 @@ public class AMammoth : Animal {
 	public override void DoInit ()
 	{
 		base.DoInit ();
+        HP = 3;
 	}
 
 	public override void DoUpdate ()

@@ -16,10 +16,11 @@ public class GameController : MonoBehaviour {
     public static bool isRunning;
     public int maxRoundTime;
 
-    private int rabbitScore;
-    private int elkScore;
-    private int mammothScore;
     private float deltaToMove;
+
+    private static int rabbitScore;
+    private static int elkScore;
+    private static int mammothScore;
 
     public GameObject GeneratedMap;
 
@@ -91,6 +92,13 @@ public class GameController : MonoBehaviour {
         temp.Add(elkScore);
         temp.Add(mammothScore);
         return temp;
+    }
+
+    public static void setScore(int i, int j, int k)
+    {
+        rabbitScore += i;
+        elkScore += j;
+        mammothScore += k;
     }
 
 }
