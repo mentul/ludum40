@@ -7,9 +7,11 @@ public class GameController : MonoBehaviour {
     public PlayerController player;
     public Material BackgroundMaterial, DrawingMaterial;
 
+    public GameObject GeneratedMap;
+
 	// Use this for initialization
 	void Start () {
-		
+        GeneratedMap.GetComponent<GeneratedMap>().DoInit();
 	}
 	
 	// Update is called once per frame

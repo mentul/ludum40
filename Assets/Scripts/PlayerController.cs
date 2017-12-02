@@ -54,10 +54,8 @@ public class PlayerController : MonoBehaviour {
         {
             Application.Quit();
         }
-
-        
-
     }
+ 
 
     void ThrowSpear()
     {
