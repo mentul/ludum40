@@ -8,9 +8,13 @@ public class GameController : MonoBehaviour {
     public PlayerController player;
     public Material BackgroundMaterial, DrawingMaterial;
     private SScoreController scoreController;
+
+    public TimeCounter timeCounter;
+
     public float initialRoundTime;
     private float roundTime;
     public static bool isRunning;
+    public int maxRoundTime;
 
     private int rabbitScore;
     private int elkScore;
@@ -18,13 +22,19 @@ public class GameController : MonoBehaviour {
 
     public GameObject GeneratedMap;
 
+
 	// Use this for initialization
 	void Start () {
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
-	}
+       
+
+        timeCounter.DoInit();
+        timeCounter.SetMaxRoundTime(maxRoundTime);
+        timeCounter.DoLine();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -39,11 +49,15 @@ public class GameController : MonoBehaviour {
 
             //odliczanie czasu
             roundTime -= Time.deltaTime;
+            timeCounter.TranformStone(Time.deltaTime);
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
-                scoreController.ShowScore();
+                Debug.Log("KOniec korku");
+               // scoreController.ShowScore();
             }
+
+            timeCounter.DoUpdate();
         }
     }
 
