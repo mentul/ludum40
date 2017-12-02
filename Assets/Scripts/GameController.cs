@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GeneratedMap.GetComponent<GeneratedMap>().DoInit();
+        //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
 	}
 	
 	// Update is called once per frame
