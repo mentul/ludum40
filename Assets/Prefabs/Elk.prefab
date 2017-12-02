@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4007771696749300}
   - component: {fileID: 212459055321444674}
   - component: {fileID: 70573647553682416}
+  - component: {fileID: 70926467495720098}
   - component: {fileID: 50610073128858610}
   - component: {fileID: 114360961855732692}
   - component: {fileID: 114837215127344242}
@@ -79,6 +80,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.14, y: -0.3}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
+--- !u!70 &70926467495720098
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.14, y: -0.3}
+  m_Size: {x: 2.58, y: 1.39}
+  m_Direction: 1
 --- !u!114 &114360961855732692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,12 +119,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalType: 1
   animalState: 0
-  minTimeToSpawn: 20
+  minTimeToSpawn: 15
   maxTimeToSpawn: 40
   minTimeToVanish: 120
   maxTimeToVanish: 120
-  walkCollider: {fileID: 0}
-  bodyTrigger: {fileID: 0}
+  walkCollider: {fileID: 70573647553682416}
+  bodyTrigger: {fileID: 70926467495720098}
 --- !u!212 &212459055321444674
 SpriteRenderer:
   m_ObjectHideFlags: 1

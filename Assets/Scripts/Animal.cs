@@ -15,10 +15,15 @@ public class Animal : MonoBehaviour
 	public Collider2D walkCollider;
 	public Collider2D bodyTrigger;
 
+	protected SpriteRenderer mySprite;
+
 	public virtual void DoInit ()
 	{
 		timeToSpawn = Random.Range (minTimeToSpawn, maxTimeToSpawn);
 		timeToVanish = Random.Range (minTimeToVanish, maxTimeToVanish);
+		mySprite = GetComponent<SpriteRenderer> ();
+
+		//HideAnimal ();
 	}
 
 	public virtual void DoUpdate ()
@@ -27,13 +32,20 @@ public class Animal : MonoBehaviour
 		{
 			case AnimalState.hiding:
 				timeToSpawn -= Time.deltaTime;
+
 				if (timeToSpawn <= 0f)
+				{
+					//LetAnimalOut ();
 					animalState = AnimalState.sightseeing;
+				}
 				break;
 			case AnimalState.sightseeing:
 				timeToVanish -= Time.deltaTime;
+
 				if (timeToVanish <= 0f)
+				{
 					animalState = AnimalState.vanishing;
+				}
 				break;
 			case AnimalState.fighting:
 
@@ -49,4 +61,17 @@ public class Animal : MonoBehaviour
 
 	}
 
+	public void HideAnimal ()
+	{
+		mySprite.enabled = false;
+		walkCollider.enabled = false;
+		bodyTrigger.enabled = false;
+	}
+
+	public void LetAnimalOut ()
+	{
+		mySprite.enabled = true;
+		walkCollider.enabled = true;
+		bodyTrigger.enabled = true;
+	}
 }
