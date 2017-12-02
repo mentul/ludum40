@@ -21,12 +21,12 @@ GameObject:
   - component: {fileID: 4007771696749300}
   - component: {fileID: 212459055321444674}
   - component: {fileID: 70573647553682416}
-  - component: {fileID: 70862231046557470}
+  - component: {fileID: 70926467495720098}
   - component: {fileID: 50610073128858610}
   - component: {fileID: 114360961855732692}
-  - component: {fileID: 114465392960117168}
+  - component: {fileID: 114837215127344242}
   m_Layer: 0
-  m_Name: Mammoth
+  m_Name: Elk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.14, y: -0.3}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
---- !u!70 &70862231046557470
+--- !u!70 &70926467495720098
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6af3f4bd8143ee4b8ee6e873462e6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114465392960117168
+--- !u!114 &114837215127344242
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,17 +114,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227201637065700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fcc491a71d0896438bee203c888ba2d, type: 3}
+  m_Script: {fileID: 11500000, guid: b5d77f4ef0bb5914a8df65083c85296c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalType: 2
+  animalType: 1
   animalState: 0
-  minTimeToSpawn: 30
-  maxTimeToSpawn: 60
+  minTimeToSpawn: 15
+  maxTimeToSpawn: 40
   minTimeToVanish: 120
   maxTimeToVanish: 120
   walkCollider: {fileID: 70573647553682416}
-  bodyTrigger: {fileID: 70862231046557470}
+  bodyTrigger: {fileID: 70926467495720098}
 --- !u!212 &212459055321444674
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 1091724095
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3a7aaf5e13f62484fb73421cecffb73a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d77ce0ead52d2e469566dfef29f15ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
