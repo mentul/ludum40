@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour {
     private float roundTime;
     public static bool isRunning;
 
+    private int rabbitScore;
+    private int elkScore;
+    private int mammothScore;
+
     public GameObject GeneratedMap;
 
 	// Use this for initialization
@@ -42,4 +46,14 @@ public class GameController : MonoBehaviour {
             }
         }
     }
+
+    public List<int> getScore()
+    {
+        List<int> temp = new List<int>();
+        temp.Add(rabbitScore);
+        temp.Add(elkScore);
+        temp.Add(mammothScore);
+        return temp;
+    }
+
 }
