@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50610073128858610}
   - component: {fileID: 114360961855732692}
   - component: {fileID: 114837215127344242}
+  - component: {fileID: 114539134219074042}
   m_Layer: 0
   m_Name: Elk
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.27, y: 4.59, z: 0}
+  m_LocalPosition: {x: -1.6563983, y: 3.9539328, z: 0}
   m_LocalScale: {x: 2.1079917, y: 2.1079917, z: 2.1079917}
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +78,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14, y: -0.3}
+  m_Offset: {x: 0.38, y: 0.41}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
 --- !u!70 &70926467495720098
@@ -92,7 +93,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14, y: -0.3}
+  m_Offset: {x: 0.38, y: 0.41}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
 --- !u!114 &114360961855732692
@@ -104,6 +105,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6af3f4bd8143ee4b8ee6e873462e6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114539134219074042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe8039446f55e345b18c4c21e11e9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114837215127344242
@@ -165,3 +177,4 @@ SpriteRenderer:
   m_Size: {x: 3.66, y: 2.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114805416697664832}
   - component: {fileID: 114308488029229074}
   - component: {fileID: 114277538390164590}
+  - component: {fileID: 114185527290679726}
   m_Layer: 0
   m_Name: Mammoth
   m_TagString: Untagged
@@ -60,7 +61,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -68,7 +69,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!70 &70573647553682416
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -81,7 +82,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14, y: -0.3}
+  m_Offset: {x: 0.58, y: 0.35}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
 --- !u!70 &70862231046557470
@@ -96,9 +97,20 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14, y: -0.3}
+  m_Offset: {x: 0.58, y: 0.35}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
+--- !u!114 &114185527290679726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe8039446f55e345b18c4c21e11e9ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114277538390164590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,7 +225,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1091724095
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 3a7aaf5e13f62484fb73421cecffb73a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
