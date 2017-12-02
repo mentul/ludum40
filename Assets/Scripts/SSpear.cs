@@ -13,4 +13,13 @@ public class SSpear : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.GetComponent<IAnimal>()!=null)
+        {
+
+        }
+    }
+
 }
