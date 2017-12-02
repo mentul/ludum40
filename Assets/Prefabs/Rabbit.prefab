@@ -21,16 +21,12 @@ GameObject:
   - component: {fileID: 4007771696749300}
   - component: {fileID: 212459055321444674}
   - component: {fileID: 70573647553682416}
-  - component: {fileID: 70862231046557470}
+  - component: {fileID: 70777934740440314}
   - component: {fileID: 50610073128858610}
   - component: {fileID: 114360961855732692}
-  - component: {fileID: 114465392960117168}
-  - component: {fileID: 114320146574022088}
-  - component: {fileID: 114805416697664832}
-  - component: {fileID: 114308488029229074}
-  - component: {fileID: 114277538390164590}
+  - component: {fileID: 114196711550774802}
   m_Layer: 0
-  m_Name: Mammoth
+  m_Name: Rabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +80,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.14, y: -0.3}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
---- !u!70 &70862231046557470
+--- !u!70 &70777934740440314
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -99,7 +95,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.14, y: -0.3}
   m_Size: {x: 2.58, y: 1.39}
   m_Direction: 1
---- !u!114 &114277538390164590
+--- !u!114 &114196711550774802
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -107,40 +103,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227201637065700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111c8cf5ac1820943b5c0c255b0796a9, type: 3}
+  m_Script: {fileID: 11500000, guid: ff241e8119a2d694c98806a56aedd8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderTime: 10
-  time: 0
---- !u!114 &114308488029229074
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15e4a75b47df1e448b9e40dcc9028a98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eatTime: 5
-  time: 0
---- !u!114 &114320146574022088
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ac25bd8c49d724b9afd68cf669e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  states:
-  - {fileID: 114308488029229074}
-  - {fileID: 114277538390164590}
-  globalState: {fileID: 114805416697664832}
-  initialState: {fileID: 114308488029229074}
+  animalType: 0
+  animalState: 0
+  minTimeToSpawn: 5
+  maxTimeToSpawn: 60
+  minTimeToVanish: 120
+  maxTimeToVanish: 120
+  walkCollider: {fileID: 70573647553682416}
+  bodyTrigger: {fileID: 70777934740440314}
 --- !u!114 &114360961855732692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,36 +123,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6af3f4bd8143ee4b8ee6e873462e6f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114465392960117168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fcc491a71d0896438bee203c888ba2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animalType: 2
-  animalState: 0
-  minTimeToSpawn: 30
-  maxTimeToSpawn: 60
-  minTimeToVanish: 120
-  maxTimeToVanish: 120
-  walkCollider: {fileID: 70573647553682416}
-  bodyTrigger: {fileID: 70862231046557470}
---- !u!114 &114805416697664832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c477a35e87f684aba87ff07c2b212b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212459055321444674
@@ -214,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 1091724095
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3a7aaf5e13f62484fb73421cecffb73a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74eb6a705a7e7e6458e99c70e9cda974, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -222,4 +165,3 @@ SpriteRenderer:
   m_Size: {x: 3.66, y: 2.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1

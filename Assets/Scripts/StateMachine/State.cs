@@ -1,11 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace StateMachine
 {
-    public abstract class State
+    public abstract class State : MonoBehaviour
     {
         protected StateMachine stateMachine;
-        public State(GameObject gameObject)
+        
+        protected State GetStateOfType(Type type)
+        {
+            for(int i=0; i < stateMachine.states.Length; i++)
+            {
+                if (stateMachine.states[i].GetType() == type) return stateMachine.states[i];
+            }
+            return null;
+        }
+        public void Start()
         {
             stateMachine = gameObject.GetComponent<StateMachine>();
         }
@@ -20,9 +30,9 @@ namespace StateMachine
                 stateMachine = value;
             }
         }
-        abstract public void Enter(GameObject gameObject);
-        abstract public void Execute(GameObject gameObject);
-        abstract public void Exit(GameObject gameObject);
+        abstract public void Enter();
+        abstract public void Execute();
+        abstract public void Exit();
         abstract public bool OnMessage(GameObject gameObject, Message msg);
     }
 }

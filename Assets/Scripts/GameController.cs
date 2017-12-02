@@ -16,6 +16,10 @@ public class GameController : MonoBehaviour {
     public static bool isRunning;
     public int maxRoundTime;
 
+    private int rabbitScore;
+    private int elkScore;
+    private int mammothScore;
+
     public GameObject GeneratedMap;
 
 
@@ -56,4 +60,14 @@ public class GameController : MonoBehaviour {
             timeCounter.DoUpdate();
         }
     }
+
+    public List<int> getScore()
+    {
+        List<int> temp = new List<int>();
+        temp.Add(rabbitScore);
+        temp.Add(elkScore);
+        temp.Add(mammothScore);
+        return temp;
+    }
+
 }

@@ -1,20 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace StateMachine
 {
     //State to use like null
     public class IdleGlobalState : State
     {
-        public IdleGlobalState(GameObject gameObject) : base(gameObject) { }
-        public override void Enter(GameObject gameObject)
+        public override void Enter()
         {
             
         }
-        public override void Execute(GameObject gameObject)
+        public override void Execute()
         {
 
         }
-        public override void Exit(GameObject gameObject)
+        public override void Exit()
         {
 
         }
@@ -22,5 +22,6 @@ namespace StateMachine
         {
             return true;
         }
+        
     }
 }

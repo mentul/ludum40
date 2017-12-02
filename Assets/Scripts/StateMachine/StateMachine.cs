@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class StateMachine
+    public class StateMachine : MonoBehaviour
     {
-        GameObject gameObject;
-        static public bool isStopped=false;
+        public State[] states;
         State currentState;
-        State globalState;
+        public State globalState;
         State previousState;
         public State initialState;
         public State CurrentState{
@@ -30,69 +29,37 @@ namespace StateMachine
                 return previousState;
             }
         }
-
-        public StateMachine(GameObject gameObject, State initialState)
+        
+        
+        public void Start()
         {
-            this.initialState = initialState;
             this.initialState.StateMachine = this;
-            this.globalState = new IdleGlobalState(gameObject);
             this.globalState.StateMachine = this;
             if (initialState == null) currentState = globalState;
             else currentState = initialState;
             currentState.StateMachine = this;
-        }
-        public StateMachine(GameObject gameObject, State initialState, State globalState)
-        {
-            this.initialState = initialState;
-            this.initialState.StateMachine = this;
-            this.globalState = globalState;
-            this.globalState.StateMachine = this;
-            if (initialState == null) currentState = globalState;
-            else currentState = initialState;
-            currentState.StateMachine = this;
-        }
-
-        public StateMachine(GameObject gameObject)
-        {
-            currentState = globalState;
-            currentState.StateMachine = this;
-        }
-        public StateMachine(GameObject gameObject, StateMachine stateMachine)
-        {
-            object[] param = { gameObject };
-            this.initialState = Activator.CreateInstance(stateMachine.initialState.GetType(), param) as State;
-            this.initialState.StateMachine = this;
-            this.globalState = Activator.CreateInstance(stateMachine.globalState.GetType(), param) as State;
-            this.globalState.StateMachine = this;
-            if (initialState == null) this.currentState = this.globalState;
-            else this.currentState = this.initialState;
-            this.currentState.StateMachine = this;
+            currentState.Enter();
         }
 
         public void Update()
         {
-            if (!isStopped)
+            if (GameController.isRunning)
             {
-                if (globalState != null && globalState.GetType() != currentState.GetType()) globalState.Execute(gameObject);
-                if (currentState != null) currentState.Execute(gameObject);
+                if (globalState != null && globalState.GetType() != currentState.GetType()) globalState.Execute();
+                if (currentState != null) currentState.Execute();
             }
         }
 
         public void ChangeState(State newState)
         {
-            //if (currentState is WitchHit && newState is WitchHit) { }
-            //if(currentState!=null && newState != null)
             if(currentState.GetType() == newState.GetType()) { }
             else
             {
-
-                //System.Console.WriteLine(newState.GetType().ToString());
-                currentState.Exit(gameObject);
+                currentState.Exit();
                 previousState = currentState;
                 currentState = newState;
-                currentState.Enter(gameObject);
+                currentState.Enter();
             }
-            //System.Console.WriteLine(gameObject.name+" changed " + previousState.GetType().Name + " to " + currentState.GetType().Name);
         }
 
         public bool HandleMessage(Message msg)
