@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using StateMachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
+            MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
             BackgroundMaterial.SetVector("_PlayerPosition", playerPos);
             BackgroundMaterial.SetFloat("_PlayerSpeed", player.speed);
@@ -39,6 +41,5 @@ public class GameController : MonoBehaviour {
                 scoreController.ShowScore();
             }
         }
-
     }
 }
