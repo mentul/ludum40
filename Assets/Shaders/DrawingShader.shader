@@ -40,7 +40,7 @@
 			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9);
 
 			fixed4 cB = tex2D(_BackTex, uv * _BackTex_ST.xy + offset);
-			if (c.a > c.r) {
+			if (c.a >= c.r && c.a >= c.g && c.a >= c.b) {
 				c.r = (255 - ((256 * (255 - (cB.r * 255))) / ((c.r * 255) + 1))) / 255;
 				c.g = (255 - ((256 * (255 - (cB.g * 255))) / ((c.g * 255) + 1))) / 255;
 				c.b = (255 - ((256 * (255 - (cB.b * 255))) / ((c.b * 255) + 1))) / 255;
