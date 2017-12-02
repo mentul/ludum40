@@ -18,7 +18,7 @@ public class SSpear : MonoBehaviour {
     {
         if(collision.gameObject.GetComponent<IAnimal>()!=null)
         {
-
+            collision.gameObject.GetComponent<IAnimal>().OnHit();
         }
     }
 
