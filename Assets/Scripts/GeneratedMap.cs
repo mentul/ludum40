@@ -5,7 +5,8 @@ using UnityEngine;
 public class GeneratedMap : MonoBehaviour
 {
 
-    public GameObject gameObjectTree;
+    public List<GameObject> gameObjectTree;
+    public List<GameObject> gameObjectSmallTree;
 
     public string seed;
     public bool useRandomSeed;
@@ -57,17 +58,19 @@ public class GeneratedMap : MonoBehaviour
     void GenerateMap()
     {
         map = new int[width, height];
-        RandomFillMap();
+        RandomFillMap(1);
 
         for (int i = 0; i < smooth; i++)
         {
             SmoothMap();
         }
+        RandomFillMap(2,2);
 
         DrawTreeOnMap();
+
     }
 
-    void RandomFillMap()
+    void RandomFillMap(int number, int change = 0)
     {
         if (useRandomSeed)
         {
@@ -76,17 +79,26 @@ public class GeneratedMap : MonoBehaviour
 
         System.Random pseudoRandom = new System.Random(seed.GetHashCode());
 
+        if (change == 2)
+        {
+            randomFillPercent = 20;
+        }
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+                if (map[x, y] == 0 && (x == 0 || x == width - 1 || y == 0 || y == height - 1))
                 {
                     map[x, y] = 1;
                 }
                 else
                 {
-                    map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? 1 : 0;
+                    if (map[x, y] == 0)
+                    {
+                        map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
+                    }
+
                 }
             }
         }
@@ -143,12 +155,19 @@ public class GeneratedMap : MonoBehaviour
             {
                 if (map[x, y] == 1)
                 {
-                   // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
+                    // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
-                    Instantiate(gameObjectTree, position, gameObject.transform.rotation).transform.SetParent(this.transform);
+                    Instantiate(gameObjectTree[randomTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
 
                 }
+                else if (map[x, y] == 2)
+                {
+                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
+                    Instantiate(gameObjectSmallTree[randomSmallTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
+
+                }
+
             }
 
 
@@ -156,6 +175,15 @@ public class GeneratedMap : MonoBehaviour
 
     }
 
+    public int randomTrees()
+    {
+        return Random.Range(0, gameObjectTree.Count);
+    }
+
+    public int randomSmallTrees()
+    {
+        return Random.Range(0, gameObjectSmallTree.Count);
+    }
 
     void OnDrawGizmos()
     {
@@ -165,7 +193,19 @@ public class GeneratedMap : MonoBehaviour
             {
                 for (int y = 0; y < height; y++)
                 {
-                    Gizmos.color = (map[x, y] == 1) ? Color.black : Color.white;
+                    if (map[x, y] == 1)
+                    {
+                        Gizmos.color = Color.black;
+                    }
+                    else if (map[x, y] == 2)
+                    {
+                        Gizmos.color = Color.red;
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.white;
+                    }
+
                     Vector2 pos = new Vector2(-width / 2 + x + .5f, -height / 2 + y + .5f);
                     Gizmos.DrawCube(pos, Vector3.one);
                 }
