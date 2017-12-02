@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 30665768}
   - component: {fileID: 30665767}
   - component: {fileID: 30665766}
+  - component: {fileID: 30665771}
   - component: {fileID: 30665765}
   - component: {fileID: 30665764}
   - component: {fileID: 30665769}
@@ -250,6 +251,8 @@ MonoBehaviour:
   SpearPrefab: {fileID: 1543284118526452, guid: 81029f00c0da80444bd38bc4d5162a8e,
     type: 2}
   speed: 5
+  walkCollider: {fileID: 30665765}
+  bodyTrigger: {fileID: 30665771}
 --- !u!212 &30665767
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -336,6 +339,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe8039446f55e345b18c4c21e11e9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &30665771
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 30665763}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.06, y: -0.13}
+  m_Size: {x: 0.95, y: 1.72}
+  m_Direction: 0
 --- !u!1001 &44930544
 Prefab:
   m_ObjectHideFlags: 0
@@ -2218,7 +2236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1076990620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.44, y: -5.47, z: 10}
+  m_LocalPosition: {x: -9.19, y: -5.86, z: 10}
   m_LocalScale: {x: 1.1671478, y: 1.1671475, z: 1.1671475}
   m_Children: []
   m_Father: {fileID: 1754361039}

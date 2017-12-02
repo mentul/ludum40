@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject SpearPrefab;
     public float speed = 0.5f;
-	// Use this for initialization
-	void Start () {
+    public Collider2D walkCollider;
+    public Collider2D bodyTrigger;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

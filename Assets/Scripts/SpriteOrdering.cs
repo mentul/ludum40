@@ -4,17 +4,52 @@ using UnityEngine;
 
 public class SpriteOrdering : MonoBehaviour {
     SpriteRenderer renderer;
-    Collider collider;
+    Vector3 pivot;
+    PlayerController player;
+    Animal animal;
 	void Start () {
-        collider = GetComponent<Collider>();
+        player = GetComponent<PlayerController>();
+        animal = GetComponent<Animal>();
+        if (player != null)
+        {
+            pivot = player.walkCollider.offset;
+            pivot.x += transform.position.x;
+            pivot.y += transform.position.y;
+        }
+        else if (animal != null)
+        {
+            pivot = animal.walkCollider.offset;
+            pivot.x += transform.position.x;
+            pivot.y += transform.position.y;
+        }
+        else
+        {
+            pivot = transform.position;
+        }
         renderer = GetComponent<SpriteRenderer>();
-        renderer.sortingOrder = (int)((1f-Camera.main.WorldToViewportPoint(transform.position).y)*100f);
+        renderer.sortingOrder = (int)((1f-Camera.main.WorldToViewportPoint(pivot).y)*100f);
 	}
 	
 	void Update () {
 		if (transform.hasChanged)
         {
-            renderer.sortingOrder = (int)((1f - Camera.main.WorldToViewportPoint(transform.position).y) * 100f);
+            if (player != null)
+            {
+                pivot = player.walkCollider.offset;
+                pivot.x += transform.position.x;
+                pivot.y += transform.position.y;
+            }
+            else if (animal != null)
+            {
+                pivot = animal.walkCollider.offset;
+                pivot.x += transform.position.x;
+                pivot.y += transform.position.y;
+            }
+            else
+            {
+                pivot = transform.position;
+            }
+            renderer.sortingOrder = (int)((1f - Camera.main.WorldToViewportPoint(pivot).y) * 100f);
         }
 	}
 }
