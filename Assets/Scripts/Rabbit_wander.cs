@@ -8,9 +8,12 @@ namespace Assets.Scripts
         public float wanderTime = 20f;
         public float time;
         CapsuleCollider2D collider;
+        public float playerTriggerDistance = 3f;
+        PlayerController player;
 
         public override void Enter()
         {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             collider = GetComponent<CapsuleCollider2D>();
             Vector2 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
             /*while (Physics2D.CapsuleCast(transform.position, collider.size, collider.direction, 0f, direction, 0.1f))
@@ -24,12 +27,18 @@ namespace Assets.Scripts
 
         public override void Execute()
         {
-            if (time > 0) time -= Time.deltaTime;
-            else
+            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance)
             {
-                stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
+                stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_triggered)));
             }
-            //print(gameObject.name + " executing wander");
+            else {
+                if (time > 0) time -= Time.deltaTime;
+                else
+                {
+                    stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
+                }
+                //print(gameObject.name + " executing wander");
+            }
         }
 
         public override void Exit()

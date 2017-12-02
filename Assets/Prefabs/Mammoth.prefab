@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114805416697664832}
   - component: {fileID: 114308488029229074}
   - component: {fileID: 114277538390164590}
+  - component: {fileID: 114990771562268384}
   - component: {fileID: 114185527290679726}
   m_Layer: 0
   m_Name: Mammoth
@@ -124,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wanderTime: 15
   time: 0
+  playerTriggerDistance: 3
 --- !u!114 &114308488029229074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatTime: 10
   time: 0
+  playerTriggerDistance: 3
 --- !u!114 &114320146574022088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,6 +154,7 @@ MonoBehaviour:
   states:
   - {fileID: 114308488029229074}
   - {fileID: 114277538390164590}
+  - {fileID: 114990771562268384}
   globalState: {fileID: 114805416697664832}
   initialState: {fileID: 114308488029229074}
 --- !u!114 &114360961855732692
@@ -194,6 +198,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c477a35e87f684aba87ff07c2b212b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114990771562268384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabb4c3db5489d749b60fe68d52b2783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTriggerOffDistance: 3
 --- !u!212 &212459055321444674
 SpriteRenderer:
   m_ObjectHideFlags: 1
