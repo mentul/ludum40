@@ -8,9 +8,11 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0.5f;
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
+
+    private bool hasSpear;
     // Use this for initialization
     void Start () {
-		
+        hasSpear = true;
 	}
 	
 	// Update is called once per frame
@@ -64,22 +66,32 @@ public class PlayerController : MonoBehaviour {
 
     void ThrowSpear()
     {
-        GetComponent<Animator>().SetBool("HasSpear", false);
-        //oblicz kierunek rzutu
-        Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
-        Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
+        if (hasSpear)
+        {
+            hasSpear = false;
+            GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+            //oblicz kierunek rzutu
+            Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
+            Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
 
-        Vector2 tempOffset = temp2 - temp1;
+            Vector2 tempOffset = temp2 - temp1;
 
-        //obroc kamere do kierunku rzutu
-        float angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
-        if (tempOffset.y > 0) angle = 360f - angle;
+            //obroc kamere do kierunku rzutu
+            float angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
+            if (tempOffset.y > 0) angle = 360f - angle;
 
-        //stworz
-        GameObject temp = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0,0,angle) );
+            //stworz
+            GameObject temp = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
 
-        //rzuc
-        temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed;
+            //rzuc
+            temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
+        }
+    }
+
+    public void PickUpSpear()
+    {
+        hasSpear = true;
+        GetComponent<Animator>().SetBool("HasSpear", hasSpear);
     }
 
 }
