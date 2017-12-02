@@ -1,9 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace StateMachine
 {
     public class StateMachine
     {
+        GameObject gameObject;
         static public bool isStopped=false;
         State currentState;
         State globalState;
@@ -30,7 +32,6 @@ namespace StateMachine
         }
 
         public StateMachine(GameObject gameObject, State initialState)
-            : base(gameObject)
         {
             this.initialState = initialState;
             this.initialState.StateMachine = this;
@@ -41,7 +42,6 @@ namespace StateMachine
             currentState.StateMachine = this;
         }
         public StateMachine(GameObject gameObject, State initialState, State globalState)
-            : base(gameObject)
         {
             this.initialState = initialState;
             this.initialState.StateMachine = this;
@@ -53,13 +53,11 @@ namespace StateMachine
         }
 
         public StateMachine(GameObject gameObject)
-            : base(gameObject)
         {
             currentState = globalState;
             currentState.StateMachine = this;
         }
         public StateMachine(GameObject gameObject, StateMachine stateMachine)
-            : base(gameObject, stateMachine)
         {
             object[] param = { gameObject };
             this.initialState = Activator.CreateInstance(stateMachine.initialState.GetType(), param) as State;
@@ -71,7 +69,7 @@ namespace StateMachine
             this.currentState.StateMachine = this;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update()
         {
             if (!isStopped)
             {
