@@ -607,6 +607,28 @@ Transform:
   m_PrefabParentObject: {fileID: 4596608620607354, guid: e31a79de681379c469480c9dc9189cac,
     type: 2}
   m_PrefabInternal: {fileID: 1741134796}
+--- !u!1 &139441035 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1227201637065700, guid: 57d24ae3530d516468aec6f17644df9a,
+    type: 2}
+  m_PrefabInternal: {fileID: 897515625}
+--- !u!95 &139441049
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 139441035}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28e889c64241c564485cd00bb40e564a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &149384301
 Prefab:
   m_ObjectHideFlags: 0
@@ -2939,11 +2961,16 @@ MonoBehaviour:
   - {fileID: 1314158503467356, guid: 985859d9c7b1ac7448806d2226bcf510, type: 2}
   - {fileID: 1314158503467356, guid: 43c4079e289fa0d4681bd3834780f717, type: 2}
   - {fileID: 1314158503467356, guid: 21e786b09232ea04abe675956479be44, type: 2}
+  gameObjectAnimals:
+  - {fileID: 1227201637065700, guid: ecc879895c666454b84c0935b02ec963, type: 2}
+  - {fileID: 1227201637065700, guid: 57d24ae3530d516468aec6f17644df9a, type: 2}
+  - {fileID: 1227201637065700, guid: 441702c3577131443a6ff1d141bea417, type: 2}
   seed: Grzesiek
   useRandomSeed: 0
   randomFillPercent: 46
   scale: 2
   smooth: 1
+  maxAnimalsCount: 0
 --- !u!4 &1990837590
 Transform:
   m_ObjectHideFlags: 0
