@@ -112,8 +112,6 @@ public class Animal : MonoBehaviour
     {
         if (other.gameObject.GetComponent<SSpear>() != null)
         {
-            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            other.GetComponent<SpriteRenderer>().sprite = other.GetComponent<SSpear>().secondSprite;
             OnHit();
         }
     }

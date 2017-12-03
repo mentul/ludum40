@@ -73,26 +73,6 @@ public class GameController : MonoBehaviour {
 
             }
 
-#if UNITY_EDITOR
-
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                Time.timeScale = 4f;
-            }
-            else if(Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Time.timeScale = 3f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Time.timeScale = 2f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Time.timeScale = 1f;
-            }
-
-#endif
             timeCounter.DoUpdate();
         }
     }
