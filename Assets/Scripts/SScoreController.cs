@@ -8,6 +8,7 @@ public class SScoreController : MonoBehaviour
 	private Transform scoreCanvas;
 	public GameObject aliveHuman;
 	public GameObject deadHuman;
+	public GameObject arrow;
 	private List<GameObject> humanSprites;
 	// Use this for initialization
 	void Start ()
@@ -152,7 +153,7 @@ public class SScoreController : MonoBehaviour
 		int newPeople = -deadPeople;
 		int people = GameController.population;
 		int maxInRow = 10;
-		float distXAlive = 1f, distXDead = 2f, distY = 2f;
+		float distXAlive = 1f, distXDead = 1.5f, distY = 2f;
 
 		float row = 0f, column = -1f;
 		for (int i = 0; i < people; i++)
@@ -186,12 +187,21 @@ public class SScoreController : MonoBehaviour
 		}
 		if (newPeople > 0)
 		{
-			row = 12f;
-			column = -1f;
+			row = 10f;
+			column = 4.5f;
 
-			// strzalka
+			GameObject ar = Instantiate (arrow);
+			humanSprites.Add (ar);
+			ar.transform.SetParent (peopleCanvas);
+			ar.transform.localPosition = new Vector3 (column, -row);
+			row = 11f;
+			ar = Instantiate (arrow);
+			humanSprites.Add (ar);
+			ar.transform.SetParent (peopleCanvas);
+			ar.transform.localPosition = new Vector3 (column, -row);
 
 			row = 13f;
+			column = -1f;
 			for (int i = 0; i < newPeople; i++)
 			{
 				column += distXAlive;
