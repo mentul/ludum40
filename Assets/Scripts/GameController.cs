@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour {
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
 
-        rabbitScore = 3;
-        elkScore = 17;
-        mammothScore = 33;
+        //rabbitScore = 3;
+        //elkScore = 17;
+        //mammothScore = 33;
 
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
