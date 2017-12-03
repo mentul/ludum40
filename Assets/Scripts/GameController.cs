@@ -50,10 +50,19 @@ public class GameController : MonoBehaviour {
         //timeCounter.DoLine();
         CalculateDeltaMoveStone();
 
-        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40, player.gameObject.transform.position);
+        RandAnimal(40);
 
         meatScript.DoInit(50);
         
+    }
+    public void RandAnimal(int count)
+    {
+        foreach (var item in animalList)
+        {
+            Destroy(item.gameObject);
+        }
+        animalList.Clear();
+        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(count, player.gameObject.transform.position);
     }
 
     void CalculateDeltaMoveStone()
