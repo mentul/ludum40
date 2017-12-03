@@ -27,11 +27,12 @@ public class SSpear : MonoBehaviour {
                 //transform.rotation = Quaternion.Euler(0f, 0f, 30f);
                 GetComponent<Rigidbody2D>().freezeRotation = true;
                 //GetComponent<Rigidbody2D>().
-                time = timeToPickup;
+                time = 0f;
             }
             if (time <= 0)
             {
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().walkCollider, false);
+                time = timeToPickup;
             }
             else time -= Time.deltaTime;
         }

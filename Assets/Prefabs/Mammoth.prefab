@@ -31,7 +31,7 @@ GameObject:
   - component: {fileID: 114277538390164590}
   - component: {fileID: 114990771562268384}
   - component: {fileID: 114185527290679726}
-  - component: {fileID: 95297967139293232}
+  - component: {fileID: 95901023172804570}
   m_Layer: 0
   m_Name: Mammoth
   m_TagString: Untagged
@@ -102,7 +102,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.36, y: 1.29}
   m_Size: {x: 3.53, y: 2.78}
   m_Direction: 1
---- !u!95 &95297967139293232
+--- !u!95 &95901023172804570
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1

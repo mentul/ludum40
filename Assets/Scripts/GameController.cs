@@ -15,12 +15,15 @@ public class GameController : MonoBehaviour {
     private float roundTime;
     public static bool isRunning;
     public int maxRoundTime;
+    private int demandForFood=0;
 
     private float deltaToMove;
 
     private static int rabbitScore;
     private static int elkScore;
     private static int mammothScore;
+
+    private static int totalScore;
 
     public GameObject GeneratedMap;
 
@@ -69,6 +72,16 @@ public class GameController : MonoBehaviour {
             //odliczanie czasu
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
+
+            if(totalScore >= demandForFood)
+            {
+                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
+            }
+            else
+            {
+                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(false);
+            }
+
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
@@ -116,6 +129,32 @@ public class GameController : MonoBehaviour {
         rabbitScore += i;
         elkScore += j;
         mammothScore += k;
+        ResetTotalScore();
+    }
+
+    private static void ResetTotalScore()
+    {
+        totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10; 
+    }
+
+    public void StartNewRound()
+    {
+        GlobalCounerAnimal = 0;
+        isRunning = true;
+        //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
+        //scoreController = GetComponent<SScoreController>();
+        roundTime = initialRoundTime;
+
+        //rabbitScore = 3;
+        //elkScore = 17;
+        //mammothScore = 33;
+
+        timeCounter.DoInit();
+        //timeCounter.SetMaxRoundTime(maxRoundTime);
+        //timeCounter.DoLine();
+        //CalculateDeltaMoveStone();
+        timeCounter.SetPositionStartStone();
+        //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
     }
 
 }
