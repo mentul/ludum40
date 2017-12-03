@@ -31,15 +31,12 @@ public class SSpear : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<IAnimal>()!=null)
-        {
-            collision.gameObject.GetComponent<Animal>().OnHit();
-        }
         if(collision.gameObject.GetComponent<PlayerController>()!=null)
         {
             collision.gameObject.GetComponent<PlayerController>().PickUpSpear();
             Destroy(gameObject);
         }
     }
+
 
 }
