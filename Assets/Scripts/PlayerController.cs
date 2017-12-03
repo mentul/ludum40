@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour {
     public Collider2D bodyTrigger;
     //public bool throwing;
 
+    public Vector2 leftAnalog, rightAnalog;
+
+    public bool mouse = true;
+
     public bool died = false;
     private bool hasSpear;
     // Use this for initialization
@@ -35,6 +39,8 @@ public class PlayerController : MonoBehaviour {
         if (GameController.isRunning)
         {
             if (died) return;
+            leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
+            rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")*4);
             //Jeżeli coś z WSAD to nadaj velocity
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
@@ -61,6 +67,17 @@ public class PlayerController : MonoBehaviour {
                 temp.Normalize();
                 GetComponent<Rigidbody2D>().velocity = temp * speed;
             }
+            else if (leftAnalog != Vector2.zero)
+            {
+                GetComponent<Animator>().SetBool("Idling", false);
+                Vector2 temp = leftAnalog;
+                if(leftAnalog.x<0)
+                    GetComponent<SpriteRenderer>().flipX = true;
+                else
+                    GetComponent<SpriteRenderer>().flipX = false;
+                temp.Normalize();
+                GetComponent<Rigidbody2D>().velocity = temp * speed;
+            }
             else //Inaczej wyzeruj velocity
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -72,6 +89,19 @@ public class PlayerController : MonoBehaviour {
                 if (hasSpear)
                 {
                     hasSpear = false;
+                    mouse = true;
+                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                    GetComponent<Animator>().SetBool("Throw", true);
+                }
+                //ThrowSpear();
+            }
+
+            if (Input.GetKeyDown("joystick 1 button 7"))
+            {
+                if (hasSpear)
+                {
+                    hasSpear = false;
+                    mouse = false;
                     GetComponent<Animator>().SetBool("HasSpear", hasSpear);
                     GetComponent<Animator>().SetBool("Throw", true);
                 }
@@ -94,20 +124,30 @@ public class PlayerController : MonoBehaviour {
     public void ThrowSpear()
     {
         
-            //oblicz kierunek rzutu
-            Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
-            Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
+        //oblicz kierunek rzutu
+        Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
+        Vector2 temp2 = Vector2.zero;
+        Vector2 tempOffset = Vector2.zero;
+        float angle = 0f;
+        if (mouse)
+        {
+            temp2 =  new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
+            tempOffset = temp2 - temp1;
 
-            Vector2 tempOffset = temp2 - temp1;
+        }
+        else
+        {
+            //temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(temp1.x+rightAnalog.x, temp1.y + rightAnalog.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(temp1.x + rightAnalog.x, temp1.y + rightAnalog.y, Camera.main.nearClipPlane)).y);
+            tempOffset = rightAnalog;
 
-            //obroc kamere do kierunku rzutu
-            float angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
-            if (tempOffset.y > 0) angle = 360f - angle;
-
-            //stworz
-            GameObject temp = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
-            Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.walkCollider, true);
-            Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.bodyTrigger, true);
+        }
+        //obroc kamere do kierunku rzutu
+        angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
+        if (tempOffset.y > 0) angle = 360f - angle;
+        //stworz
+        GameObject temp = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
+        Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.walkCollider, true);
+        Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.bodyTrigger, true);
 
         //rzuc
         temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
