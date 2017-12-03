@@ -61,7 +61,6 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
-            Debug.Log(animalList.Count);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
             BackgroundMaterial.SetVector("_PlayerPosition", playerPos);

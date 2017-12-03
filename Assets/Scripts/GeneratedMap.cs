@@ -267,7 +267,14 @@ public class GeneratedMap : MonoBehaviour
         maxAnimalsCount = count;
         animalsCount = 0;
         RandomFillAnimal(3, 3);
-        DrawAnimalOnMap();
+        try
+        {
+            DrawAnimalOnMap();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
     }
 
     private void ResetAnimal()
@@ -306,26 +313,30 @@ public class GeneratedMap : MonoBehaviour
             listNumber.Add(0);
             listNumber.Add(1);
             listNumber.Add(2);
-           
+
         }
         else
         {
+
             currentPercentElk = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<AElk>()).ToList().Count / maxAnimal;
             currentPercentRabbit = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<ARabbit>()).ToList().Count / maxAnimal;
             currentPercentMammoth = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<AMammoth>()).ToList().Count / maxAnimal;
 
-            if (currentPercentElk < PercentElk)
+            if (currentPercentElk <= PercentElk)
                 listNumber.Add(0);
 
-            if (currentPercentRabbit < PercentRabbit)
+            if (currentPercentRabbit <= PercentRabbit)
                 listNumber.Add(2);
 
-            if (currentPercentMammoth < PercentMammoth)
+            if (currentPercentMammoth <= PercentMammoth)
                 listNumber.Add(1);
-        }
 
-        int random = Random.Range(0, listNumber.Count);
+        }
+        int random = 0;
+
+        random = Random.Range(0, listNumber.Count);
         //Debug.Log(currentPercentElk + " " + currentPercentRabbit + " " + currentPercentMammoth + " " + random + " " + listNumber.Count + " " + maxAnimal);
+
 
         return listNumber[random];
     }
