@@ -20,6 +20,11 @@ public class Animal : MonoBehaviour
     public int HP;
     public float speed;
 
+    public void Hitted()
+    {
+        if (animalType == AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", false);
+    }
+
     private void Start()
     {
        
@@ -85,6 +90,7 @@ public class Animal : MonoBehaviour
 
     public void OnHit()
     {
+        if(animalType==AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", true);
         Debug.Log("Au");
         HP--;
         if(HP==0)
