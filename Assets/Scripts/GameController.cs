@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour {
 
         RandAnimal(40);
 
-        meatScript.DoInit(50);
+        meatScript.DoInit(demandForFood);
         
     }
     public void RandAnimal(int count)
@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
+            meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
             BackgroundMaterial.SetVector("_PlayerPosition", playerPos);
