@@ -7,10 +7,12 @@ public class SSpear : MonoBehaviour {
     public Sprite secondSprite;
     public float timeToPickup = 1f;
     float time = 1f;
+    public bool isActive = true;
 
 	// Use this for initialization
 	void Start () {
         time = timeToPickup;
+        isActive = true;
     }
 	
 	// Update is called once per frame
@@ -20,13 +22,7 @@ public class SSpear : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity - GetComponent<Rigidbody2D>().velocity * Time.deltaTime * 0.5f;
             if (GetComponent<Rigidbody2D>().velocity.magnitude < 1f && GetComponent<Rigidbody2D>().velocity.magnitude!=0f)
             {
-                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                Sprite temp = GetComponent<SpriteRenderer>().sprite;
-                GetComponent<SpriteRenderer>().sprite = secondSprite;
-                secondSprite = temp;
-                //transform.rotation = Quaternion.Euler(0f, 0f, 30f);
-                GetComponent<Rigidbody2D>().freezeRotation = true;
-                //GetComponent<Rigidbody2D>().
+                TurnOffTheSpear();
                 time = 0f;
             }
             if (time <= 0)
@@ -38,6 +34,15 @@ public class SSpear : MonoBehaviour {
         }
 	}
 
+    public void TurnOffTheSpear()
+    {
+        isActive = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        //Sprite temp = GetComponent<SpriteRenderer>().sprite;
+        GetComponent<SpriteRenderer>().sprite = secondSprite;
+        //secondSprite = temp;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>()!=null)
