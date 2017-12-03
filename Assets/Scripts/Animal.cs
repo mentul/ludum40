@@ -87,7 +87,7 @@ public class Animal : MonoBehaviour
     {
         Debug.Log("Au");
         HP--;
-        if(HP<0)
+        if(HP<=0)
         {
             //Tutaj bedzie zabijanie zwierzaka
             if(animalType==AnimalType.rabbit)
@@ -112,6 +112,8 @@ public class Animal : MonoBehaviour
     {
         if (other.gameObject.GetComponent<SSpear>() != null)
         {
+            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            other.GetComponent<SpriteRenderer>().sprite = other.GetComponent<SSpear>().secondSprite;
             OnHit();
         }
     }
