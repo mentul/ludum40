@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SScoreController : MonoBehaviour {
+public class SScoreController : MonoBehaviour
+{
 
     private Transform scoreCanvas;
-	public GameObject aliveHuman;
-	public GameObject deadHuman;
-	// Use this for initialization
-	void Start () {
+    public GameObject aliveHuman;
+    public GameObject deadHuman;
+    // Use this for initialization
+    void Start()
+    {
         HideScore();
         scoreCanvas = Camera.main.transform.Find("ScoreCanvas");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (GameController.isRunning)
         {
 
@@ -23,7 +26,7 @@ public class SScoreController : MonoBehaviour {
 
     public void ShowScore()
     {
-		ShowPeopleResult ();
+        ShowPeopleResult();
         scoreCanvas.gameObject.SetActive(true);
         Time.timeScale = 0;
         GameController.isRunning = false;
@@ -32,7 +35,7 @@ public class SScoreController : MonoBehaviour {
         int RabbitScore = temp[0];
         int ElkScore = temp[1];
         int MammothScore = temp[2];
-        
+
         RabbitScore = Mathf.Clamp(RabbitScore, 0, 30);
         ElkScore = Mathf.Clamp(ElkScore, 0, 30);
         MammothScore = Mathf.Clamp(MammothScore, 0, 30);
@@ -44,10 +47,10 @@ public class SScoreController : MonoBehaviour {
         ilePiatek = RabbitScore / 5;
         reszta = RabbitScore - (5 * ilePiatek);
 
-        for(int i=0;i<6;i++)
+        for (int i = 0; i < 6; i++)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).gameObject.SetActive(false);
-            for(int j=0;j<5;j++)
+            for (int j = 0; j < 5; j++)
             {
                 scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).GetChild(j).gameObject.SetActive(false);
             }
@@ -62,7 +65,7 @@ public class SScoreController : MonoBehaviour {
             }
         }
 
-        if(ilePiatek<6 && reszta!=0)
+        if (ilePiatek < 6 && reszta != 0)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).gameObject.SetActive(true);
             for (int j = 0; j < reszta; j++)
@@ -137,54 +140,54 @@ public class SScoreController : MonoBehaviour {
 
     }
 
-	private void ShowPeopleResult ()
-	{
-		Transform peopleCanvas = Camera.main.transform.Find ("ScoreCanvas").Find ("Ludzie");
-		Vector3 startPosition = peopleCanvas.position;
+    private void ShowPeopleResult()
+    {
+        Transform peopleCanvas = Camera.main.transform.Find("ScoreCanvas").Find("Ludzie");
+        Vector3 startPosition = peopleCanvas.position;
 
-		int deadPeople = GameController.population - GameController.totalScore;
-        GameController.livesLeft--;
-		int newPeople = -deadPeople;
-		int people = GameController.population;
-		int maxInRow = 10;
-		float distXAlive = 1f, distXDead = 2f, distY = 2f;
+        int deadPeople = GameController.population - GameController.totalScore;
+        if (deadPeople > 0) GameController.livesLeft--;
+        int newPeople = -deadPeople;
+        int people = GameController.population;
+        int maxInRow = 10;
+        float distXAlive = 1f, distXDead = 2f, distY = 2f;
 
-		float row = 0f, column = -1f;
-		for (int i = 0; i < people; i++)
-		{
-			if (i < people - deadPeople)
-			{
-				column += distXAlive;
-				if (column >= maxInRow)
-				{
-					column = -1f + distXAlive;
-					row += distY;
-				}
-				GameObject human = Instantiate (aliveHuman);
-				human.transform.SetParent (peopleCanvas);
-				human.transform.localPosition = new Vector3 (column, -row);
-			}
-			else
-			{
-				column += distXDead;
-				if (column >= maxInRow)
-				{
-					column = -1f + distXDead;
-					row += distY / 2;
-				}
-				GameObject human = Instantiate (deadHuman);
-				human.transform.SetParent (peopleCanvas);
-				human.transform.localPosition = new Vector3 (column, -row);
-			}
-
-
-
-		}
+        float row = 0f, column = -1f;
+        for (int i = 0; i < people; i++)
+        {
+            if (i < people - deadPeople)
+            {
+                column += distXAlive;
+                if (column >= maxInRow)
+                {
+                    column = -1f + distXAlive;
+                    row += distY;
+                }
+                GameObject human = Instantiate(aliveHuman);
+                human.transform.SetParent(peopleCanvas);
+                human.transform.localPosition = new Vector3(column, -row);
+            }
+            else
+            {
+                column += distXDead;
+                if (column >= maxInRow)
+                {
+                    column = -1f + distXDead;
+                    row += distY / 2;
+                }
+                GameObject human = Instantiate(deadHuman);
+                human.transform.SetParent(peopleCanvas);
+                human.transform.localPosition = new Vector3(column, -row);
+            }
 
 
-	}
 
-	public void HideScore ()
+        }
+
+
+    }
+
+    public void HideScore()
     {
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
         Time.timeScale = 1;
