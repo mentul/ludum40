@@ -7,17 +7,21 @@ namespace Assets.Scripts
     {
         public float wanderTime = 20f;
         public float time;
+        public float timeToChangeDirection = 1f;
+        float directionTime = 2f;
         public float playerTriggerDistance = 3f;
         PlayerController player;
+        Vector2 direction;
 
         public override void Enter()
         {
             GetComponent<Animator>().SetBool("isIdling", false);
             GetComponent<Animator>().SetBool("Attack", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            Vector2 direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
+            direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
             GetComponent<Rigidbody2D>().velocity = direction;
             //print(gameObject.name + " entering wander");
+            directionTime = timeToChangeDirection;
             time = wanderTime;
         }
 
@@ -28,7 +32,13 @@ namespace Assets.Scripts
                 stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_triggered)));
             }
             else
-            { 
+            {
+                if (directionTime <= 0)
+                {
+                    direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-10, 10)) * direction;
+                    GetComponent<Rigidbody2D>().velocity = direction;
+                }
+                else directionTime -= Time.deltaTime;
                 if (time > 0) time -= Time.deltaTime;
                 else
                 {
