@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour {
     public Material BackgroundMaterial, DrawingMaterial;
     private SScoreController scoreController;
 
+    public GameObject LifeUIRoot;
+    public static int livesLeft = 3;
+
     public TimeCounter timeCounter;
 
     public float initialRoundTime;
@@ -55,7 +58,25 @@ public class GameController : MonoBehaviour {
         RandAnimal(40);
 
         ResetMeatScript(demandForFood);
-        
+
+        LifeUIRoot.transform.FindChild("kreska1").gameObject.SetActive(true);
+        LifeUIRoot.transform.FindChild("kreska2").gameObject.SetActive(true);
+        LifeUIRoot.transform.FindChild("kreska3").gameObject.SetActive(true);
+    }
+
+    public void UpdateLives()
+    {
+        if (livesLeft < 1) {
+            LifeUIRoot.transform.FindChild("kreska1").gameObject.SetActive(false);
+        }
+        if (livesLeft < 2)
+        {
+            LifeUIRoot.transform.FindChild("kreska2").gameObject.SetActive(false);
+        }
+        if (livesLeft < 3)
+        {
+            LifeUIRoot.transform.FindChild("kreska3").gameObject.SetActive(false);
+        }
     }
 
     public void ResetMeatScript(int maxMeat)
@@ -83,6 +104,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
+            UpdateLives();
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
