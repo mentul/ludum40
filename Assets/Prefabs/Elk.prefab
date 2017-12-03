@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wanderTime: 20
   time: 0
-  playerTriggerDistance: 10
+  playerTriggerDistance: 8
 --- !u!114 &114011788350656666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,7 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abea47c61cdf99746b381872f8ba71b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTriggerOffDistance: 15
+  playerTriggerOffDistance: 12
+  speedBoost: 3
 --- !u!114 &114058506438457824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatTime: 10
   time: 0
-  playerTriggerDistance: 10
+  playerTriggerDistance: 8
 --- !u!114 &114340486411252104
 MonoBehaviour:
   m_ObjectHideFlags: 1
