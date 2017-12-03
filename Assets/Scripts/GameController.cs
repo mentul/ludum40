@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
 
     public GameObject GeneratedMap;
 
-    //public static List<Animal> animalList = new List<Animal>();
+    public static List<Animal> animalList = new List<Animal>();
 
     public static int GlobalCounerAnimal;
 
