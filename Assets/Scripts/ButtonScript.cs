@@ -9,10 +9,11 @@ public class ButtonScript : MonoBehaviour
 
     public Sprite idle, hover;
     public SpriteRenderer renderer;
-
-    public void Start()
+    bool over = false;
+    
+    public void OnEnable()
     {
-        Physics.queriesHitTriggers = true;
+        renderer.sprite = idle;
     }
 
     public void OnMouseEnter()
