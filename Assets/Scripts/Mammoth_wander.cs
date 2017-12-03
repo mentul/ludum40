@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", false);
+            GetComponent<Animator>().SetBool("Attack", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             Vector2 direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
             GetComponent<Rigidbody2D>().velocity = direction;
