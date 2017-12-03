@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour {
 
         RandAnimal(40);
 
-        ResetMeatScript(demandForFood);
+        ResetMeatScript(population);
 
         LifeUIRoot.transform.FindChild("kreska1").gameObject.SetActive(true);
         LifeUIRoot.transform.FindChild("kreska2").gameObject.SetActive(true);
