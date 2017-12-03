@@ -5,11 +5,13 @@ using UnityEngine;
 public class SSpear : MonoBehaviour {
 
     public Sprite secondSprite;
+    public float timeToPickup = 1f;
+    float time = 1f;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        time = timeToPickup;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,7 +27,13 @@ public class SSpear : MonoBehaviour {
                 //transform.rotation = Quaternion.Euler(0f, 0f, 30f);
                 GetComponent<Rigidbody2D>().freezeRotation = true;
                 //GetComponent<Rigidbody2D>().
+                time = timeToPickup;
             }
+            if (time <= 0)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().walkCollider, false);
+            }
+            else time -= Time.deltaTime;
         }
 	}
 
