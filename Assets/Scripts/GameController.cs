@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         EndEnvas.gameObject.SetActive(false);
-        population = 40;
+        population = 5;
         GlobalCounterAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
