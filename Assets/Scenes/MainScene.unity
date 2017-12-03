@@ -1504,47 +1504,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 95507921244283324, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114756971955865276, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: initialState
-      value: 
-      objectReference: {fileID: 1952172633}
-    - target: {fileID: 1227201637065700, guid: ecc879895c666454b84c0935b02ec963, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114011788350656666, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: playerTriggerOffDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000885453480124, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: playerTriggerDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114058506438457824, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: playerTriggerDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 50610073128858610, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50610073128858610, guid: ecc879895c666454b84c0935b02ec963,
-        type: 2}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114197541238574328, guid: ecc879895c666454b84c0935b02ec963, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecc879895c666454b84c0935b02ec963, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &880942206
@@ -2797,7 +2757,7 @@ MonoBehaviour:
   BackgroundMaterial: {fileID: 2100000, guid: 07081932bd7dbd74c97d28ea1f6defe9, type: 2}
   DrawingMaterial: {fileID: 2100000, guid: 513936ee5e07c4d4eb8e450e06d8cadf, type: 2}
   timeCounter: {fileID: 1539311662}
-  initialRoundTime: 500
+  initialRoundTime: 15
   maxRoundTime: 8
   GeneratedMap: {fileID: 1990837587}
 --- !u!4 &1779320715
@@ -2921,12 +2881,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e31a79de681379c469480c9dc9189cac, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1952172633 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114058506438457824, guid: ecc879895c666454b84c0935b02ec963,
-    type: 2}
-  m_PrefabInternal: {fileID: 847261367}
-  m_Script: {fileID: 11500000, guid: 7778467805ec78b46971c23e3348faaa, type: 3}
 --- !u!1 &1990837587
 GameObject:
   m_ObjectHideFlags: 0
