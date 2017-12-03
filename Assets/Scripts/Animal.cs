@@ -18,13 +18,19 @@ public class Animal : MonoBehaviour
 	protected SpriteRenderer mySprite;
 
     protected int HP;
+    public float speed;
 
-	public virtual void DoInit ()
+    private void Start()
+    {
+        GameController.animalList.Add(this);
+        DoInit();
+    }
+
+    public virtual void DoInit ()
 	{
 		timeToSpawn = Random.Range (minTimeToSpawn, maxTimeToSpawn);
 		timeToVanish = Random.Range (minTimeToVanish, maxTimeToVanish);
 		mySprite = GetComponent<SpriteRenderer> ();
-
 		//HideAnimal ();
 	}
 
@@ -86,6 +92,7 @@ public class Animal : MonoBehaviour
             if(animalType==AnimalType.rabbit)
             {
                 GameController.setScore(1, 0, 0);
+                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.elk)
             {
@@ -95,7 +102,7 @@ public class Animal : MonoBehaviour
             {
                 GameController.setScore(0, 0, 1);
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 

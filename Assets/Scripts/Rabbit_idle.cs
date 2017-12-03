@@ -12,6 +12,7 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", true);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             //print(gameObject.name + " entering idle");
@@ -42,6 +43,12 @@ namespace Assets.Scripts
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
             print(gameObject.name + " received " + msg.Subject);
+            switch (msg.Subject)
+            {
+                case "DIE":
+                    stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_die)));
+                    break;
+            }
             return false;
         }
         

@@ -10,8 +10,9 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            GetComponent<Rigidbody2D>().velocity = -(player.transform.position-transform.position).normalized*2f;
+            GetComponent<Rigidbody2D>().velocity = -(player.transform.position-transform.position).normalized * GetComponent<Animal>().speed;
         }
 
         public override void Execute()
@@ -23,7 +24,9 @@ namespace Assets.Scripts
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = -(player.transform.position - transform.position).normalized * 2f;
+                GetComponent<Rigidbody2D>().velocity = -(player.transform.position - transform.position).normalized * GetComponent<Animal>().speed;
+                if (GetComponent<Rigidbody2D>().velocity.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
+                else GetComponent<SpriteRenderer>().flipX = false;
             }
         }
 
@@ -35,6 +38,12 @@ namespace Assets.Scripts
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
             print(gameObject.name + " received " + msg.Subject);
+            switch (msg.Subject)
+            {
+                case "DIE":
+                    stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_die)));
+                    break;
+            }
             return false;
         }
         
