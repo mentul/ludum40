@@ -52,9 +52,15 @@ public class GameController : MonoBehaviour {
 
         RandAnimal(40);
 
-        meatScript.DoInit(demandForFood);
+        ResetMeatScript(demandForFood);
         
     }
+
+    public void ResetMeatScript(int maxMeat)
+    {
+        meatScript.DoInit(maxMeat);
+    }
+
     public void RandAnimal(int count)
     {
         foreach (var item in animalList)
@@ -181,6 +187,8 @@ public class GameController : MonoBehaviour {
         //CalculateDeltaMoveStone();
         timeCounter.SetPositionStartStone();
         //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
+
+        ResetMeatScript(demandForFood);
     }
 
 }
