@@ -7,9 +7,11 @@ public class SScoreController : MonoBehaviour {
     private Transform scoreCanvas;
 	public GameObject aliveHuman;
 	public GameObject deadHuman;
+	private List<GameObject> humanSprites;
 	// Use this for initialization
 	void Start () {
-        HideScore();
+		humanSprites = new List<GameObject> ();
+		HideScore ();
         scoreCanvas = Camera.main.transform.Find("ScoreCanvas");
     }
 	
@@ -139,6 +141,7 @@ public class SScoreController : MonoBehaviour {
 
 	private void ShowPeopleResult ()
 	{
+		humanSprites.Clear ();
 		Transform peopleCanvas = Camera.main.transform.Find ("ScoreCanvas").Find ("Ludzie");
 		Vector3 startPosition = peopleCanvas.position;
 
@@ -160,6 +163,7 @@ public class SScoreController : MonoBehaviour {
 					row += distY;
 				}
 				GameObject human = Instantiate (aliveHuman);
+				humanSprites.Add (human);
 				human.transform.SetParent (peopleCanvas);
 				human.transform.localPosition = new Vector3 (column, -row);
 			}
@@ -172,15 +176,34 @@ public class SScoreController : MonoBehaviour {
 					row += distY / 2;
 				}
 				GameObject human = Instantiate (deadHuman);
+				humanSprites.Add (human);
+				human.transform.SetParent (peopleCanvas);
+				human.transform.localPosition = new Vector3 (column, -row);
+			}
+		}
+		if (newPeople > 0)
+		{
+			row = 12f;
+			column = -1f;
+
+			// strzalka
+
+			row = 13f;
+			for (int i = 0; i < newPeople; i++)
+			{
+				column += distXAlive;
+				if (column >= maxInRow)
+				{
+					column = -1f + distXDead;
+					row += distY;
+				}
+				GameObject human = Instantiate (aliveHuman);
+				humanSprites.Add (human);
 				human.transform.SetParent (peopleCanvas);
 				human.transform.localPosition = new Vector3 (column, -row);
 			}
 
-
-
 		}
-
-
 	}
 
 	public void HideScore ()
@@ -192,6 +215,11 @@ public class SScoreController : MonoBehaviour {
         GetComponent<GameController>().StartNewRound();
         GetComponent<GameController>().RandAnimal(40);
 
+		for (int i = 0; i < humanSprites.Count; i++)
+		{
+			Destroy (humanSprites [i]);
+		}
+		humanSprites.Clear ();
     }
 
 }
