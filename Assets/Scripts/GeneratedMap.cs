@@ -159,7 +159,7 @@ public class GeneratedMap : MonoBehaviour
                 if (map[x, y] == 3)
                 {
                     animalsCount++;
-                    GameController.GlobalCounerAnimal++;
+                    GameController.GlobalCounterAnimal++;
                 }
             }
         }

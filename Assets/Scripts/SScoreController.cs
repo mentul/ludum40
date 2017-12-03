@@ -5,6 +5,8 @@ using UnityEngine;
 public class SScoreController : MonoBehaviour {
 
     private Transform scoreCanvas;
+	public GameObject aliveHuman;
+	public GameObject deadHuman;
 	// Use this for initialization
 	void Start () {
         HideScore();
@@ -21,6 +23,7 @@ public class SScoreController : MonoBehaviour {
 
     public void ShowScore()
     {
+		ShowPeopleResult ();
         scoreCanvas.gameObject.SetActive(true);
         Time.timeScale = 0;
         GameController.isRunning = false;
@@ -134,7 +137,53 @@ public class SScoreController : MonoBehaviour {
 
     }
 
-    public void HideScore()
+	private void ShowPeopleResult ()
+	{
+		Transform peopleCanvas = Camera.main.transform.Find ("ScoreCanvas").Find ("Ludzie");
+		Vector3 startPosition = peopleCanvas.position;
+
+		int deadPeople = GameController.population - GameController.totalScore;
+		int newPeople = -deadPeople;
+		int people = GameController.population;
+		int maxInRow = 10;
+		float distXAlive = 1f, distXDead = 2f, distY = 2f;
+
+		float row = 0f, column = -1f;
+		for (int i = 0; i < people; i++)
+		{
+			if (i < people - deadPeople)
+			{
+				column += distXAlive;
+				if (column >= maxInRow)
+				{
+					column = -1f + distXAlive;
+					row += distY;
+				}
+				GameObject human = Instantiate (aliveHuman);
+				human.transform.SetParent (peopleCanvas);
+				human.transform.localPosition = new Vector3 (column, -row);
+			}
+			else
+			{
+				column += distXDead;
+				if (column >= maxInRow)
+				{
+					column = -1f + distXDead;
+					row += distY / 2;
+				}
+				GameObject human = Instantiate (deadHuman);
+				human.transform.SetParent (peopleCanvas);
+				human.transform.localPosition = new Vector3 (column, -row);
+			}
+
+
+
+		}
+
+
+	}
+
+	public void HideScore ()
     {
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
         Time.timeScale = 1;

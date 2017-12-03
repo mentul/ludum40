@@ -23,19 +23,21 @@ public class GameController : MonoBehaviour {
     private static int elkScore;
     private static int mammothScore;
 
-    private static int totalScore;
+    public static int totalScore;
+
+	public static int population = 23;
 
     public GameObject GeneratedMap;
 
     public static List<GameObject> animalList = new List<GameObject>();
 
-    public static int GlobalCounerAnimal;
+    public static int GlobalCounterAnimal;
 
     public MeatScript meatScript;
 
 	// Use this for initialization
 	void Start () {
-        GlobalCounerAnimal = 0;
+        GlobalCounterAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
@@ -171,7 +173,7 @@ public class GameController : MonoBehaviour {
 
     public void StartNewRound()
     {
-        GlobalCounerAnimal = 0;
+        GlobalCounterAnimal = 0;
         isRunning = true;
         //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         //scoreController = GetComponent<SScoreController>();
