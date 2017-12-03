@@ -9,6 +9,7 @@ public class AElk : Animal
 	{
 		base.DoInit ();
         HP = 2;
+        speed = 2;
 	}
 
 	public override void DoUpdate ()

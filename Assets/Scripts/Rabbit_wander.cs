@@ -13,6 +13,7 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             collider = GetComponent<CapsuleCollider2D>();
             Vector2 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
@@ -20,7 +21,9 @@ namespace Assets.Scripts
             {
                 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
             }*/
-            GetComponent<Rigidbody2D>().velocity = direction*2f;
+            if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
+            else GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<Rigidbody2D>().velocity = direction*GetComponent<Animal>().speed;
             //print(gameObject.name + " entering wander");
             time = wanderTime;
         }
@@ -49,6 +52,12 @@ namespace Assets.Scripts
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
             print(gameObject.name + " received " + msg.Subject);
+            switch (msg.Subject)
+            {
+                case "DIE":
+                    stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_die)));
+                    break;
+            }
             return false;
         }
         

@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour {
 
     public GameObject GeneratedMap;
 
+    public static List<Animal> animalList = new List<Animal>();
+
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +37,6 @@ public class GameController : MonoBehaviour {
         rabbitScore = 3;
         elkScore = 17;
         mammothScore = 33;
-       
 
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);

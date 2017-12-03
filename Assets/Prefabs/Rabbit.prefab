@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 114600011985488742}
   - component: {fileID: 114956492776861462}
   - component: {fileID: 114846557795120020}
+  - component: {fileID: 95467955119710062}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Untagged
@@ -45,7 +46,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.98, y: -10.42, z: 0}
+  m_LocalPosition: {x: 7.95, y: -6.03, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,6 +102,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.1, y: 0.2}
   m_Size: {x: 1.5, y: 0.5}
   m_Direction: 1
+--- !u!95 &95467955119710062
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 02bca30299004a441b513a224e897844, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114054023206605452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,3 +269,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
