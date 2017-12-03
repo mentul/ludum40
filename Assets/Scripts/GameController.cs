@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour {
 
     public static int GlobalCounerAnimal;
 
+    public MeatScript meatScript;
+
 	// Use this for initialization
 	void Start () {
         GlobalCounerAnimal = 0;
@@ -49,6 +51,9 @@ public class GameController : MonoBehaviour {
         CalculateDeltaMoveStone();
 
         GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40, player.gameObject.transform.position);
+
+        meatScript.DoInit(50);
+        
     }
 
     void CalculateDeltaMoveStone()
