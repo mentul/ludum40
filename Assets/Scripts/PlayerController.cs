@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0.5f;
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
-    public bool throwing;
+    //public bool throwing;
 
     private bool hasSpear;
     // Use this for initialization
@@ -56,7 +56,13 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(0))
             {
-                ThrowSpear();
+                if (hasSpear)
+                {
+                    hasSpear = false;
+                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                    GetComponent<Animator>().SetBool("Throw", true);
+                }
+                    //ThrowSpear();
             }
 
             if (Input.GetKey(KeyCode.Escape))
@@ -68,16 +74,13 @@ public class PlayerController : MonoBehaviour {
  
     public void Throwing()
     {
-
+        GetComponent<Animator>().SetBool("Throw", false);
+        //ThrowSpear();
     }
 
-    void ThrowSpear()
+    public void ThrowSpear()
     {
-        if (hasSpear)
-        {
-            hasSpear = false;
-            GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-            GetComponent<Animator>().SetBool("Throw", true);
+        
             //oblicz kierunek rzutu
             Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
             Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
@@ -94,7 +97,7 @@ public class PlayerController : MonoBehaviour {
            
             //rzuc
             temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
-        }
+        
     }
 
     public void PickUpSpear()
