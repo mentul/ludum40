@@ -242,7 +242,7 @@ MonoBehaviour:
   maxTimeToVanish: 120
   walkCollider: {fileID: 70573647553682416}
   bodyTrigger: {fileID: 70926467495720098}
-  HP: 2
+  HP: 1
   speed: 0
 --- !u!212 &212459055321444674
 SpriteRenderer:
@@ -285,3 +285,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
