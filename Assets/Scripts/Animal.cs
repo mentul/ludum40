@@ -112,7 +112,7 @@ public class Animal : MonoBehaviour
                 StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
             }
             //Destroy(gameObject);
-            GameController.GlobalCounerAnimal--;
+            GameController.GlobalCounterAnimal--;
         }
     }
 
