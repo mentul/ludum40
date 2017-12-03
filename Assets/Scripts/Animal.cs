@@ -85,6 +85,7 @@ public class Animal : MonoBehaviour
 
     public void OnHit()
     {
+        Debug.Log("Au");
         HP--;
         if(HP<0)
         {
