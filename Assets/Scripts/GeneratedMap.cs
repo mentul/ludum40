@@ -46,6 +46,7 @@ public class GeneratedMap : MonoBehaviour
         //maxVectorTree = spriteTree.bounds.max;
 
         GenerateMap();
+		AddMapSides ();
     }
 
     // Update is called once per frame
@@ -298,4 +299,15 @@ public class GeneratedMap : MonoBehaviour
             }
         }
     }
+
+	void AddMapSides ()
+	{
+		Vector2[] xy = new Vector2 [4];
+		xy [0] = new Vector2 (-widthColider / 2, heightColider / 2);
+		xy [1] = new Vector2 (widthColider / 2, heightColider / 2);
+		xy [2] = new Vector2 (widthColider / 2, -heightColider / 2);
+		xy [3] = new Vector2 (-widthColider / 2, -heightColider / 2);
+		EdgeCollider2D edges = gameObject.AddComponent<EdgeCollider2D> ();
+		edges.points = xy;
+	}
 }
