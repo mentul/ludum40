@@ -7,12 +7,13 @@ namespace Assets.Scripts
     {
         public float playerTriggerOffDistance = 3f;
         PlayerController player;
+        public float speedBoost = 10f;
 
         public override void Enter()
         {
             GetComponent<Animator>().SetBool("isIdling", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            GetComponent<Rigidbody2D>().velocity = -(player.transform.position-transform.position).normalized * GetComponent<Animal>().speed;
+            GetComponent<Rigidbody2D>().velocity = -(player.transform.position-transform.position).normalized * GetComponent<Animal>().speed * speedBoost;
         }
 
         public override void Execute()
@@ -24,7 +25,7 @@ namespace Assets.Scripts
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = -(player.transform.position - transform.position).normalized * GetComponent<Animal>().speed;
+                GetComponent<Rigidbody2D>().velocity = -(player.transform.position - transform.position).normalized * GetComponent<Animal>().speed * speedBoost;
                 if (GetComponent<Rigidbody2D>().velocity.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
                 else GetComponent<SpriteRenderer>().flipX = false;
             }

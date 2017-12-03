@@ -27,7 +27,7 @@ namespace Assets.Scripts
 
         public override void Execute()
         {
-            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance)
+            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance && !player.died)
             {
                 stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_triggered)));
             }
@@ -37,6 +37,8 @@ namespace Assets.Scripts
                 {
                     direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-10, 10)) * direction;
                     GetComponent<Rigidbody2D>().velocity = direction;
+                    if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
+                    else GetComponent<SpriteRenderer>().flipX = false;
                 }
                 else directionTime -= Time.deltaTime;
                 if (time > 0) time -= Time.deltaTime;

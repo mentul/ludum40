@@ -18,6 +18,8 @@ namespace Assets.Scripts
             GetComponent<Animator>().SetBool("Attack", true);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             GetComponent<Rigidbody2D>().velocity = (player.transform.position-transform.position).normalized * speedBoost;
+            if (GetComponent<Rigidbody2D>().velocity.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
+            else GetComponent<SpriteRenderer>().flipX = false;
         }
 
         public override void Execute()

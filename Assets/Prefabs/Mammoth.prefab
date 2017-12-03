@@ -47,7 +47,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.27, y: 4.59, z: 0}
+  m_LocalPosition: {x: 35.95787, y: -2.912641, z: 0}
   m_LocalScale: {x: 2.1079917, y: 2.1079917, z: 2.1079917}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,8 +85,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.58, y: 0.59}
-  m_Size: {x: 2.58, y: 1.39}
+  m_Offset: {x: 0.58, y: 0.32}
+  m_Size: {x: 2.33, y: 0.75}
   m_Direction: 1
 --- !u!70 &70862231046557470
 CapsuleCollider2D:
@@ -100,8 +100,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36, y: 1.29}
-  m_Size: {x: 3.53, y: 2.78}
+  m_Offset: {x: 0.27, y: 1.28}
+  m_Size: {x: 2.88, y: 1.61}
   m_Direction: 1
 --- !u!95 &95901023172804570
 Animator:
@@ -145,7 +145,7 @@ MonoBehaviour:
   wanderTime: 15
   time: 0
   timeToChangeDirection: 2
-  playerTriggerDistance: 8
+  playerTriggerDistance: 10
 --- !u!114 &114308488029229074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatTime: 10
   time: 0
-  playerTriggerDistance: 8
+  playerTriggerDistance: 10
 --- !u!114 &114320146574022088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dabb4c3db5489d749b60fe68d52b2783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTriggerOffDistance: 12
+  playerTriggerOffDistance: 14
   speedBoost: 5
   chargeTime: 3
 --- !u!212 &212459055321444674
@@ -287,3 +287,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0

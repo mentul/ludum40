@@ -92,7 +92,19 @@ public class GameController : MonoBehaviour {
                
                 scoreController.ShowScore();
                 timeCounter.SetPositionStartStone();
+                player.Reset();
 
+            }
+
+            if (player.died)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    roundTime += initialRoundTime;
+                    scoreController.ShowScore();
+                    timeCounter.SetPositionStartStone();
+                    player.Reset();
+                }
             }
 #if UNITY_EDITOR
 

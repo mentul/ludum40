@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50275478297216214}
   - component: {fileID: 114213628707090332}
   - component: {fileID: 61864470809196564}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondSprite: {fileID: 21300000, guid: 96a98b3c1624f324985c32a648fd478d, type: 3}
+  timeToPickup: 1
+  isActive: 1
 --- !u!114 &114213628707090332
 MonoBehaviour:
   m_ObjectHideFlags: 1

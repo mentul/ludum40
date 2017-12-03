@@ -10,17 +10,31 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0.5f;
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
+    //public bool throwing;
 
+    public bool died = false;
     private bool hasSpear;
     // Use this for initialization
-    void Start () {
-        hasSpear = true;
-	}
+    void Start ()
+    {
+        Reset();
+    }
 	
+    public void Reset()
+    {
+        hasSpear = true;
+        died = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        walkCollider.enabled = true;
+        bodyTrigger.enabled = true;
+        GetComponent<Animator>().SetBool("Reset", true);
+    }
 	// Update is called once per frame
 	void Update () {
+
         if (GameController.isRunning)
         {
+            if (died) return;
             //Jeżeli coś z WSAD to nadaj velocity
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
@@ -55,7 +69,13 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(0))
             {
-                ThrowSpear();
+                if (hasSpear)
+                {
+                    hasSpear = false;
+                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                    GetComponent<Animator>().SetBool("Throw", true);
+                }
+                //ThrowSpear();
             }
 
             if (Input.GetKey(KeyCode.Escape))
@@ -65,13 +85,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
  
-
-    void ThrowSpear()
+    public void Throwing()
     {
-        if (hasSpear)
-        {
-            hasSpear = false;
-            GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+        GetComponent<Animator>().SetBool("Throw", false);
+        //ThrowSpear();
+    }
+
+    public void ThrowSpear()
+    {
+        
             //oblicz kierunek rzutu
             Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
             Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
@@ -88,7 +110,7 @@ public class PlayerController : MonoBehaviour {
            
             //rzuc
             temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
-        }
+        
     }
 
     public void PickUpSpear()
@@ -99,11 +121,23 @@ public class PlayerController : MonoBehaviour {
 
     void Die()
     {
-        print("Umarłem, ała, boli.");
+        if (died) return;
+        died = true;
+        walkCollider.enabled = false;
+        bodyTrigger.enabled = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        GetComponent<Animator>().SetBool("Dead", true);
+    }
+
+    public void DeathAnimationOff()
+    {
+        GetComponent<Animator>().SetBool("Dead", false);
+        GetComponent<Animator>().SetBool("Reset", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (died) return;
         StateMachine.StateMachine stateMachine = collision.gameObject.GetComponent<StateMachine.StateMachine>();
         if (stateMachine != null)
         {
