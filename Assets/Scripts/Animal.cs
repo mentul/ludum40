@@ -17,7 +17,7 @@ public class Animal : MonoBehaviour
 
 	protected SpriteRenderer mySprite;
 
-    protected int HP;
+    public int HP;
     public float speed;
 
     private void Start()
