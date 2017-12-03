@@ -190,6 +190,7 @@ public class SScoreController : MonoBehaviour {
         GameController.isRunning = true;
         //Debug.Log("dzialam");
         GetComponent<GameController>().StartNewRound();
+        GetComponent<GameController>().RandAnimal(40);
 
     }
 
