@@ -58,6 +58,10 @@ public class MeatScript : MonoBehaviour {
         {
             ToMuchMeat.gameObject.SetActive(true);
         }
+		if (currentMeat > maxMeat)
+		{
+			currentMeat = maxMeat;
+		}
         //else
         //{
             for (int i = 0; i < currentMeat; i++)
