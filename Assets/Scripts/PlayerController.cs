@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0.5f;
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
+    public bool throwing;
 
     private bool hasSpear;
     // Use this for initialization
@@ -65,6 +66,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
  
+    public void Throwing()
+    {
+
+    }
 
     void ThrowSpear()
     {
@@ -72,6 +77,7 @@ public class PlayerController : MonoBehaviour {
         {
             hasSpear = false;
             GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+            GetComponent<Animator>().SetBool("Throw", true);
             //oblicz kierunek rzutu
             Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
             Vector2 temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)).y);
