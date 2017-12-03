@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 
     public static int totalScore;
 
-	public static int population = 23;
+	public static int population;
 
     public GameObject GeneratedMap;
 
@@ -37,15 +37,19 @@ public class GameController : MonoBehaviour {
 
     public MeatScript meatScript;
 
+    private int TotalDays;
+    public GameObject EndEnvas;
+
 	// Use this for initialization
 	void Start () {
-
+        EndEnvas.gameObject.SetActive(false);
         population = 40;
         GlobalCounterAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
+        TotalDays = 0;
 
         //rabbitScore = 3;
         //elkScore = 17;
@@ -56,13 +60,16 @@ public class GameController : MonoBehaviour {
         //timeCounter.DoLine();
         CalculateDeltaMoveStone();
 
-        RandAnimal(40);
-
         ResetMeatScript(population);
 
         LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
         LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
         LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+    }
+
+    public void AddDay()
+    {
+        TotalDays++;
     }
 
     public void UpdateLives()
@@ -106,6 +113,15 @@ public class GameController : MonoBehaviour {
         if (isRunning)
         {
             UpdateLives();
+
+            if (livesLeft <= 0)
+            {
+                //EndEnvas.gameObject.transform.Find()
+                EndEnvas.gameObject.SetActive(true);
+                isRunning = false;
+
+            }
+
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
@@ -169,6 +185,8 @@ public class GameController : MonoBehaviour {
 #endif
 
             timeCounter.DoUpdate();
+
+            
         }
     }
 

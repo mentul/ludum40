@@ -219,14 +219,15 @@ public class SScoreController : MonoBehaviour
 		}
 	}
 
-	public void HideScore ()
-	{
-		Camera.main.transform.Find ("ScoreCanvas").gameObject.SetActive (false);
-		Time.timeScale = 1;
-		GameController.isRunning = true;
-		//Debug.Log("dzialam");
-		GetComponent<GameController> ().StartNewRound ();
-		GetComponent<GameController> ().RandAnimal (40);
+    public void HideScore()
+    {
+        Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
+        Time.timeScale = 1;
+        GameController.isRunning = true;
+        //Debug.Log("dzialam");
+        GetComponent<GameController>().StartNewRound();
+        GetComponent<GameController>().RandAnimal(60);
+        GetComponent<GameController>().AddDay();
 
 		for (int i = 0; i < humanSprites.Count; i++)
 		{
