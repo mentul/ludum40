@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour {
     private float roundTime;
     public static bool isRunning;
     public int maxRoundTime;
-    private int demandForFood=0;
 
     private float deltaToMove;
 
@@ -37,6 +36,8 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        population = 40;
         GlobalCounterAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
@@ -52,10 +53,6 @@ public class GameController : MonoBehaviour {
         //timeCounter.DoLine();
         CalculateDeltaMoveStone();
 
-        RandAnimal(40);
-
-        ResetMeatScript(demandForFood);
-        
     }
 
     public void ResetMeatScript(int maxMeat)
@@ -95,7 +92,7 @@ public class GameController : MonoBehaviour {
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
 
-            if(totalScore >= demandForFood)
+            if(totalScore >= population)
             {
                 Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
             }
@@ -190,7 +187,7 @@ public class GameController : MonoBehaviour {
         timeCounter.SetPositionStartStone();
         //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
 
-        ResetMeatScript(demandForFood);
+        ResetMeatScript(population);
     }
 
 }
