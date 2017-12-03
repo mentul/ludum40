@@ -103,6 +103,7 @@ public class Animal : MonoBehaviour
             else if (animalType == AnimalType.mammoth)
             {
                 GameController.setScore(0, 0, 1);
+                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
             }
             //Destroy(gameObject);
             GameController.GlobalCounerAnimal--;

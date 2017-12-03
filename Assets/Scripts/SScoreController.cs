@@ -36,68 +36,99 @@ public class SScoreController : MonoBehaviour {
 
         int ilePiatek = 0, reszta = 0;
 
+        //KROLIKI KrolikScore
+
         ilePiatek = RabbitScore / 5;
         reszta = RabbitScore - (5 * ilePiatek);
 
-        //Debug.Log(RabbitScore + " " + ElkScore + " " + MammothScore + " " + ilePiatek + " " + reszta);
+        for(int i=0;i<6;i++)
+        {
+            scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).gameObject.SetActive(false);
+            for(int j=0;j<5;j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
 
-        for (int i=0;i<ilePiatek;i++)
+        for (int i = 0; i < ilePiatek; i++)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).gameObject.SetActive(true);
+            for (int j = 0; j < 5; j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).GetChild(j).gameObject.SetActive(true);
+            }
         }
 
-        if (ilePiatek != 6)
+        if(ilePiatek<6 && reszta!=0)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).gameObject.SetActive(true);
-            for (int i = 0; i < reszta; i++)
+            for (int j = 0; j < reszta; j++)
             {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
-            }
-            for (int i = reszta; i < 5; i++)
-            {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
             }
         }
+
+        //EŁKI JelenScore
 
         ilePiatek = ElkScore / 5;
         reszta = ElkScore - (5 * ilePiatek);
 
+        for (int i = 0; i < 6; i++)
+        {
+            scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(i).gameObject.SetActive(false);
+            for (int j = 0; j < 5; j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
+
         for (int i = 0; i < ilePiatek; i++)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(i).gameObject.SetActive(true);
+            for (int j = 0; j < 5; j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(i).GetChild(j).gameObject.SetActive(true);
+            }
         }
 
-        if (ilePiatek != 6)
+        if (ilePiatek < 6 && reszta != 0)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).gameObject.SetActive(true);
-            for (int i = 0; i < reszta; i++)
+            for (int j = 0; j < reszta; j++)
             {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
-            }
-            for (int i = reszta; i < 5; i++)
-            {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
             }
         }
+
+        //MAMUTY MamutScore
 
         ilePiatek = MammothScore / 5;
         reszta = MammothScore - (5 * ilePiatek);
 
+        for (int i = 0; i < 6; i++)
+        {
+            scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(i).gameObject.SetActive(false);
+            for (int j = 0; j < 5; j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
+
         for (int i = 0; i < ilePiatek; i++)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(i).gameObject.SetActive(true);
+            for (int j = 0; j < 5; j++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(i).GetChild(j).gameObject.SetActive(true);
+            }
         }
 
-        if (ilePiatek != 6)
+        if (ilePiatek < 6 && reszta != 0)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).gameObject.SetActive(true);
-            for (int i = 0; i < reszta; i++)
+            for (int j = 0; j < reszta; j++)
             {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
-            }
-            for (int i = reszta; i < 5; i++)
-            {
-                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
             }
         }
 
@@ -108,7 +139,7 @@ public class SScoreController : MonoBehaviour {
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
         Time.timeScale = 1;
         GameController.isRunning = true;
-        Debug.Log("dzialam");
+        //Debug.Log("dzialam");
         GetComponent<GameController>().StartNewRound();
 
     }
