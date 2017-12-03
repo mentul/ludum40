@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wanderTime: 15
   time: 0
+  timeToChangeDirection: 2
   playerTriggerDistance: 8
 --- !u!114 &114308488029229074
 MonoBehaviour:
@@ -230,6 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTriggerOffDistance: 12
+  speedBoost: 5
+  chargeTime: 3
 --- !u!212 &212459055321444674
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -271,4 +274,3 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
