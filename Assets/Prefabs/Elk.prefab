@@ -32,7 +32,6 @@ GameObject:
   - component: {fileID: 114011788350656666}
   - component: {fileID: 114000885453480124}
   - component: {fileID: 114756971955865276}
-  - component: {fileID: 114197541238574328}
   - component: {fileID: 114340486411252104}
   m_Layer: 0
   m_Name: Elk
@@ -61,19 +60,19 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!70 &70573647553682416
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -134,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wanderTime: 20
   time: 0
-  playerTriggerDistance: 3
+  playerTriggerDistance: 10
 --- !u!114 &114011788350656666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abea47c61cdf99746b381872f8ba71b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTriggerOffDistance: 3
+  playerTriggerOffDistance: 15
 --- !u!114 &114058506438457824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,21 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatTime: 10
   time: 0
-  playerTriggerDistance: 3
---- !u!114 &114197541238574328
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ac25bd8c49d724b9afd68cf669e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  states: []
-  globalState: {fileID: 0}
-  initialState: {fileID: 0}
+  playerTriggerDistance: 10
 --- !u!114 &114340486411252104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,7 +221,7 @@ MonoBehaviour:
   - {fileID: 114000885453480124}
   - {fileID: 114682205197436936}
   globalState: {fileID: 114340486411252104}
-  initialState: {fileID: 114682205197436936}
+  initialState: {fileID: 114058506438457824}
 --- !u!114 &114837215127344242
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1521,17 +1521,27 @@ Prefab:
     - target: {fileID: 114011788350656666, guid: ecc879895c666454b84c0935b02ec963,
         type: 2}
       propertyPath: playerTriggerOffDistance
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114000885453480124, guid: ecc879895c666454b84c0935b02ec963,
         type: 2}
       propertyPath: playerTriggerDistance
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114058506438457824, guid: ecc879895c666454b84c0935b02ec963,
         type: 2}
       propertyPath: playerTriggerDistance
-      value: 25
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 50610073128858610, guid: ecc879895c666454b84c0935b02ec963,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50610073128858610, guid: ecc879895c666454b84c0935b02ec963,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114197541238574328, guid: ecc879895c666454b84c0935b02ec963, type: 2}

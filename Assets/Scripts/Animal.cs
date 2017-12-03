@@ -98,6 +98,7 @@ public class Animal : MonoBehaviour
             else if (animalType == AnimalType.elk)
             {
                 GameController.setScore(0, 1, 0);
+                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.mammoth)
             {
