@@ -88,7 +88,7 @@ public class GeneratedMap : MonoBehaviour
         }
         else if (change == 3)
         {
-            moveRange = 15;
+            moveRange = 10;
             randomFillPercent = 5;
         }
 
@@ -106,7 +106,7 @@ public class GeneratedMap : MonoBehaviour
                     {
                         if (change == 3)
                         {
-                            if (x > moveRange + 15 && y > moveRange +15 && x < width - moveRange && y < height - moveRange)
+                            if (x > moveRange + 8 && y > moveRange +8 && x < width - moveRange && y < height - moveRange)
                             {
                                 map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
                             }
@@ -216,9 +216,10 @@ public class GeneratedMap : MonoBehaviour
                     // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
-                    Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
-                    // map[x, y] = 0;
-                    Debug.Log("33");
+                    GameObject temp = Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation);
+                    temp.transform.SetParent(this.transform);
+                    GameController.animalList.Add(temp.GetComponent<Animal>());
+
                 }
 
 
