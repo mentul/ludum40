@@ -75,4 +75,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPosition: {r: 1.0375433, g: -14.022125, b: 144, a: 81}
+    - _PlayerPosition: {r: 3.7881017, g: 5.023009, b: 144, a: 81}
