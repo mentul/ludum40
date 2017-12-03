@@ -46,7 +46,7 @@ public class GeneratedMap : MonoBehaviour
         //maxVectorTree = spriteTree.bounds.max;
 
         GenerateMap();
-		AddMapSides ();
+        AddMapSides();
     }
 
     // Update is called once per frame
@@ -107,7 +107,7 @@ public class GeneratedMap : MonoBehaviour
                     {
                         if (change == 3)
                         {
-                            if (x > moveRange + 8 && y > moveRange +8 && x < width - moveRange && y < height - moveRange)
+                            if (x > moveRange + 8 && y > moveRange + 8 && x < width - moveRange && y < height - moveRange)
                             {
                                 map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
                             }
@@ -217,16 +217,9 @@ public class GeneratedMap : MonoBehaviour
                     // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
-                    GameObject temp = Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation);
-                    temp.transform.SetParent(this.transform);
-                    GameController.animalList.Add(temp.GetComponent<Animal>());
-
+                    Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
                 }
-
-
             }
-
-
         }
     }
 
@@ -247,7 +240,7 @@ public class GeneratedMap : MonoBehaviour
             {
                 if (map[x, y] == 3)
                 {
-                     map[x, y] = 0;
+                    map[x, y] = 0;
                 }
             }
         }
@@ -300,14 +293,14 @@ public class GeneratedMap : MonoBehaviour
         }
     }
 
-	void AddMapSides ()
-	{
-		Vector2[] xy = new Vector2 [4];
-		xy [0] = new Vector2 (-widthColider / 2, heightColider / 2);
-		xy [1] = new Vector2 (widthColider / 2, heightColider / 2);
-		xy [2] = new Vector2 (widthColider / 2, -heightColider / 2);
-		xy [3] = new Vector2 (-widthColider / 2, -heightColider / 2);
-		EdgeCollider2D edges = gameObject.AddComponent<EdgeCollider2D> ();
-		edges.points = xy;
-	}
+    void AddMapSides()
+    {
+        Vector2[] xy = new Vector2[4];
+        xy[0] = new Vector2(-widthColider / 2, heightColider / 2);
+        xy[1] = new Vector2(widthColider / 2, heightColider / 2);
+        xy[2] = new Vector2(widthColider / 2, -heightColider / 2);
+        xy[3] = new Vector2(-widthColider / 2, -heightColider / 2);
+        EdgeCollider2D edges = gameObject.AddComponent<EdgeCollider2D>();
+        edges.points = xy;
+    }
 }
