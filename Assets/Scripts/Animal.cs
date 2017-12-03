@@ -105,4 +105,15 @@ public class Animal : MonoBehaviour
             //Destroy(gameObject);
         }
     }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<SSpear>() != null)
+        {
+            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            other.GetComponent<SpriteRenderer>().sprite = other.GetComponent<SSpear>().secondSprite;
+            OnHit();
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class TimeCounter : MonoBehaviour {
     public void SetMaxRoundTime (int maxRoundTime)
     {
         this.maxRoundTime = maxRoundTime;
-        positionStartStone = stoneGameObject.transform.position;
+        positionStartStone = stoneGameObject.transform.localPosition;
     }
     public void DoInit()
     {
@@ -21,7 +21,7 @@ public class TimeCounter : MonoBehaviour {
 
     public void SetPositionStartStone()
     {
-        stoneGameObject.transform.position = positionStartStone;
+        stoneGameObject.transform.localPosition = positionStartStone;
     }
 
     public float GetLengthToDoStone()
