@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateMachine;
+using Assets.Scripts;
 
 public class PlayerController : MonoBehaviour {
 
@@ -95,4 +97,20 @@ public class PlayerController : MonoBehaviour {
         GetComponent<Animator>().SetBool("HasSpear", hasSpear);
     }
 
+    void Die()
+    {
+        print("Umarłem, ała, boli.");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        StateMachine.StateMachine stateMachine = collision.gameObject.GetComponent<StateMachine.StateMachine>();
+        if (stateMachine != null)
+        {
+            if(stateMachine.CurrentState.GetType() == typeof(Mammoth_wander)|| stateMachine.CurrentState.GetType() == typeof(Mammoth_triggered))
+            {
+                Die();
+            }
+        }
+    }
 }
