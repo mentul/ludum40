@@ -7,13 +7,14 @@ namespace Assets.Scripts
     {
         public float playerTriggerOffDistance = 3f;
         PlayerController player;
+        public float speedBoost = 10f;
 
         public override void Enter()
         {
             GetComponent<Animator>().SetBool("isIdling", false);
             GetComponent<Animator>().SetBool("Attack", true);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            GetComponent<Rigidbody2D>().velocity = (player.transform.position-transform.position).normalized*2f;
+            GetComponent<Rigidbody2D>().velocity = (player.transform.position-transform.position).normalized * speedBoost;
         }
 
         public override void Execute()
@@ -25,7 +26,7 @@ namespace Assets.Scripts
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 2f;
+                GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * speedBoost;
             }
         }
 

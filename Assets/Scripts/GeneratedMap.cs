@@ -26,9 +26,12 @@ public class GeneratedMap : MonoBehaviour
     public int maxAnimalsCount;
     private int animalsCount;
 
+    private Vector2 positionPlayerInMap;
+
     // Use this for initialization
     public void DoInit()
     {
+        positionPlayerInMap = Vector2.zero;
         sizeMap = this.gameObject.GetComponent<BoxCollider2D>();
         minVectorMap = sizeMap.bounds.min;
         maxVectorMap = sizeMap.bounds.max;
@@ -105,32 +108,56 @@ public class GeneratedMap : MonoBehaviour
                 {
                     if (map[x, y] == 0)
                     {
-                        if (change == 3)
-                        {
-                            if (x > moveRange + 8 && y > moveRange + 8 && x < width - moveRange && y < height - moveRange)
-                            {
-                                map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
-                            }
-                        }
-                        else
-                        {
-                            map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
-                        }
-                        if (map[x, y] == 3)
-                        {
-                            animalsCount++;
-                            GameController.GlobalCounerAnimal++;
-
-                        }
-                        if (animalsCount >= maxAnimalsCount)
-                        {
-                            return;
-                        }
+                        map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
                     }
-
                 }
             }
         }
+    }
+
+
+    void RandomFillAnimal(int number, int change = 0)
+    {
+        int moveRange = 0;
+        if (useRandomSeed)
+        {
+            seed = Time.time.ToString();
+        }
+
+        System.Random pseudoRandom = new System.Random(seed.GetHashCode());
+
+        if (change == 3)
+        {
+            moveRange = 18;
+            randomFillPercent = 5;
+        }
+
+        do
+        {
+            int x = Random.Range(0, width);
+            int y = Random.Range(0, height);
+            Debug.Log(x + " " + y);
+
+            if (map[x, y] == 0)
+            {
+                if (change == 3)
+                {
+                    if (x > moveRange && y > moveRange && x < width - moveRange && y < height - moveRange)
+                    {
+                        if ((x < positionPlayerInMap.x - 5 || x > positionPlayerInMap.x + 5) && (y < positionPlayerInMap.y - 5 || y > positionPlayerInMap.y + 5))
+                        {
+                            map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
+                        }
+                    }
+                }
+                if (map[x, y] == 3)
+                {
+                    animalsCount++;
+                    GameController.GlobalCounerAnimal++;
+                }
+            }
+        }
+        while (animalsCount < maxAnimalsCount);
     }
 
     void SmoothMap()
@@ -223,12 +250,15 @@ public class GeneratedMap : MonoBehaviour
         }
     }
 
-    public void GenerateAnimal(int count)
+    public void GenerateAnimal(int count, Vector3 positionPalyer)
     {
+        positionPlayerInMap.x = (int)positionPalyer.x / scale + width / 2;
+        positionPlayerInMap.y = (int)positionPalyer.y / scale + height / 2;
+
         ResetAnimal();
         maxAnimalsCount = count;
         animalsCount = 0;
-        RandomFillMap(3, 3);
+        RandomFillAnimal(3, 3);
         DrawAnimalOnMap();
     }
 
