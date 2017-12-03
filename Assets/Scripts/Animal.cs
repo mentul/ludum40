@@ -22,7 +22,7 @@ public class Animal : MonoBehaviour
 
     private void Start()
     {
-        GameController.animalList.Add(this.gameObject);
+       
         DoInit();
     }
 
