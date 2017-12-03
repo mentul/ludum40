@@ -118,4 +118,13 @@ public class Animal : MonoBehaviour
             OnHit();
         }
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<SSpear>() != null)
+        {
+            other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            other.gameObject.GetComponent<SpriteRenderer>().sprite = other.gameObject.GetComponent<SSpear>().secondSprite;
+            OnHit();
+        }
+    }
 }
