@@ -218,6 +218,9 @@ public class SScoreController : MonoBehaviour
 			}
 
 		}
+
+		GameController.population = GameController.population + newPeople;
+
 	}
 
     public void HideScore()
