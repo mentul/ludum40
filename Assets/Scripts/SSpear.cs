@@ -12,9 +12,12 @@ public class SSpear : MonoBehaviour
     private float flyDistance;
     private Vector2 lastPosition;
 
+    PlayerController player;
+
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         flyDistance = 0f;
         lastPosition = transform.position;
         time = timeToPickup;
@@ -27,6 +30,11 @@ public class SSpear : MonoBehaviour
     {
         if (GameController.isRunning)
         {
+            if (player.died)
+            {
+                Destroy(gameObject);
+                return;
+            }
             flyDistance += Vector2.Distance(transform.position, lastPosition);
             //Debug.Log(Vector2.Distance(transform.position, lastPosition));
             lastPosition = transform.position;
@@ -38,7 +46,8 @@ public class SSpear : MonoBehaviour
             }
             if (time <= 0)
             {
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().walkCollider, false);
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.walkCollider, false);
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.bodyTrigger, false);
                 time = timeToPickup;
             }
             else time -= Time.deltaTime;
@@ -64,5 +73,13 @@ public class SSpear : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            other.gameObject.GetComponent<PlayerController>().PickUpSpear();
+            Destroy(gameObject);
+        }
+    }
 
 }

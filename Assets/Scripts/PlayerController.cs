@@ -107,9 +107,10 @@ public class PlayerController : MonoBehaviour {
             //stworz
             GameObject temp = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
             Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.walkCollider, true);
-           
-            //rzuc
-            temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
+            Physics2D.IgnoreCollision(temp.GetComponent<Collider2D>(), this.bodyTrigger, true);
+
+        //rzuc
+        temp.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
         
     }
 
