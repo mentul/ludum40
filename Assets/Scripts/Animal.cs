@@ -87,7 +87,7 @@ public class Animal : MonoBehaviour
     {
         Debug.Log("Au");
         HP--;
-        if(HP<=0)
+        if(HP==0)
         {
             //Tutaj bedzie zabijanie zwierzaka
             if(animalType==AnimalType.rabbit)
