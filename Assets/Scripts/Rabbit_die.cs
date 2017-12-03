@@ -11,12 +11,18 @@ namespace Assets.Scripts
         public override void Enter()
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            
+            foreach (var item in GetComponents<CapsuleCollider2D>())
+            {
+                item.enabled = false;
+            }
             GetComponent<Animator>().SetBool("Die", true);
+
         }
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void Exit()
