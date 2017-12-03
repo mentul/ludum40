@@ -32,6 +32,7 @@ GameObject:
   - component: {fileID: 114990771562268384}
   - component: {fileID: 114185527290679726}
   - component: {fileID: 95901023172804570}
+  - component: {fileID: 114599113124820438}
   m_Layer: 0
   m_Name: Mammoth
   m_TagString: Untagged
@@ -173,6 +174,7 @@ MonoBehaviour:
   - {fileID: 114308488029229074}
   - {fileID: 114277538390164590}
   - {fileID: 114990771562268384}
+  - {fileID: 114599113124820438}
   globalState: {fileID: 114805416697664832}
   initialState: {fileID: 114308488029229074}
 --- !u!114 &114360961855732692
@@ -207,6 +209,17 @@ MonoBehaviour:
   bodyTrigger: {fileID: 70862231046557470}
   HP: 3
   speed: 0
+--- !u!114 &114599113124820438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bb20cc4713df749803a980b469447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114805416697664832
 MonoBehaviour:
   m_ObjectHideFlags: 1
