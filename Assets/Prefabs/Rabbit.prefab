@@ -161,6 +161,7 @@ MonoBehaviour:
   maxTimeToVanish: 120
   walkCollider: {fileID: 70573647553682416}
   bodyTrigger: {fileID: 70777934740440314}
+  HP: 1
   speed: 0
 --- !u!114 &114360961855732692
 MonoBehaviour:
