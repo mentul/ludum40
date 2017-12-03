@@ -9843,12 +9843,18 @@ MonoBehaviour:
   - {fileID: 1227201637065700, guid: ecc879895c666454b84c0935b02ec963, type: 2}
   - {fileID: 1227201637065700, guid: 57d24ae3530d516468aec6f17644df9a, type: 2}
   - {fileID: 1227201637065700, guid: 441702c3577131443a6ff1d141bea417, type: 2}
+  PercentMammoth: 0.1
+  PercentElk: 0.35
+  PercentRabbit: 0.55
   seed: Grzesiek
   useRandomSeed: 0
   randomFillPercent: 46
   scale: 2
   smooth: 1
   maxAnimalsCount: 0
+  currentPercentMammoth: 0
+  currentPercentElk: 0
+  currentPercentRabbit: 0
 --- !u!4 &1990837590
 Transform:
   m_ObjectHideFlags: 0
