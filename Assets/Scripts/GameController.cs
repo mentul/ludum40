@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour {
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
-        TotalDays = 0;
+        TotalDays = -1;
 
         //rabbitScore = 3;
         //elkScore = 17;
@@ -118,6 +118,41 @@ public class GameController : MonoBehaviour {
             {
                 //EndEnvas.gameObject.transform.Find()
                 EndEnvas.gameObject.SetActive(true);
+
+                //TotalDays
+
+                //
+                int ilePiatek = TotalDays / 5;
+                int reszta = TotalDays - (5 * ilePiatek);
+
+                for (int i = 0; i < 24; i++)
+                {
+                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
+                    for (int j = 0; j < 5; j++)
+                    {
+                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
+                    }
+                }
+
+                for (int i = 0; i < ilePiatek; i++)
+                {
+                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
+                    for (int j = 0; j < 5; j++)
+                    {
+                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
+                    }
+                }
+
+                if (ilePiatek < 6 && reszta != 0)
+                {
+                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
+                    for (int j = 0; j < reszta; j++)
+                    {
+                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
+                    }
+                }
+                //
+
                 isRunning = false;
 
             }
