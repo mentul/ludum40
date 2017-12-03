@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour {
 
     public static int GlobalCounerAnimal;
 
+    public MeatScript meatScript;
+
 	// Use this for initialization
 	void Start () {
         GlobalCounerAnimal = 0;
@@ -48,7 +50,19 @@ public class GameController : MonoBehaviour {
         //timeCounter.DoLine();
         CalculateDeltaMoveStone();
 
-        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40, player.gameObject.transform.position);
+        RandAnimal(40);
+
+        meatScript.DoInit(demandForFood);
+        
+    }
+    public void RandAnimal(int count)
+    {
+        foreach (var item in animalList)
+        {
+            Destroy(item.gameObject);
+        }
+        animalList.Clear();
+        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(count, player.gameObject.transform.position);
     }
 
     void CalculateDeltaMoveStone()
@@ -61,6 +75,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
+            meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
             BackgroundMaterial.SetVector("_PlayerPosition", playerPos);
