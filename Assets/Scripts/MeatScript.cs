@@ -15,6 +15,11 @@ public class MeatScript : MonoBehaviour {
 
 	// Use this for initialization
 	public void DoInit (int maxMeat) {
+
+        foreach (var item in meatGameObjcetList)
+        {
+            Destroy(item.gameObject);
+        }
         meatGameObjcetList.Clear();
         currentMeat = 0;
         this.maxMeat = maxMeat;
@@ -25,7 +30,6 @@ public class MeatScript : MonoBehaviour {
 
     void DrawMeat()
     {
-        Vector3 position = Vector3.zero;
         for(int i = 0; i < maxMeat; i ++)
         {
             GameObject temp = Instantiate(MeatGameObject, Vector3.zero, gameObject.transform.rotation);
@@ -54,12 +58,13 @@ public class MeatScript : MonoBehaviour {
         {
             ToMuchMeat.gameObject.SetActive(true);
         }
-        else
-        { for (int i = 0; i < currentMeat; i++)
+        //else
+        //{
+            for (int i = 0; i < currentMeat; i++)
             {
                 meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
-        }
+        //}
 
         
 

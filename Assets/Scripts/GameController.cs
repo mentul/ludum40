@@ -9,13 +9,15 @@ public class GameController : MonoBehaviour {
     public Material BackgroundMaterial, DrawingMaterial;
     private SScoreController scoreController;
 
+    public GameObject LifeUIRoot;
+    public static int livesLeft = 3;
+
     public TimeCounter timeCounter;
 
     public float initialRoundTime;
     private float roundTime;
     public static bool isRunning;
     public int maxRoundTime;
-    private int demandForFood=0;
 
     private float deltaToMove;
 
@@ -37,6 +39,8 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        population = 40;
         GlobalCounterAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
@@ -54,8 +58,26 @@ public class GameController : MonoBehaviour {
 
         RandAnimal(40);
 
-        ResetMeatScript(demandForFood);
-        
+        ResetMeatScript(population);
+
+        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+    }
+
+    public void UpdateLives()
+    {
+        if (livesLeft < 1) {
+            LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(false);
+        }
+        if (livesLeft < 2)
+        {
+            LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(false);
+        }
+        if (livesLeft < 3)
+        {
+            LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(false);
+        }
     }
 
     public void ResetMeatScript(int maxMeat)
@@ -83,6 +105,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (isRunning)
         {
+            UpdateLives();
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
@@ -95,7 +118,7 @@ public class GameController : MonoBehaviour {
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
 
-            if(totalScore >= demandForFood)
+            if(totalScore >= population)
             {
                 Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
             }
@@ -166,6 +189,14 @@ public class GameController : MonoBehaviour {
         ResetTotalScore();
     }
 
+    public static void SetScoreTo0()
+    {
+        rabbitScore = 0;
+        elkScore = 0;
+        mammothScore = 0;
+        ResetTotalScore();
+    }
+
     private static void ResetTotalScore()
     {
         totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10; 
@@ -189,8 +220,8 @@ public class GameController : MonoBehaviour {
         //CalculateDeltaMoveStone();
         timeCounter.SetPositionStartStone();
         //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
-
-        ResetMeatScript(demandForFood);
+        SetScoreTo0();
+        ResetMeatScript(population);
     }
 
 }
