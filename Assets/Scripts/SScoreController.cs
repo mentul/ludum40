@@ -39,6 +39,8 @@ public class SScoreController : MonoBehaviour {
         ilePiatek = RabbitScore / 5;
         reszta = RabbitScore - (5 * ilePiatek);
 
+        //Debug.Log(RabbitScore + " " + ElkScore + " " + MammothScore + " " + ilePiatek + " " + reszta);
+
         for (int i=0;i<ilePiatek;i++)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(i).gameObject.SetActive(true);
@@ -47,6 +49,10 @@ public class SScoreController : MonoBehaviour {
         if (ilePiatek != 6)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).gameObject.SetActive(true);
+            for (int i = 0; i < reszta; i++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
+            }
             for (int i = reszta; i < 5; i++)
             {
                 scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("KrolikScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
@@ -64,6 +70,10 @@ public class SScoreController : MonoBehaviour {
         if (ilePiatek != 6)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).gameObject.SetActive(true);
+            for (int i = 0; i < reszta; i++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
+            }
             for (int i = reszta; i < 5; i++)
             {
                 scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("JelenScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
@@ -81,6 +91,10 @@ public class SScoreController : MonoBehaviour {
         if (ilePiatek != 6)
         {
             scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).gameObject.SetActive(true);
+            for (int i = 0; i < reszta; i++)
+            {
+                scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(true);
+            }
             for (int i = reszta; i < 5; i++)
             {
                 scoreCanvas.Find("Wynik").Find("PunktyZwierzat").Find("MamutScore").GetChild(ilePiatek).GetChild(i).gameObject.SetActive(false);
