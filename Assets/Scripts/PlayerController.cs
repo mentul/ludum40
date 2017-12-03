@@ -12,16 +12,29 @@ public class PlayerController : MonoBehaviour {
     public Collider2D bodyTrigger;
     //public bool throwing;
 
+    public bool died = false;
     private bool hasSpear;
     // Use this for initialization
-    void Start () {
-        hasSpear = true;
-	}
+    void Start ()
+    {
+        Reset();
+    }
 	
+    public void Reset()
+    {
+        hasSpear = true;
+        died = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        walkCollider.enabled = true;
+        bodyTrigger.enabled = true;
+        GetComponent<Animator>().SetBool("Reset", true);
+    }
 	// Update is called once per frame
 	void Update () {
+
         if (GameController.isRunning)
         {
+            if (died) return;
             //Jeżeli coś z WSAD to nadaj velocity
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
             {
@@ -62,7 +75,7 @@ public class PlayerController : MonoBehaviour {
                     GetComponent<Animator>().SetBool("HasSpear", hasSpear);
                     GetComponent<Animator>().SetBool("Throw", true);
                 }
-                    //ThrowSpear();
+                //ThrowSpear();
             }
 
             if (Input.GetKey(KeyCode.Escape))
@@ -108,11 +121,23 @@ public class PlayerController : MonoBehaviour {
 
     void Die()
     {
-        print("Umarłem, ała, boli.");
+        if (died) return;
+        died = true;
+        walkCollider.enabled = false;
+        bodyTrigger.enabled = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        GetComponent<Animator>().SetBool("Dead", true);
+    }
+
+    public void DeathAnimationOff()
+    {
+        GetComponent<Animator>().SetBool("Dead", false);
+        GetComponent<Animator>().SetBool("Reset", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (died) return;
         StateMachine.StateMachine stateMachine = collision.gameObject.GetComponent<StateMachine.StateMachine>();
         if (stateMachine != null)
         {

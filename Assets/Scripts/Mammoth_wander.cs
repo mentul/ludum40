@@ -27,7 +27,7 @@ namespace Assets.Scripts
 
         public override void Execute()
         {
-            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance)
+            if (Vector2.Distance(transform.position, player.transform.position) < playerTriggerDistance && !player.died)
             {
                 stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_triggered)));
             }

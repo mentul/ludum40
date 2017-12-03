@@ -377,6 +377,7 @@ MonoBehaviour:
   speed: 5
   walkCollider: {fileID: 30665765}
   bodyTrigger: {fileID: 30665771}
+  died: 0
 --- !u!212 &30665767
 SpriteRenderer:
   m_ObjectHideFlags: 0
