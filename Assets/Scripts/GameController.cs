@@ -189,6 +189,14 @@ public class GameController : MonoBehaviour {
         ResetTotalScore();
     }
 
+    public static void SetScoreTo0()
+    {
+        rabbitScore = 0;
+        elkScore = 0;
+        mammothScore = 0;
+        ResetTotalScore();
+    }
+
     private static void ResetTotalScore()
     {
         totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10; 
@@ -212,7 +220,7 @@ public class GameController : MonoBehaviour {
         //CalculateDeltaMoveStone();
         timeCounter.SetPositionStartStone();
         //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
-
+        SetScoreTo0();
         ResetMeatScript(population);
     }
 
