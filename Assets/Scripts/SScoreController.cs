@@ -150,6 +150,7 @@ public class SScoreController : MonoBehaviour
 		Vector3 startPosition = peopleCanvas.position;
 
 		int deadPeople = GameController.population - GameController.totalScore;
+        if (deadPeople > 0) GameController.livesLeft--;
 		int newPeople = -deadPeople;
 		int people = GameController.population;
 		int maxInRow = 10;
