@@ -113,8 +113,10 @@ public class Animal : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<SSpear>() != null)
+        SSpear spear = other.gameObject.GetComponent<SSpear>();
+        if (spear != null && spear.isActive)
         {
+            other.gameObject.GetComponent<SSpear>().TurnOffTheSpear();
             other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             other.GetComponent<SpriteRenderer>().sprite = other.GetComponent<SSpear>().secondSprite;
             OnHit();
@@ -122,10 +124,10 @@ public class Animal : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<SSpear>() != null)
+        SSpear spear = other.gameObject.GetComponent<SSpear>();
+        if (spear != null && spear.isActive)
         {
-            other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            other.gameObject.GetComponent<SpriteRenderer>().sprite = other.gameObject.GetComponent<SSpear>().secondSprite;
+            other.gameObject.GetComponent<SSpear>().TurnOffTheSpear();
             OnHit();
         }
     }
