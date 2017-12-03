@@ -26,9 +26,11 @@ public class GameController : MonoBehaviour {
 
     public static List<Animal> animalList = new List<Animal>();
 
+    public static int GlobalCounerAnimal;
 
 	// Use this for initialization
 	void Start () {
+        GlobalCounerAnimal = 0;
         isRunning = true;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
@@ -42,6 +44,7 @@ public class GameController : MonoBehaviour {
         timeCounter.SetMaxRoundTime(maxRoundTime);
         //timeCounter.DoLine();
         CalculateDeltaMoveStone();
+        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
     }
 
     void CalculateDeltaMoveStone()

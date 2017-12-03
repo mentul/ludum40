@@ -105,6 +105,7 @@ public class Animal : MonoBehaviour
                 GameController.setScore(0, 0, 1);
             }
             //Destroy(gameObject);
+            GameController.GlobalCounerAnimal--;
         }
     }
 

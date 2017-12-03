@@ -41,7 +41,7 @@
 			// Albedo comes from a texture tinted by color
 			float2 uv = IN.screenPos.xy;
 
-			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9);
+			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9) * _MainTex_ST.x;
 
 			fixed4 c = tex2D(_MainTex, uv * _MainTex_ST.xy + offset) * _Color;
 

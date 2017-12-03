@@ -10,6 +10,8 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", false);
+            GetComponent<Animator>().SetBool("Attack", true);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             GetComponent<Rigidbody2D>().velocity = (player.transform.position-transform.position).normalized*2f;
         }

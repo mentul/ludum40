@@ -7,6 +7,7 @@ public class GeneratedMap : MonoBehaviour
 
     public List<GameObject> gameObjectTree;
     public List<GameObject> gameObjectSmallTree;
+    public List<GameObject> gameObjectAnimals;
 
     public string seed;
     public bool useRandomSeed;
@@ -22,12 +23,8 @@ public class GeneratedMap : MonoBehaviour
     public int scale;
     public int smooth;
 
-
-    //private Vector2 minVectorTree;
-    //private Vector2 maxVectorTree;
-
-
-
+    public int maxAnimalsCount;
+    private int animalsCount;
 
     // Use this for initialization
     public void DoInit()
@@ -35,6 +32,8 @@ public class GeneratedMap : MonoBehaviour
         sizeMap = this.gameObject.GetComponent<BoxCollider2D>();
         minVectorMap = sizeMap.bounds.min;
         maxVectorMap = sizeMap.bounds.max;
+        animalsCount = 0;
+        maxAnimalsCount = 1;
 
         widthColider = (int)sizeMap.size.x;
         heightColider = (int)sizeMap.size.y;
@@ -47,6 +46,7 @@ public class GeneratedMap : MonoBehaviour
         //maxVectorTree = spriteTree.bounds.max;
 
         GenerateMap();
+        AddMapSides();
     }
 
     // Update is called once per frame
@@ -67,7 +67,7 @@ public class GeneratedMap : MonoBehaviour
         {
             SmoothMap();
         }
-        RandomFillMap(2,2);
+        RandomFillMap(2, 2);
 
         DrawTreeOnMap();
 
@@ -75,6 +75,7 @@ public class GeneratedMap : MonoBehaviour
 
     void RandomFillMap(int number, int change = 0)
     {
+        int moveRange = 0;
         if (useRandomSeed)
         {
             seed = Time.time.ToString();
@@ -85,6 +86,11 @@ public class GeneratedMap : MonoBehaviour
         if (change == 2)
         {
             randomFillPercent = 20;
+        }
+        else if (change == 3)
+        {
+            moveRange = 10;
+            randomFillPercent = 5;
         }
 
         for (int x = 0; x < width; x++)
@@ -99,7 +105,27 @@ public class GeneratedMap : MonoBehaviour
                 {
                     if (map[x, y] == 0)
                     {
-                        map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
+                        if (change == 3)
+                        {
+                            if (x > moveRange + 8 && y > moveRange + 8 && x < width - moveRange && y < height - moveRange)
+                            {
+                                map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
+                            }
+                        }
+                        else
+                        {
+                            map[x, y] = (pseudoRandom.Next(0, 100) < randomFillPercent) ? number : 0;
+                        }
+                        if (map[x, y] == 3)
+                        {
+                            animalsCount++;
+                            GameController.GlobalCounerAnimal++;
+
+                        }
+                        if (animalsCount >= maxAnimalsCount)
+                        {
+                            return;
+                        }
                     }
 
                 }
@@ -171,11 +197,53 @@ public class GeneratedMap : MonoBehaviour
 
                 }
 
+
             }
 
 
         }
 
+    }
+    void DrawAnimalOnMap()
+    {
+        Vector3 position = Vector3.zero;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (map[x, y] == 3)
+                {
+                    // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
+
+                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
+                    Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
+                }
+            }
+        }
+    }
+
+    public void GenerateAnimal(int count)
+    {
+        ResetAnimal();
+        maxAnimalsCount = count;
+        animalsCount = 0;
+        RandomFillMap(3, 3);
+        DrawAnimalOnMap();
+    }
+
+    private void ResetAnimal()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (map[x, y] == 3)
+                {
+                    map[x, y] = 0;
+                }
+            }
+        }
     }
 
     public int randomTrees()
@@ -186,6 +254,11 @@ public class GeneratedMap : MonoBehaviour
     public int randomSmallTrees()
     {
         return Random.Range(0, gameObjectSmallTree.Count);
+    }
+
+    public int randomAnimals()
+    {
+        return Random.Range(0, gameObjectAnimals.Count);
     }
 
     void OnDrawGizmos()
@@ -204,6 +277,10 @@ public class GeneratedMap : MonoBehaviour
                     {
                         Gizmos.color = Color.red;
                     }
+                    else if (map[x, y] == 3)
+                    {
+                        Gizmos.color = Color.green;
+                    }
                     else
                     {
                         Gizmos.color = Color.white;
@@ -214,5 +291,16 @@ public class GeneratedMap : MonoBehaviour
                 }
             }
         }
+    }
+
+    void AddMapSides()
+    {
+        Vector2[] xy = new Vector2[4];
+        xy[0] = new Vector2(-widthColider / 2, heightColider / 2);
+        xy[1] = new Vector2(widthColider / 2, heightColider / 2);
+        xy[2] = new Vector2(widthColider / 2, -heightColider / 2);
+        xy[3] = new Vector2(-widthColider / 2, -heightColider / 2);
+        EdgeCollider2D edges = gameObject.AddComponent<EdgeCollider2D>();
+        edges.points = xy;
     }
 }

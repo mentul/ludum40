@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
         public override void Enter()
         {
+            GetComponent<Animator>().SetBool("isIdling", true);
+            GetComponent<Animator>().SetBool("Attack", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             //print(gameObject.name + " entering idle");
