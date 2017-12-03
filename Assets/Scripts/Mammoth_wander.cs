@@ -56,6 +56,12 @@ namespace Assets.Scripts
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
             print(gameObject.name + " received " + msg.Subject);
+            switch (msg.Subject)
+            {
+                case "DIE":
+                    stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_die)));
+                    break;
+            }
             return false;
         }
         

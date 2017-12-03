@@ -108,7 +108,7 @@ public class SScoreController : MonoBehaviour {
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
         Time.timeScale = 1;
         GameController.isRunning = true;
-        Debug.Log("dzialam");
+        //Debug.Log("dzialam");
         GetComponent<GameController>().StartNewRound();
 
     }
