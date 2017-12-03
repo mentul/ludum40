@@ -26,6 +26,14 @@ GameObject:
   - component: {fileID: 114360961855732692}
   - component: {fileID: 114837215127344242}
   - component: {fileID: 114539134219074042}
+  - component: {fileID: 95507921244283324}
+  - component: {fileID: 114682205197436936}
+  - component: {fileID: 114058506438457824}
+  - component: {fileID: 114011788350656666}
+  - component: {fileID: 114000885453480124}
+  - component: {fileID: 114756971955865276}
+  - component: {fileID: 114197541238574328}
+  - component: {fileID: 114340486411252104}
   m_Layer: 0
   m_Name: Elk
   m_TagString: Untagged
@@ -40,8 +48,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227201637065700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.8228, y: -6.4366827, z: 0}
-  m_LocalScale: {x: 2.1079917, y: 2.1079917, z: 2.1079917}
+  m_LocalPosition: {x: 8.98737, y: -0.88272405, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,6 +104,88 @@ CapsuleCollider2D:
   m_Offset: {x: 0.25, y: 0.64}
   m_Size: {x: 2.83, y: 1.89}
   m_Direction: 1
+--- !u!95 &95507921244283324
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26ed9d45a2df62e41b8c6c1c81a9eb12, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000885453480124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55971e2778f1daf4985e719d1b6405a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderTime: 20
+  time: 0
+  playerTriggerDistance: 3
+--- !u!114 &114011788350656666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abea47c61cdf99746b381872f8ba71b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTriggerOffDistance: 3
+--- !u!114 &114058506438457824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7778467805ec78b46971c23e3348faaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatTime: 10
+  time: 0
+  playerTriggerDistance: 3
+--- !u!114 &114197541238574328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ac25bd8c49d724b9afd68cf669e464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states: []
+  globalState: {fileID: 0}
+  initialState: {fileID: 0}
+--- !u!114 &114340486411252104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c477a35e87f684aba87ff07c2b212b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114360961855732692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +208,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe8039446f55e345b18c4c21e11e9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114682205197436936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bb20cc4713df749803a980b469447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114756971955865276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ac25bd8c49d724b9afd68cf669e464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - {fileID: 114058506438457824}
+  - {fileID: 114011788350656666}
+  - {fileID: 114000885453480124}
+  - {fileID: 114682205197436936}
+  globalState: {fileID: 114340486411252104}
+  initialState: {fileID: 114682205197436936}
 --- !u!114 &114837215127344242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +256,7 @@ MonoBehaviour:
   maxTimeToVanish: 120
   walkCollider: {fileID: 70573647553682416}
   bodyTrigger: {fileID: 70926467495720098}
+  speed: 0
 --- !u!212 &212459055321444674
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -178,3 +298,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
