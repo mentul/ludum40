@@ -58,12 +58,13 @@ public class MeatScript : MonoBehaviour {
         {
             ToMuchMeat.gameObject.SetActive(true);
         }
-        else
-        { for (int i = 0; i < currentMeat; i++)
+        //else
+        //{
+            for (int i = 0; i < currentMeat; i++)
             {
                 meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
-        }
+        //}
 
         
 

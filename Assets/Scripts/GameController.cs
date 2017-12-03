@@ -60,23 +60,23 @@ public class GameController : MonoBehaviour {
 
         ResetMeatScript(population);
 
-        LifeUIRoot.transform.FindChild("kreska1").gameObject.SetActive(true);
-        LifeUIRoot.transform.FindChild("kreska2").gameObject.SetActive(true);
-        LifeUIRoot.transform.FindChild("kreska3").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
     }
 
     public void UpdateLives()
     {
         if (livesLeft < 1) {
-            LifeUIRoot.transform.FindChild("kreska1").gameObject.SetActive(false);
+            LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(false);
         }
         if (livesLeft < 2)
         {
-            LifeUIRoot.transform.FindChild("kreska2").gameObject.SetActive(false);
+            LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(false);
         }
         if (livesLeft < 3)
         {
-            LifeUIRoot.transform.FindChild("kreska3").gameObject.SetActive(false);
+            LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(false);
         }
     }
 
