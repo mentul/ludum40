@@ -375,11 +375,12 @@ public class GeneratedMap : MonoBehaviour
 
     void AddMapSides()
     {
-        Vector2[] xy = new Vector2[4];
+        Vector2[] xy = new Vector2[5];
         xy[0] = new Vector2(-widthColider / 2, heightColider / 2);
         xy[1] = new Vector2(widthColider / 2, heightColider / 2);
         xy[2] = new Vector2(widthColider / 2, -heightColider / 2);
         xy[3] = new Vector2(-widthColider / 2, -heightColider / 2);
+        xy[4] = new Vector2(-widthColider / 2, heightColider / 2);
         EdgeCollider2D edges = gameObject.AddComponent<EdgeCollider2D>();
         edges.points = xy;
     }
