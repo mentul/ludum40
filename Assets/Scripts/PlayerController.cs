@@ -108,10 +108,10 @@ public class PlayerController : MonoBehaviour {
                 //ThrowSpear();
             }
 
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
  
