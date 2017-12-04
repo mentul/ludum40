@@ -14,7 +14,7 @@ public class SScoreController : MonoBehaviour
 	void Start ()
 	{
 		humanSprites = new List<GameObject> ();
-		HideScore ();
+		HideScore (false);
 		scoreCanvas = Camera.main.transform.Find ("ScoreCanvas");
 	}
 
@@ -31,7 +31,6 @@ public class SScoreController : MonoBehaviour
 	{
 		ShowPeopleResult ();
 		scoreCanvas.gameObject.SetActive (true);
-		Time.timeScale = 0;
 		GameController.isRunning = false;
 
 		List<int> temp = GetComponent<GameController> ().getScore ();
@@ -223,13 +222,12 @@ public class SScoreController : MonoBehaviour
 
 	}
 
-    public void HideScore()
+    public void HideScore(bool switchRunning = true)
     {
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
-        Time.timeScale = 1;
-        GameController.isRunning = true;
+        if(switchRunning) GameController.isRunning = true;
         //Debug.Log("dzialam");
-        GetComponent<GameController>().StartNewRound();
+        GetComponent<GameController>().StartNewRound(switchRunning);
         GetComponent<GameController>().RandAnimal(70);
         GetComponent<GameController>().AddDay();
 

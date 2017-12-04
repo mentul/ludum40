@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     public PlayerController player;
-    public Material [] materialsWithPlayerPosition;
+    public Material[] materialsWithPlayerPosition;
     private SScoreController scoreController;
 
     public GameObject LifeUIRoot;
@@ -16,7 +17,27 @@ public class GameController : MonoBehaviour {
 
     public float initialRoundTime;
     private float roundTime;
-    public static bool isRunning;
+
+    static bool isRunningVariable;
+    public static bool isRunning
+    {
+        get
+        {
+            return isRunningVariable;
+        }
+        set
+        {
+            isRunningVariable = value;
+            if (isRunningVariable)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0f;
+            }
+        }
+    }
     public int maxRoundTime;
 
     private float deltaToMove;
@@ -28,7 +49,8 @@ public class GameController : MonoBehaviour {
     public static int totalScore;
 
     static int populationVariable;
-	public static int population {
+    public static int population
+    {
         get
         {
             return populationVariable;
@@ -51,8 +73,9 @@ public class GameController : MonoBehaviour {
     private int TotalDays;
     public GameObject EndEnvas;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         EndEnvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
@@ -107,6 +130,7 @@ public class GameController : MonoBehaviour {
         LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
         LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
         LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+        player.Reset();
     }
 
     public void AddDay()
@@ -116,7 +140,8 @@ public class GameController : MonoBehaviour {
 
     public void UpdateLives()
     {
-        if (livesLeft < 1) {
+        if (livesLeft < 1)
+        {
             LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(false);
         }
         if (livesLeft < 2)
@@ -147,11 +172,12 @@ public class GameController : MonoBehaviour {
     void CalculateDeltaMoveStone()
     {
         float width = timeCounter.GetLengthToDoStone();
-        deltaToMove = width /initialRoundTime;
+        deltaToMove = width / initialRoundTime;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (isRunning)
         {
             UpdateLives();
@@ -202,7 +228,7 @@ public class GameController : MonoBehaviour {
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
-            for(int i=0; i< materialsWithPlayerPosition.Length; i++)
+            for (int i = 0; i < materialsWithPlayerPosition.Length; i++)
             {
                 materialsWithPlayerPosition[i].SetVector("_PlayerPosition", playerPos);
                 materialsWithPlayerPosition[i].SetFloat("_PlayerSpeed", player.speed);
@@ -212,7 +238,7 @@ public class GameController : MonoBehaviour {
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);
             roundTime -= Time.deltaTime;
 
-            if(totalScore >= population)
+            if (totalScore >= population)
             {
                 Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
             }
@@ -224,7 +250,7 @@ public class GameController : MonoBehaviour {
             if (roundTime < 0)
             {
                 roundTime += initialRoundTime;
-               
+
                 scoreController.ShowScore();
                 timeCounter.SetPositionStartStone();
                 player.Reset();
@@ -264,7 +290,7 @@ public class GameController : MonoBehaviour {
 
             timeCounter.DoUpdate();
 
-            
+
         }
     }
 
@@ -298,10 +324,10 @@ public class GameController : MonoBehaviour {
         totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10; 
     }
 
-    public void StartNewRound()
+    public void StartNewRound(bool switchRunning = true)
     {
         GlobalCounterAnimal = 0;
-        isRunning = true;
+        if (switchRunning) isRunning = true;
         //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         //scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;

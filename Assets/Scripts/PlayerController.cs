@@ -6,6 +6,10 @@ using Assets.Scripts;
 
 public class PlayerController : MonoBehaviour {
 
+    static public bool canThrowSpear = false;
+    public float regainControlTime = 0.1f;
+    public float regianTime = 0f;
+
     public GameObject SpearPrefab;
     public float speed = 0.5f;
     public Collider2D walkCollider;
@@ -31,7 +35,10 @@ public class PlayerController : MonoBehaviour {
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         walkCollider.enabled = true;
         bodyTrigger.enabled = true;
+        GetComponent<Animator>().SetBool("HasSpear", true);
+        GetComponent<Animator>().SetBool("Idling", true);
         GetComponent<Animator>().SetBool("Reset", true);
+        regianTime = regainControlTime;
     }
 	// Update is called once per frame
 	void Update () {
@@ -39,79 +46,86 @@ public class PlayerController : MonoBehaviour {
         if (GameController.isRunning)
         {
             if (died) return;
-            leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
-            rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")*4);
-            //Jeżeli coś z WSAD to nadaj velocity
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            if (!PlayerController.canThrowSpear)
             {
-                GetComponent<Animator>().SetBool("Idling", false);
-                Vector2 temp = Vector2.zero;
-                if (Input.GetKey(KeyCode.W))
-                {
-                    temp += Vector2.up;
-                }
-                if (Input.GetKey(KeyCode.A))
-                {
-                    temp += Vector2.left;
-                    GetComponent<SpriteRenderer>().flipX = true;
-                }
-                if (Input.GetKey(KeyCode.S))
-                {
-                    temp += Vector2.down;
-                }
-                if (Input.GetKey(KeyCode.D))
-                {
-                    temp += Vector2.right;
-                    GetComponent<SpriteRenderer>().flipX = false;
-                }
-                temp.Normalize();
-                GetComponent<Rigidbody2D>().velocity = temp * speed;
+                regianTime -= Time.deltaTime;
+                if (regianTime <= 0) PlayerController.canThrowSpear = true;
             }
-            else if (leftAnalog != Vector2.zero)
-            {
-                GetComponent<Animator>().SetBool("Idling", false);
-                Vector2 temp = leftAnalog;
-                if(leftAnalog.x<0)
-                    GetComponent<SpriteRenderer>().flipX = true;
-                else
-                    GetComponent<SpriteRenderer>().flipX = false;
-                temp.Normalize();
-                GetComponent<Rigidbody2D>().velocity = temp * speed;
-            }
-            else //Inaczej wyzeruj velocity
-            {
-                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                GetComponent<Animator>().SetBool("Idling", true);
-            }
+            else {
+                leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
+                rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight") * 4);
+                //Jeżeli coś z WSAD to nadaj velocity
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                {
+                    GetComponent<Animator>().SetBool("Idling", false);
+                    Vector2 temp = Vector2.zero;
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        temp += Vector2.up;
+                    }
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        temp += Vector2.left;
+                        GetComponent<SpriteRenderer>().flipX = true;
+                    }
+                    if (Input.GetKey(KeyCode.S))
+                    {
+                        temp += Vector2.down;
+                    }
+                    if (Input.GetKey(KeyCode.D))
+                    {
+                        temp += Vector2.right;
+                        GetComponent<SpriteRenderer>().flipX = false;
+                    }
+                    temp.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = temp * speed;
+                }
+                else if (leftAnalog != Vector2.zero)
+                {
+                    GetComponent<Animator>().SetBool("Idling", false);
+                    Vector2 temp = leftAnalog;
+                    if (leftAnalog.x < 0)
+                        GetComponent<SpriteRenderer>().flipX = true;
+                    else
+                        GetComponent<SpriteRenderer>().flipX = false;
+                    temp.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = temp * speed;
+                }
+                else //Inaczej wyzeruj velocity
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    GetComponent<Animator>().SetBool("Idling", true);
+                }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (hasSpear)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    hasSpear = false;
-                    mouse = true;
-                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-                    GetComponent<Animator>().SetBool("Throw", true);
+                    if (hasSpear && canThrowSpear)
+                    {
+                        hasSpear = false;
+                        mouse = true;
+                        GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                        GetComponent<Animator>().SetBool("Throw", true);
+                    }
+                    //ThrowSpear();
                 }
-                //ThrowSpear();
-            }
 
-            if (Input.GetKeyDown("joystick 1 button 7"))
-            {
-                if (hasSpear)
+                if (Input.GetKeyDown("joystick 1 button 7"))
                 {
-                    hasSpear = false;
-                    mouse = false;
-                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-                    GetComponent<Animator>().SetBool("Throw", true);
+                    if (hasSpear && canThrowSpear)
+                    {
+                        hasSpear = false;
+                        mouse = false;
+                        GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                        GetComponent<Animator>().SetBool("Throw", true);
+                    }
+                    //ThrowSpear();
                 }
-                //ThrowSpear();
-            }
 
-        }
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
+            }
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
     }
  
@@ -168,6 +182,7 @@ public class PlayerController : MonoBehaviour {
         bodyTrigger.enabled = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Animator>().SetBool("Dead", true);
+        canThrowSpear = false;
     }
 
     public void DeathAnimationOff()
