@@ -71,12 +71,12 @@ public class GameController : MonoBehaviour
     public MeatScript meatScript;
 
     private int TotalDays;
-    public GameObject EndEnvas;
+    public GameObject EndCanvas;
 
     // Use this for initialization
     void Start()
     {
-        EndEnvas.gameObject.SetActive(false);
+        EndCanvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
         isRunning = false;
@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
 
     public void ResetGame()
     {
-        EndEnvas.gameObject.SetActive(false);
+        EndCanvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
         isRunning = true;
@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour
             if (livesLeft <= 0)
             {
                 //EndEnvas.gameObject.transform.Find()
-                EndEnvas.gameObject.SetActive(true);
+                EndCanvas.gameObject.SetActive(true);
 
                 //TotalDays
 
@@ -195,28 +195,28 @@ public class GameController : MonoBehaviour
 
                 for (int i = 0; i < 24; i++)
                 {
-                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
+                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
                     for (int j = 0; j < 5; j++)
                     {
-                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
+                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
                     }
                 }
 
                 for (int i = 0; i < ilePiatek; i++)
                 {
-                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
+                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
                     for (int j = 0; j < 5; j++)
                     {
-                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
+                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
                     }
                 }
 
                 if (ilePiatek < 6 && reszta != 0)
                 {
-                    EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
+                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
                     for (int j = 0; j < reszta; j++)
                     {
-                        EndEnvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
+                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
                     }
                 }
                 //

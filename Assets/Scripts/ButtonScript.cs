@@ -7,22 +7,35 @@ using UnityEngine.EventSystems;
 public class ButtonScript : MonoBehaviour
 {
 
-    public Sprite idle, hover;
+    public Sprite idle, hover, dead;
     public SpriteRenderer renderer;
     bool over = false;
     
     public void OnEnable()
     {
-        renderer.sprite = idle;
+        if (GameController.livesLeft <= 0)
+        {
+            renderer.sprite = dead;
+        }
+        else
+        {
+            renderer.sprite = idle;
+        }
     }
 
     public void OnMouseEnter()
     {
-        renderer.sprite = hover;
+        if (GameController.livesLeft > 0)
+        {
+            renderer.sprite = hover;
+        }
     }
     public void OnMouseExit()
     {
-        renderer.sprite = idle;
+        if (GameController.livesLeft > 0)
+        {
+            renderer.sprite = idle;
+        }
     }
     
 }

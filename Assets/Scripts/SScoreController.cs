@@ -10,9 +10,12 @@ public class SScoreController : MonoBehaviour
 	public GameObject deadHuman;
 	public GameObject arrow;
 	private List<GameObject> humanSprites;
+    public float timeToGetMouseButton = 0.5f;
+    public float time = 0;
 	// Use this for initialization
 	void Start ()
 	{
+        time = timeToGetMouseButton;
 		humanSprites = new List<GameObject> ();
 		HideScore (false);
 		scoreCanvas = Camera.main.transform.Find ("ScoreCanvas");
@@ -21,9 +24,22 @@ public class SScoreController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GameController.isRunning)
+		if (!GameController.isRunning)
 		{
-
+            if (GameController.livesLeft <= 0)
+            {
+                if (time <= 0)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        HideScore();
+                        time = timeToGetMouseButton;
+                    }
+                }
+                else {
+                    time -= 0.01f;
+                }
+            }
 		}
 	}
 
