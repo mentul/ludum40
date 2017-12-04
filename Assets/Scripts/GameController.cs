@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-        livesLeft = 1;
+        livesLeft = 3;
 
         //rabbitScore = 3;
         //elkScore = 17;
