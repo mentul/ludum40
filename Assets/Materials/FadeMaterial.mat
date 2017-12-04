@@ -8,7 +8,7 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: FadeMaterial
   m_Shader: {fileID: 4800000, guid: a9e11e3a4da9728408d2491e4d6f2abd, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _INVERTFADE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -59,11 +59,11 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FadeAmount: 0
+    - _FadeAmount: 0.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InvertFade: 0
+    - _InvertFade: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
