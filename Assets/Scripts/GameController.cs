@@ -180,8 +180,6 @@ public class GameController : MonoBehaviour
     {
         if (isRunning)
         {
-            UpdateLives();
-
             if (livesLeft <= 0)
             {
                 //EndEnvas.gameObject.transform.Find()
@@ -224,6 +222,8 @@ public class GameController : MonoBehaviour
                 isRunning = false;
 
             }
+            UpdateLives();
+
 
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();

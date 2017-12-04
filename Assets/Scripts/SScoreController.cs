@@ -32,6 +32,7 @@ public class SScoreController : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
+                        GameController.isRunning = true;
                         HideScore();
                         time = timeToGetMouseButton;
                     }
@@ -240,13 +241,13 @@ public class SScoreController : MonoBehaviour
 
     public void HideScore(bool switchRunning = true)
     {
-        Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
         if(switchRunning) GameController.isRunning = true;
         //Debug.Log("dzialam");
         GetComponent<GameController>().StartNewRound(switchRunning);
         GetComponent<GameController>().RandAnimal(70);
         GetComponent<GameController>().AddDay();
 
+        Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
 		for (int i = 0; i < humanSprites.Count; i++)
 		{
 			Destroy (humanSprites [i]);

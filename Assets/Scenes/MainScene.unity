@@ -10268,7 +10268,7 @@ MonoBehaviour:
   maxRoundTime: 8
   GeneratedMap: {fileID: 1990837587}
   meatScript: {fileID: 2041956659}
-  EndEnvas: {fileID: 1854321862}
+  EndCanvas: {fileID: 1854321862}
 --- !u!4 &1779320715
 Transform:
   m_ObjectHideFlags: 0
@@ -10296,7 +10296,7 @@ MonoBehaviour:
   aliveHuman: {fileID: 1298596285906462, guid: 08d667aafda66d24ea698cd38de05f2c, type: 2}
   deadHuman: {fileID: 1470960216466632, guid: 8b3eb9dad11fbe54a8b219a3eb75dd8e, type: 2}
   arrow: {fileID: 1688853212068038, guid: 01ec5705d4a07214c9303fc1fdc2f213, type: 2}
-  timeToGetMouseButton: 0.5
+  timeToGetMouseButton: 0.2
   time: 0
 --- !u!1 &1790126641
 GameObject:
