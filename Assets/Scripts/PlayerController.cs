@@ -49,78 +49,79 @@ public class PlayerController : MonoBehaviour {
             if (!PlayerController.canThrowSpear)
             {
                 regianTime -= Time.deltaTime;
-                if (regianTime <= 0) PlayerController.canThrowSpear = true;
+                if (regianTime <= 0)
+                {
+                    PlayerController.canThrowSpear = true;
+                    regianTime = regainControlTime;
+                }
             }
-            else {
-                leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
-                rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight") * 4);
-                //Jeżeli coś z WSAD to nadaj velocity
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
+            rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight") * 4);
+            //Jeżeli coś z WSAD to nadaj velocity
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                GetComponent<Animator>().SetBool("Idling", false);
+                Vector2 temp = Vector2.zero;
+                if (Input.GetKey(KeyCode.W))
                 {
-                    GetComponent<Animator>().SetBool("Idling", false);
-                    Vector2 temp = Vector2.zero;
-                    if (Input.GetKey(KeyCode.W))
-                    {
-                        temp += Vector2.up;
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-                        temp += Vector2.left;
-                        GetComponent<SpriteRenderer>().flipX = true;
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-                        temp += Vector2.down;
-                    }
-                    if (Input.GetKey(KeyCode.D))
-                    {
-                        temp += Vector2.right;
-                        GetComponent<SpriteRenderer>().flipX = false;
-                    }
-                    temp.Normalize();
-                    GetComponent<Rigidbody2D>().velocity = temp * speed;
+                    temp += Vector2.up;
                 }
-                else if (leftAnalog != Vector2.zero)
+                if (Input.GetKey(KeyCode.A))
                 {
-                    GetComponent<Animator>().SetBool("Idling", false);
-                    Vector2 temp = leftAnalog;
-                    if (leftAnalog.x < 0)
-                        GetComponent<SpriteRenderer>().flipX = true;
-                    else
-                        GetComponent<SpriteRenderer>().flipX = false;
-                    temp.Normalize();
-                    GetComponent<Rigidbody2D>().velocity = temp * speed;
+                    temp += Vector2.left;
+                    GetComponent<SpriteRenderer>().flipX = true;
                 }
-                else //Inaczej wyzeruj velocity
+                if (Input.GetKey(KeyCode.S))
                 {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    GetComponent<Animator>().SetBool("Idling", true);
+                    temp += Vector2.down;
                 }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    temp += Vector2.right;
+                    GetComponent<SpriteRenderer>().flipX = false;
+                }
+                temp.Normalize();
+                GetComponent<Rigidbody2D>().velocity = temp * speed;
+            }
+            else if (leftAnalog != Vector2.zero)
+            {
+                GetComponent<Animator>().SetBool("Idling", false);
+                Vector2 temp = leftAnalog;
+                if (leftAnalog.x < 0)
+                    GetComponent<SpriteRenderer>().flipX = true;
+                else
+                    GetComponent<SpriteRenderer>().flipX = false;
+                temp.Normalize();
+                GetComponent<Rigidbody2D>().velocity = temp * speed;
+            }
+            else //Inaczej wyzeruj velocity
+            {
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                GetComponent<Animator>().SetBool("Idling", true);
+            }
 
-                if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (hasSpear && canThrowSpear)
                 {
-                    if (hasSpear && canThrowSpear)
-                    {
-                        hasSpear = false;
-                        mouse = true;
-                        GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-                        GetComponent<Animator>().SetBool("Throw", true);
-                    }
-                    //ThrowSpear();
+                    hasSpear = false;
+                    mouse = true;
+                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                    GetComponent<Animator>().SetBool("Throw", true);
                 }
+                //ThrowSpear();
+            }
 
-                if (Input.GetKeyDown("joystick 1 button 7"))
+            if (Input.GetKeyDown("joystick 1 button 7"))
+            {
+                if (hasSpear && canThrowSpear)
                 {
-                    if (hasSpear && canThrowSpear)
-                    {
-                        hasSpear = false;
-                        mouse = false;
-                        GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-                        GetComponent<Animator>().SetBool("Throw", true);
-                    }
-                    //ThrowSpear();
+                    hasSpear = false;
+                    mouse = false;
+                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
+                    GetComponent<Animator>().SetBool("Throw", true);
                 }
-
+                //ThrowSpear();
             }
             if (Input.GetKey(KeyCode.Escape))
             {

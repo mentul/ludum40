@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ace14f4c2623e448817c156f557b784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regainControlTime: 0.1
+  regainControlTime: 1
   regianTime: 0
   SpearPrefab: {fileID: 1543284118526452, guid: 81029f00c0da80444bd38bc4d5162a8e,
     type: 2}

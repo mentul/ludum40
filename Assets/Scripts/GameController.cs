@@ -326,6 +326,7 @@ public class GameController : MonoBehaviour
 
     public void StartNewRound(bool switchRunning = true)
     {
+        PlayerController.canThrowSpear = false;
         GlobalCounterAnimal = 0;
         if (switchRunning) isRunning = true;
         //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
