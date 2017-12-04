@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
     private SScoreController scoreController;
 
     public GameObject LifeUIRoot;
-    public static int livesLeft = 3;
+    public static int livesLeft;
 
     public TimeCounter timeCounter;
 
@@ -56,11 +56,12 @@ public class GameController : MonoBehaviour {
         EndEnvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
-        isRunning = true;
+        isRunning = false;
         GeneratedMap.GetComponent<GeneratedMap>().DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
+        livesLeft = 1;
 
         //rabbitScore = 3;
         //elkScore = 17;
@@ -69,6 +70,36 @@ public class GameController : MonoBehaviour {
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
         //timeCounter.DoLine();
+        CalculateDeltaMoveStone();
+
+        ResetMeatScript(population);
+
+        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
+        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+    }
+
+    public void SetIsRunning(bool isRunning)
+    {
+        GameController.isRunning = isRunning;
+    }
+
+    public void ResetGame()
+    {
+        EndEnvas.gameObject.SetActive(false);
+        population = 5;
+        GlobalCounterAnimal = 0;
+        isRunning = true;
+        GeneratedMap.GetComponent<GeneratedMap>().DoInit();
+        scoreController = GetComponent<SScoreController>();
+        roundTime = initialRoundTime;
+        TotalDays = -1;
+        livesLeft = 3;
+
+
+        timeCounter.DoInit();
+        timeCounter.SetMaxRoundTime(maxRoundTime);
+
         CalculateDeltaMoveStone();
 
         ResetMeatScript(population);
