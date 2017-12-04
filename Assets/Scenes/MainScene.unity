@@ -166,9 +166,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 627896635
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 92d58f0c364814543a2806130c83538b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2940,6 +2940,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 223867298460985850, guid: c0e0d54146f2d8f45ad1315e6fcc5917,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0e0d54146f2d8f45ad1315e6fcc5917, type: 2}
   m_IsPrefabParent: 0
@@ -3752,9 +3757,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 627896635
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5f664e95b74fabb4b9b433aeba9759c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6592,9 +6597,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 627896635
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: da0942341403f6646bd72806be0c8162, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9654,8 +9659,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 30665766}
-  BackgroundMaterial: {fileID: 2100000, guid: 07081932bd7dbd74c97d28ea1f6defe9, type: 2}
-  DrawingMaterial: {fileID: 2100000, guid: 513936ee5e07c4d4eb8e450e06d8cadf, type: 2}
+  materialsWithPlayerPosition:
+  - {fileID: 2100000, guid: 07081932bd7dbd74c97d28ea1f6defe9, type: 2}
+  - {fileID: 2100000, guid: 513936ee5e07c4d4eb8e450e06d8cadf, type: 2}
+  - {fileID: 2100000, guid: 68170feb860e2be4abe8da00df9e02ec, type: 2}
   LifeUIRoot: {fileID: 1076990620}
   timeCounter: {fileID: 1383201161}
   initialRoundTime: 90
@@ -11134,9 +11141,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 627896635
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8cbf4404c2db28845b4fa7b52f2596c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

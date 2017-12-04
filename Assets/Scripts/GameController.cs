@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public PlayerController player;
-    public Material BackgroundMaterial, DrawingMaterial;
+    public Material [] materialsWithPlayerPosition;
     private SScoreController scoreController;
 
     public GameObject LifeUIRoot;
@@ -171,10 +171,11 @@ public class GameController : MonoBehaviour {
             meatScript.SetCuurenMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
-            BackgroundMaterial.SetVector("_PlayerPosition", playerPos);
-            BackgroundMaterial.SetFloat("_PlayerSpeed", player.speed);
-            DrawingMaterial.SetVector("_PlayerPosition", playerPos);
-            DrawingMaterial.SetFloat("_PlayerSpeed", player.speed);
+            for(int i=0; i< materialsWithPlayerPosition.Length; i++)
+            {
+                materialsWithPlayerPosition[i].SetVector("_PlayerPosition", playerPos);
+                materialsWithPlayerPosition[i].SetFloat("_PlayerSpeed", player.speed);
+            }
 
             //odliczanie czasu
             timeCounter.TranformStone(deltaToMove * Time.deltaTime);

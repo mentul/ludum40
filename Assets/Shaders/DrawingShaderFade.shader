@@ -1,6 +1,8 @@
-﻿Shader "Custom/DrawingShader" {
+﻿Shader "Custom/DrawingShaderFade" {
 
-	Properties{
+	Properties{ 
+		[Toggle] _InvertFade("InvertFade", Int) = 0
+		_FadeAmount("FadeAmount", Range(0,1)) = 0
 		_PlayerPosition("PlayerPosition", Vector) = (0,0,0,0)
 		_PlayerSpeed("PlayerSpeed", Float) = 0.0
 		_MainTex("MainTexture", 2D) = "white" {}
@@ -21,6 +23,8 @@
 		float4 _BackTex_ST;
 		float4 _PlayerPosition;
 		float _PlayerSpeed;
+		float _FadeAmount;
+		float _InvertFade;
 
 		struct Input {
 			float2 uv_MainTex;
@@ -44,6 +48,19 @@
 				c.g = (255 - ((256 * (255 - (cB.g * 255))) / ((c.g * 255) + 1))) / 255;
 				c.b = (255 - ((256 * (255 - (cB.b * 255))) / ((c.b * 255) + 1))) / 255;
 			o.Albedo = c.rgb;
+
+			float alphaFactor = (1 - sqrt((uv.x - 0.5)*(uv.x - 0.5) + (uv.y - 0.5)*(uv.y - 0.5)));
+			alphaFactor = alphaFactor * alphaFactor;
+			if (_InvertFade >= 1) {
+				alphaFactor = (_FadeAmount) / (1 - alphaFactor);
+			}
+			else {
+				alphaFactor = (1 - _FadeAmount) / (1 - alphaFactor);
+			}
+			if (alphaFactor > 1) alphaFactor = 1;
+			else if (alphaFactor < 0) alphaFactor = 0;
+			c.a = c.a * alphaFactor;
+
 			o.Alpha = c.a;
 		}
 		ENDCG
