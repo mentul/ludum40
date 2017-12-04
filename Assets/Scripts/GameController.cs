@@ -27,7 +27,18 @@ public class GameController : MonoBehaviour {
 
     public static int totalScore;
 
-	public static int population;
+    static int populationVariable;
+	public static int population {
+        get
+        {
+            return populationVariable;
+        }
+        set
+        {
+            if (value > 0) populationVariable = value;
+            else populationVariable = 1;
+        }
+    }
 
     public GameObject GeneratedMap;
 
