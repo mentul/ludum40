@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SSpear : MonoBehaviour
 {
-
+    static public bool clearSpears=false;
     public Sprite secondSprite;
     public float timeToPickup = 1f;
     float time = 1f;
@@ -30,7 +30,7 @@ public class SSpear : MonoBehaviour
     {
         if (GameController.isRunning)
         {
-            if (player.died)
+            if (player.died || clearSpears)
             {
                 Destroy(gameObject);
                 return;

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 	
     public void Reset()
     {
+        SSpear.clearSpears = true;
         hasSpear = true;
         died = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour {
                 regianTime -= Time.deltaTime;
                 if (regianTime <= 0)
                 {
+                    SSpear.clearSpears = false;
                     PlayerController.canThrowSpear = true;
                     regianTime = regainControlTime;
                 }
