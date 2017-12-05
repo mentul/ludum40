@@ -76,6 +76,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        livesLeft = 3;
         EndCanvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
@@ -84,7 +85,6 @@ public class GameController : MonoBehaviour
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-        livesLeft = 3;
 
         //rabbitScore = 3;
         //elkScore = 17;
@@ -109,6 +109,7 @@ public class GameController : MonoBehaviour
 
     public void ResetGame()
     {
+        livesLeft = 3;
         EndCanvas.gameObject.SetActive(false);
         population = 5;
         GlobalCounterAnimal = 0;
@@ -117,10 +118,9 @@ public class GameController : MonoBehaviour
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-        livesLeft = 3;
 
 
-        timeCounter.DoInit();
+        //timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
 
         CalculateDeltaMoveStone();
@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour
         LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
         LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
         player.Reset();
+        timeCounter.SetPositionStartStone();
     }
 
     public void AddDay()
@@ -175,53 +176,55 @@ public class GameController : MonoBehaviour
         deltaToMove = width / initialRoundTime;
     }
 
+    public void ShowEndScreen()
+    {
+        //EndEnvas.gameObject.transform.Find()
+        EndCanvas.gameObject.SetActive(true);
+
+        //TotalDays
+
+        //
+        int ilePiatek = TotalDays / 5;
+        int reszta = TotalDays - (5 * ilePiatek);
+
+        for (int i = 0; i < 24; i++)
+        {
+            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
+            for (int j = 0; j < 5; j++)
+            {
+                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < ilePiatek; i++)
+        {
+            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
+            for (int j = 0; j < 5; j++)
+            {
+                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
+            }
+        }
+
+        if (ilePiatek < 6 && reszta != 0)
+        {
+            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
+            for (int j = 0; j < reszta; j++)
+            {
+                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
+            }
+        }
+        //
+
+        isRunning = false;
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (isRunning)
         {
-            if (livesLeft <= 0)
-            {
-                //EndEnvas.gameObject.transform.Find()
-                EndCanvas.gameObject.SetActive(true);
-
-                //TotalDays
-
-                //
-                int ilePiatek = TotalDays / 5;
-                int reszta = TotalDays - (5 * ilePiatek);
-
-                for (int i = 0; i < 24; i++)
-                {
-                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
-                    for (int j = 0; j < 5; j++)
-                    {
-                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
-                    }
-                }
-
-                for (int i = 0; i < ilePiatek; i++)
-                {
-                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
-                    for (int j = 0; j < 5; j++)
-                    {
-                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
-                    }
-                }
-
-                if (ilePiatek < 6 && reszta != 0)
-                {
-                    EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
-                    for (int j = 0; j < reszta; j++)
-                    {
-                        EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
-                    }
-                }
-                //
-
-                isRunning = false;
-
-            }
+            
             UpdateLives();
 
 
@@ -337,7 +340,7 @@ public class GameController : MonoBehaviour
         //elkScore = 17;
         //mammothScore = 33;
 
-        timeCounter.DoInit();
+        //timeCounter.DoInit();
         //timeCounter.SetMaxRoundTime(maxRoundTime);
         //timeCounter.DoLine();
         //CalculateDeltaMoveStone();

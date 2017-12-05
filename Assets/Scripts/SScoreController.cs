@@ -32,7 +32,7 @@ public class SScoreController : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        GameController.isRunning = true;
+                        FindObjectOfType<GameController>().ShowEndScreen();
                         HideScore();
                         time = timeToGetMouseButton;
                     }
@@ -45,8 +45,9 @@ public class SScoreController : MonoBehaviour
 	}
 
 	public void ShowScore ()
-	{
-		ShowPeopleResult ();
+    {
+        GetComponent<GameController>().AddDay();
+        ShowPeopleResult ();
 		scoreCanvas.gameObject.SetActive (true);
 		GameController.isRunning = false;
 
@@ -165,9 +166,11 @@ public class SScoreController : MonoBehaviour
 		Transform peopleCanvas = Camera.main.transform.Find ("ScoreCanvas").Find ("Ludzie");
 		Vector3 startPosition = peopleCanvas.position;
 
-		int deadPeople = GameController.population - GameController.totalScore;
+        int deadPeople = 0;
+        if (GameController.population - GameController.totalScore > 0)
+            deadPeople = (GameController.population - GameController.totalScore)/10 + 1;
         if (deadPeople > 0) GameController.livesLeft--;
-		int newPeople = -deadPeople;
+		int newPeople = (GameController.totalScore - GameController.population);
 		int people = GameController.population;
 		int maxInRow = 10;
 		float distXAlive = 1f, distXDead = 1.5f, distY = 2f;
@@ -235,7 +238,7 @@ public class SScoreController : MonoBehaviour
 
 		}
 
-		GameController.population = GameController.population + newPeople;
+		GameController.population = GameController.population + (newPeople > 0 ? newPeople : -deadPeople);
 
 	}
 
@@ -245,7 +248,6 @@ public class SScoreController : MonoBehaviour
         //Debug.Log("dzialam");
         GetComponent<GameController>().StartNewRound(switchRunning);
         GetComponent<GameController>().RandAnimal(70);
-        GetComponent<GameController>().AddDay();
 
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
 		for (int i = 0; i < humanSprites.Count; i++)
