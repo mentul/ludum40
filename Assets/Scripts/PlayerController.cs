@@ -36,10 +36,15 @@ public class PlayerController : MonoBehaviour
     Vector2 initialJoystickPosition;
     public float joystickRadius = 0.6f;
 
-    // Use this for initialization
+    Touch joystickTouch, throwTouch;
+    Vector2 throwTouchPosition;
+    Vector2 joystickArea = new Vector2(0.3f, 0.4f);
+
+    
     void Start()
     {
         Input.multiTouchEnabled = true;
+        Input.simulateMouseWithTouches = false;
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerRenderer = GetComponent<SpriteRenderer>();
         playerAnimator = GetComponent<Animator>();
@@ -49,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     public void Reset()
     {
+        Input.multiTouchEnabled = true;
+        Input.simulateMouseWithTouches = false;
         SSpear.clearSpears = true;
         hasSpear = true;
         died = false;
@@ -62,9 +69,6 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    Touch joystickTouch, throwTouch;
-    GameObject test=null;
-    Vector2 joystickArea = new Vector2(0.3f, 0.4f);
     void CheckTouch()
     {
         if (joystickTouch.phase == TouchPhase.Ended || joystickTouch.phase == TouchPhase.Canceled || joystickTouch.Equals(default(Touch)) || (joystickTouch.position.x >= joystickArea.x && joystickTouch.position.y >= joystickArea.y))
@@ -78,17 +82,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(Input.touchCount);
             Touch t = Input.GetTouch(i);
-            if (t.Equals(joystickTouch)) continue;
+            //if (t.Equals(joystickTouch)) continue;
             Vector3 temp = GameController.Current.mainCamera.ScreenToViewportPoint(t.position);
             if (temp.x < joystickArea.x && temp.y < joystickArea.y)
             {
-                Vector3 touchPos = GameController.Current.mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, GameController.Current.mainCamera.nearClipPlane));
+                Vector3 touchPos = GameController.Current.mainCamera.ScreenToWorldPoint(new Vector3(t.position.x, t.position.y, GameController.Current.mainCamera.nearClipPlane));
                 joystickTouch = t;
                 joystickSpriteTransform.position = touchPos;
             }
-            else if(t.phase == TouchPhase.Began)
+            else if(t.phase == TouchPhase.Began && (!t.Equals(joystickTouch)) && throwTouch.Equals(default(Touch)))
             {
                 throwTouch = t;
+                throwTouchPosition = t.position;
             }
         }
 
@@ -167,10 +172,8 @@ public class PlayerController : MonoBehaviour
                 playerAnimator.SetBool("Idling", true);
             }
             bool touched = (throwTouch.phase != TouchPhase.Ended && throwTouch.phase != TouchPhase.Canceled && !throwTouch.Equals(default(Touch)));
-#if UNITY_EDITOR
-            touched = true;
-#endif
-            if (Input.GetMouseButtonDown(0) && touched)
+
+            if (Input.GetMouseButtonDown(0) || touched)
             {
                 if (hasSpear && canThrowSpear)
                 {
@@ -179,7 +182,6 @@ public class PlayerController : MonoBehaviour
                     playerAnimator.SetBool("HasSpear", hasSpear);
                     playerAnimator.SetBool("Throw", true);
                 }
-                //ThrowSpear();
             }
             
             if (Input.GetKey(KeyCode.Escape))
@@ -210,7 +212,7 @@ public class PlayerController : MonoBehaviour
             Vector2 throwPosition;
             if (!throwTouch.Equals(default(Touch)))
             {
-                throwPosition = throwTouch.position;
+                throwPosition = throwTouchPosition;
             }
             else
             {

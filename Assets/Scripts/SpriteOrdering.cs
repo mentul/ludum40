@@ -3,14 +3,14 @@
 public class SpriteOrdering : MonoBehaviour
 {
     static int maxUpdateFrames=20;
-    static int cuf=1;
+    static int cuf=0;
     static int currentupdateframe
     {
         get
         {
             int tmp = cuf;
             cuf++;
-            if (cuf > maxUpdateFrames) cuf = 1;
+            if (cuf >= maxUpdateFrames) cuf = 0;
             return tmp;
         }
     }
@@ -19,6 +19,8 @@ public class SpriteOrdering : MonoBehaviour
     PlayerController player;
     Animal animal;
     int updateframe = 3;
+    Vector2 playerOffset, animalOffset;
+
     void Start()
     {
         updateframe = currentupdateframe;
@@ -27,13 +29,15 @@ public class SpriteOrdering : MonoBehaviour
         animal = GetComponent<Animal>();
         if (player != null)
         {
-            pivot = player.walkCollider.offset;
+            playerOffset = player.walkCollider.offset;
+            pivot = playerOffset;
             pivot.x += transform.position.x;
             pivot.y += transform.position.y;
         }
         else if (animal != null)
         {
-            pivot = animal.walkCollider.offset;
+            animalOffset = animal.walkCollider.offset;
+            pivot = animalOffset;
             pivot.x += transform.position.x;
             pivot.y += transform.position.y;
         }
@@ -53,13 +57,15 @@ public class SpriteOrdering : MonoBehaviour
             {
                 if (player != null)
                 {
-                    pivot = player.walkCollider.offset;
+                    playerOffset = player.walkCollider.offset;
+                    pivot = playerOffset;
                     pivot.x += tempPos.x;
                     pivot.y += tempPos.y;
                 }
                 else if (animal != null)
                 {
-                    pivot = animal.walkCollider.offset;
+                    animalOffset = animal.walkCollider.offset;
+                    pivot = animalOffset;
                     pivot.x += tempPos.x;
                     pivot.y += tempPos.y;
                 }

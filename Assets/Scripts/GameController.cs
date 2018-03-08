@@ -117,6 +117,7 @@ public class GameController : MonoBehaviour
         kreska1.SetActive(true);
         kreska2.SetActive(true);
         kreska3.SetActive(true);
+        UpdateLives();
     }
 
     public void SetIsRunning(bool isRunning)
@@ -149,6 +150,7 @@ public class GameController : MonoBehaviour
         kreska3.SetActive(true);
         player.Reset();
         timeCounter.SetPositionStartStone();
+        UpdateLives();
     }
 
     public void AddDay()
@@ -160,7 +162,7 @@ public class GameController : MonoBehaviour
     {
         if (livesLeft < 1)
         {
-            kreska1.SetActive(false);
+            kreska3.SetActive(false);
         }
         if (livesLeft < 2)
         {
@@ -168,7 +170,7 @@ public class GameController : MonoBehaviour
         }
         if (livesLeft < 3)
         {
-            kreska3.SetActive(false);
+            kreska1.SetActive(false);
         }
     }
 
@@ -241,8 +243,6 @@ public class GameController : MonoBehaviour
     {
         if (isRunning)
         {
-            UpdateLives();
-            
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, mainCamera.orthographicSize * 16, mainCamera.orthographicSize * 9);
             for (int i = 0; i < materialsWithPlayerPosition.Length; i++)
@@ -276,12 +276,7 @@ public class GameController : MonoBehaviour
 
             if (player.died)
             {
-                bool touched = false;
-                for (int i=0; i<Input.touchCount; i++)
-                {
-                    if (Input.GetTouch(i).phase == TouchPhase.Began) touched = true;
-                }
-                if (Input.GetMouseButtonDown(0) || touched)
+                if (Input.GetMouseButtonDown(0) || Input.touchCount>0)
                 {
                     roundTime += initialRoundTime;
                     scoreController.ShowScore();

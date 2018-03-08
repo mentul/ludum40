@@ -67,8 +67,9 @@ public class SSpear : MonoBehaviour
     public void TurnOffTheSpear()
     {
         isActive = false;
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        myRigidbody.velocity = Vector2.zero;
+        myCollider.isTrigger = true;
         //Sprite temp = GetComponent<SpriteRenderer>().sprite;
         GetComponent<SpriteRenderer>().sprite = secondSprite;
         //secondSprite = temp;

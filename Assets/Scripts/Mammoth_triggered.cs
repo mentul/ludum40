@@ -16,12 +16,12 @@ namespace Assets.Scripts
         {
             animal = GetComponent<Animal>();
             time = chargeTime;
-            animal.animalAnimator.SetBool("isIdling", false);
-            animal.animalAnimator.SetBool("Attack", true);
             player = GameController.Current.player;
             animal.animalRigidbody.velocity = (player.transform.position-transform.position).normalized * speedBoost;
             if (animal.animalRigidbody.velocity.x < 0f) animal.animalSpriteRenderer.flipX = true;
             else animal.animalSpriteRenderer.flipX = false;
+            animal.animalAnimator.SetBool("isIdling", false);
+            animal.animalAnimator.SetBool("Attack", true);
         }
 
         public override void Execute()

@@ -10,14 +10,14 @@ namespace Assets.Scripts
         public override void Enter()
         {
             animal = GetComponent<Animal>();
+            animal.animalAnimator.SetBool("Die", true);
             animal.animalRigidbody.velocity = Vector2.zero;
-            gameObject.RemoveComponentIncludingChildren<Collider>();
-            gameObject.RemoveComponentIncludingChildren<Rigidbody2D>();
             foreach (var item in GetComponents<CapsuleCollider2D>())
             {
                 item.enabled = false;
             }
-            animal.animalAnimator.SetBool("Die", true);
+            gameObject.RemoveComponentIncludingChildren<Collider>();
+            gameObject.RemoveComponentIncludingChildren<Rigidbody2D>();
 
         }
 

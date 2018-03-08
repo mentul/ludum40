@@ -29,7 +29,7 @@ public class SScoreController : MonoBehaviour
             {
                 if (time <= 0)
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) || Input.touchCount>0)
                     {
                         GameController.Current.ShowEndScreen();
                         HideScore();
@@ -168,7 +168,11 @@ public class SScoreController : MonoBehaviour
         int deadPeople = 0;
         if (GameController.population - GameController.totalScore > 0)
             deadPeople = (GameController.population - GameController.totalScore)/10 + 1;
-        if (deadPeople > 0) GameController.livesLeft--;
+        if (deadPeople > 0)
+        {
+            GameController.livesLeft--;
+            GameController.Current.UpdateLives();
+        }
 		int newPeople = (GameController.totalScore - GameController.population);
 		int people = GameController.population;
 		int maxInRow = 10;

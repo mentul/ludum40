@@ -22,7 +22,7 @@ public class Animal : MonoBehaviour
 
     public void Hitted()
     {
-        if (animalType == AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", false);
+        if (animalType == AnimalType.mammoth) animalAnimator.SetBool("Hit", false);
     }
 
     private void Start()
@@ -41,18 +41,21 @@ public class Animal : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(GameController.Current.player.transform.position, transform.position) < drawDistance)
+        if (HP > 0)
         {
-            if (!animalActive)
+            if (Vector3.Distance(GameController.Current.player.transform.position, transform.position) < drawDistance)
             {
-                SetAnimalActive(true);
+                if (!animalActive)
+                {
+                    SetAnimalActive(true);
+                }
             }
-        }
-        else
-        {
-            if (animalActive)
+            else
             {
-                SetAnimalActive(false);
+                if (animalActive)
+                {
+                    SetAnimalActive(false);
+                }
             }
         }
     }
@@ -69,7 +72,6 @@ public class Animal : MonoBehaviour
 
     public void OnHit()
     {
-        if (animalType == AnimalType.mammoth) animalAnimator.SetBool("Hit", true);
         HP--;
         if (HP == 0)
         {
@@ -89,6 +91,7 @@ public class Animal : MonoBehaviour
             StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
             GameController.GlobalCounterAnimal--;
         }
+        if (animalType == AnimalType.mammoth) animalAnimator.SetBool("Hit", true);
     }
 
 
