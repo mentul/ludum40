@@ -12,15 +12,16 @@ namespace Assets.Scripts
         public float playerTriggerDistance = 3f;
         PlayerController player;
         Vector2 direction;
+        Animal animal;
 
         public override void Enter()
         {
-            GetComponent<Animator>().SetBool("isIdling", false);
-            GetComponent<Animator>().SetBool("Attack", false);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            animal = GetComponent<Animal>();
+            animal.animalAnimator.SetBool("isIdling", false);
+            animal.animalAnimator.SetBool("Attack", false);
+            player = GameController.Current.player;
             direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
-            GetComponent<Rigidbody2D>().velocity = direction;
-            //print(gameObject.name + " entering wander");
+            animal.animalRigidbody.velocity = direction;
             directionTime = timeToChangeDirection;
             time = wanderTime;
         }
@@ -36,9 +37,9 @@ namespace Assets.Scripts
                 if (directionTime <= 0)
                 {
                     direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-10, 10)) * direction;
-                    GetComponent<Rigidbody2D>().velocity = direction;
-                    if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
-                    else GetComponent<SpriteRenderer>().flipX = false;
+                    animal.animalRigidbody.velocity = direction;
+                    if (direction.x < 0f) animal.animalSpriteRenderer.flipX = true;
+                    else animal.animalSpriteRenderer.flipX = false;
                 }
                 else directionTime -= Time.deltaTime;
                 if (time > 0) time -= Time.deltaTime;
@@ -46,18 +47,15 @@ namespace Assets.Scripts
                 {
                     stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
                 }
-                //print(gameObject.name + " executing wander");
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting wander");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

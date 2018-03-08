@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AElk : Animal
+﻿public class AElk : Animal
 {
 
 	public override void DoInit ()
@@ -11,9 +7,5 @@ public class AElk : Animal
         //HP = 2;
         speed = 2;
 	}
-
-	public override void DoUpdate ()
-	{
-		base.DoUpdate ();
-	}
+    
 }

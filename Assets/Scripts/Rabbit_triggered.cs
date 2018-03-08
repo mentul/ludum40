@@ -8,37 +8,37 @@ namespace Assets.Scripts
         public float playerTriggerOffDistance = 3f;
         PlayerController player;
         public float speedBoost = 10f;
+        Animal animal;
 
         public override void Enter()
         {
-            GetComponent<Animator>().SetBool("isIdling", false);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            GetComponent<Rigidbody2D>().velocity = -(player.transform.position-transform.position).normalized * GetComponent<Animal>().speed * speedBoost;
+            animal = GetComponent<Animal>();
+            animal.animalAnimator.SetBool("isIdling", false);
+            player = GameController.Current.player;
+            animal.animalRigidbody.velocity = -(player.transform.position-transform.position).normalized * animal.speed * speedBoost;
         }
 
         public override void Execute()
         {
             if (Vector2.Distance(transform.position, player.transform.position) > playerTriggerOffDistance)
             {
-                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                animal.animalRigidbody.velocity = Vector2.zero;
                 stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = -(player.transform.position - transform.position).normalized * GetComponent<Animal>().speed * speedBoost;
-                if (GetComponent<Rigidbody2D>().velocity.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
-                else GetComponent<SpriteRenderer>().flipX = false;
+                animal.animalRigidbody.velocity = -(player.transform.position - transform.position).normalized * animal.speed * speedBoost;
+                if (animal.animalRigidbody.velocity.x < 0f) animal.animalSpriteRenderer.flipX = true;
+                else animal.animalSpriteRenderer.flipX = false;
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting idle");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

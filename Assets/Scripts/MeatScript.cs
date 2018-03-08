@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +13,8 @@ public class MeatScript : MonoBehaviour {
 
 
 	// Use this for initialization
-	public void DoInit (int maxMeat) {
-
+	public void DoInit (int maxMeat)
+    {
         foreach (var item in meatGameObjcetList)
         {
             Destroy(item.gameObject);
@@ -25,7 +24,6 @@ public class MeatScript : MonoBehaviour {
         this.maxMeat = maxMeat;
         ToMuchMeat.gameObject.SetActive(false);
         DrawMeat();
-
     }
 
     void DrawMeat()
@@ -35,9 +33,7 @@ public class MeatScript : MonoBehaviour {
             GameObject temp = Instantiate(MeatGameObject, Vector3.zero, gameObject.transform.rotation);
             temp.transform.SetParent(this.transform);
             meatGameObjcetList.Add(temp);
-
         }
-
     }
 
     public void SetMAxMeat(int maxMeat)
@@ -45,32 +41,24 @@ public class MeatScript : MonoBehaviour {
         this.maxMeat = maxMeat;
     }
 
-    public void SetCuurenMeat(int currentMeat)
+    public void SetCurrentMeat(int currentMeat)
     {
         this.currentMeat = currentMeat;
-        DoUpdate();
+        UpdateScore();
     }
 	
-	// Update is called once per frame
-	public void  DoUpdate () {
+	public void  UpdateScore () {
 
         if(currentMeat > maxMeat)
         {
             ToMuchMeat.gameObject.SetActive(true);
-        }
-		if (currentMeat > maxMeat)
-		{
 			currentMeat = maxMeat;
 		}
-        //else
-        //{
-            for (int i = 0; i < currentMeat; i++)
-            {
-                meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            }
-        //}
 
-        
-
+        for (int i = 0; i < currentMeat; i++)
+        {
+            meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+            
     }
 }

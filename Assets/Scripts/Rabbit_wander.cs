@@ -7,24 +7,21 @@ namespace Assets.Scripts
     {
         public float wanderTime = 20f;
         public float time;
-        CapsuleCollider2D collider;
         public float playerTriggerDistance = 3f;
         PlayerController player;
+        Animal animal;
 
         public override void Enter()
         {
-            GetComponent<Animator>().SetBool("isIdling", false);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            collider = GetComponent<CapsuleCollider2D>();
+            animal = GetComponent<Animal>();
+            animal.animalAnimator.SetBool("isIdling", false);
+            player = GameController.Current.player;
             Vector2 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
-            /*while (Physics2D.CapsuleCast(transform.position, collider.size, collider.direction, 0f, direction, 0.1f))
-            {
-                direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
-            }*/
-            if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
-            else GetComponent<SpriteRenderer>().flipX = false;
-            GetComponent<Rigidbody2D>().velocity = direction*GetComponent<Animal>().speed;
-            //print(gameObject.name + " entering wander");
+
+            if (direction.x < 0f) animal.animalSpriteRenderer.flipX = true;
+            else animal.animalSpriteRenderer.flipX = false;
+            animal.animalRigidbody.velocity = direction*animal.speed;
+
             time = wanderTime;
         }
 
@@ -40,18 +37,15 @@ namespace Assets.Scripts
                 {
                     stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
                 }
-                //print(gameObject.name + " executing wander");
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting wander");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

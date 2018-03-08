@@ -1,5 +1,4 @@
 ﻿using StateMachine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +8,23 @@ public class GameController : MonoBehaviour
     public PlayerController player;
     public Material[] materialsWithPlayerPosition;
     private SScoreController scoreController;
+    public static GameController Current;
+    Camera mainCam;
+    public Camera mainCamera
+    {
+        get
+        {
+            if(mainCam==null)
+                mainCam = Camera.main;
+            return mainCam;
+        }
+    }
+
+    public GameObject caveButton;
 
     public GameObject LifeUIRoot;
     public static int livesLeft;
+    GameObject kreska1, kreska2, kreska3;
 
     public TimeCounter timeCounter;
 
@@ -73,6 +86,12 @@ public class GameController : MonoBehaviour
     private int TotalDays;
     public GameObject EndCanvas;
 
+    GameController()
+    {
+
+        Current = this;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -85,21 +104,19 @@ public class GameController : MonoBehaviour
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-
-        //rabbitScore = 3;
-        //elkScore = 17;
-        //mammothScore = 33;
-
+        
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
-        //timeCounter.DoLine();
+
         CalculateDeltaMoveStone();
 
         ResetMeatScript(population);
-
-        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+        kreska1 = LifeUIRoot.transform.Find("kreska1").gameObject;
+        kreska2 = LifeUIRoot.transform.Find("kreska2").gameObject;
+        kreska3 = LifeUIRoot.transform.Find("kreska3").gameObject;
+        kreska1.SetActive(true);
+        kreska2.SetActive(true);
+        kreska3.SetActive(true);
     }
 
     public void SetIsRunning(bool isRunning)
@@ -127,9 +144,9 @@ public class GameController : MonoBehaviour
 
         ResetMeatScript(population);
 
-        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+        kreska1.SetActive(true);
+        kreska2.SetActive(true);
+        kreska3.SetActive(true);
         player.Reset();
         timeCounter.SetPositionStartStone();
     }
@@ -143,15 +160,15 @@ public class GameController : MonoBehaviour
     {
         if (livesLeft < 1)
         {
-            LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(false);
+            kreska1.SetActive(false);
         }
         if (livesLeft < 2)
         {
-            LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(false);
+            kreska2.SetActive(false);
         }
         if (livesLeft < 3)
         {
-            LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(false);
+            kreska3.SetActive(false);
         }
     }
 
@@ -162,7 +179,7 @@ public class GameController : MonoBehaviour
 
     public void RandAnimal(int count)
     {
-        foreach (var item in animalList)
+        foreach (GameObject item in animalList)
         {
             Destroy(item.gameObject);
         }
@@ -224,13 +241,10 @@ public class GameController : MonoBehaviour
     {
         if (isRunning)
         {
-            
             UpdateLives();
-
-
-            meatScript.SetCuurenMeat(totalScore);
+            
             MessageDispatcher.Update();
-            Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
+            Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, mainCamera.orthographicSize * 16, mainCamera.orthographicSize * 9);
             for (int i = 0; i < materialsWithPlayerPosition.Length; i++)
             {
                 materialsWithPlayerPosition[i].SetVector("_PlayerPosition", playerPos);
@@ -243,11 +257,11 @@ public class GameController : MonoBehaviour
 
             if (totalScore >= population)
             {
-                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
+                caveButton.SetActive(true);
             }
             else
             {
-                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(false);
+                caveButton.SetActive(false);
             }
 
             if (roundTime < 0)
@@ -262,7 +276,12 @@ public class GameController : MonoBehaviour
 
             if (player.died)
             {
-                if (Input.GetMouseButtonDown(0))
+                bool touched = false;
+                for (int i=0; i<Input.touchCount; i++)
+                {
+                    if (Input.GetTouch(i).phase == TouchPhase.Began) touched = true;
+                }
+                if (Input.GetMouseButtonDown(0) || touched)
                 {
                     roundTime += initialRoundTime;
                     scoreController.ShowScore();
@@ -270,29 +289,6 @@ public class GameController : MonoBehaviour
                     player.Reset();
                 }
             }
-#if UNITY_EDITOR
-
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                Time.timeScale = 4f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Time.timeScale = 3f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Time.timeScale = 2f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Time.timeScale = 1f;
-            }
-
-#endif
-
-            timeCounter.DoUpdate();
-
 
         }
     }
@@ -314,7 +310,7 @@ public class GameController : MonoBehaviour
         ResetTotalScore();
     }
 
-    public static void SetScoreTo0()
+    public static void SetScoreToZero()
     {
         rabbitScore = 0;
         elkScore = 0;
@@ -324,7 +320,8 @@ public class GameController : MonoBehaviour
 
     private static void ResetTotalScore()
     {
-        totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10; 
+        totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10;
+        Current.meatScript.SetCurrentMeat(totalScore);
     }
 
     public void StartNewRound(bool switchRunning = true)
@@ -346,7 +343,7 @@ public class GameController : MonoBehaviour
         //CalculateDeltaMoveStone();
         timeCounter.SetPositionStartStone();
         //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
-        SetScoreTo0();
+        SetScoreToZero();
         ResetMeatScript(population);
     }
 

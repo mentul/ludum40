@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -58,15 +57,7 @@ public class GeneratedMap : MonoBehaviour
         GenerateMap();
         AddMapSides();
     }
-
-    // Update is called once per frame
-    public void DoUpdate()
-    {
-        if (GameController.isRunning)
-        {
-
-        }
-    }
+    
 
     void GenerateMap()
     {

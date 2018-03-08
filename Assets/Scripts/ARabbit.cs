@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ARabbit : Animal
+﻿public class ARabbit : Animal
 {
     public override void DoInit ()
 	{
@@ -10,9 +6,5 @@ public class ARabbit : Animal
         //HP = 1;
         speed = 3f;
 	}
-
-	public override void DoUpdate ()
-	{
-		base.DoUpdate ();
-	}
+    
 }

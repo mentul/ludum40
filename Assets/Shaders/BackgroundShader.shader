@@ -1,4 +1,6 @@
-﻿Shader "Custom/BackgroundShader" {
+﻿// Upgrade NOTE: upgraded instancing buffer 'Props' to new syntax.
+
+Shader "Custom/BackgroundShader" {
 
 	Properties{
 		_PlayerPosition("PlayerPosition", Vector) = (0,0,0,0)
@@ -33,9 +35,9 @@
 		half _Metallic;
 		fixed4 _Color;
 
-		UNITY_INSTANCING_CBUFFER_START(Props)
+		UNITY_INSTANCING_BUFFER_START(Props)
 		// put more per-instance properties here
-		UNITY_INSTANCING_CBUFFER_END
+		UNITY_INSTANCING_BUFFER_END(Props)
 
 		void surf(Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
@@ -43,7 +45,7 @@
 
 			float2 offset = (_PlayerPosition.xy / (_PlayerPosition.zw)) * (_PlayerSpeed * 0.9) * _MainTex_ST.x;
 
-			fixed4 c = tex2D(_MainTex, uv * _MainTex_ST.xy + offset) * _Color;
+			fixed4 c = tex2D(_MainTex, uv * _MainTex_ST.xy + offset);// * _Color;
 
 			o.Albedo = c.rgb;
 			o.Metallic = _Metallic;

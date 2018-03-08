@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SSpear : MonoBehaviour
 {
@@ -11,18 +9,22 @@ public class SSpear : MonoBehaviour
     public bool isActive = true;
     private float flyDistance;
     private Vector2 lastPosition;
+    Rigidbody2D myRigidbody;
+    Collider2D myCollider;
 
     PlayerController player;
 
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        myCollider = GetComponent<Collider2D>();
+        myRigidbody = GetComponent<Rigidbody2D>();
+        player = GameController.Current.player;
         flyDistance = 0f;
         lastPosition = transform.position;
         time = timeToPickup;
         isActive = true;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), false);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), false);
     }
 
     // Update is called once per frame
@@ -38,25 +40,32 @@ public class SSpear : MonoBehaviour
             flyDistance += Vector2.Distance(transform.position, lastPosition);
             //Debug.Log(Vector2.Distance(transform.position, lastPosition));
             lastPosition = transform.position;
-            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-            if ((GetComponent<Rigidbody2D>().velocity.magnitude < 1f && GetComponent<Rigidbody2D>().velocity.magnitude != 0f) || flyDistance >= 15f)
+            myRigidbody.velocity = myRigidbody.velocity;
+            if (((myRigidbody.velocity.magnitude < 1f && myRigidbody.velocity.magnitude != 0f) || flyDistance >= 15f) && !spearoff)
             {
                 TurnOffTheSpear();
                 time = 0f;
+                spearoff = true;
             }
             if (time <= 0)
             {
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.walkCollider, false);
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.bodyTrigger, false);
+                if(!ignore) IgnoreCollisions();
                 time = timeToPickup;
             }
             else time -= Time.deltaTime;
         }
     }
+    bool spearoff = false;
+    bool ignore = false;
+    void IgnoreCollisions()
+    {
+        Physics2D.IgnoreCollision(myCollider, player.walkCollider, false);
+        Physics2D.IgnoreCollision(myCollider, player.bodyTrigger, false);
+        ignore = true;
+    }
 
     public void TurnOffTheSpear()
     {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), true);
         isActive = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;

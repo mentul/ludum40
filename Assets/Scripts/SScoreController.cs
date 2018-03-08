@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SScoreController : MonoBehaviour
@@ -18,7 +17,7 @@ public class SScoreController : MonoBehaviour
         time = timeToGetMouseButton;
 		humanSprites = new List<GameObject> ();
 		HideScore (false);
-		scoreCanvas = Camera.main.transform.Find ("ScoreCanvas");
+		scoreCanvas = GameController.Current.mainCamera.transform.Find ("ScoreCanvas");
 	}
 
 	// Update is called once per frame
@@ -32,7 +31,7 @@ public class SScoreController : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        FindObjectOfType<GameController>().ShowEndScreen();
+                        GameController.Current.ShowEndScreen();
                         HideScore();
                         time = timeToGetMouseButton;
                     }
@@ -46,12 +45,12 @@ public class SScoreController : MonoBehaviour
 
 	public void ShowScore ()
     {
-        GetComponent<GameController>().AddDay();
+        GameController.Current.AddDay();
         ShowPeopleResult ();
 		scoreCanvas.gameObject.SetActive (true);
 		GameController.isRunning = false;
 
-		List<int> temp = GetComponent<GameController> ().getScore ();
+		List<int> temp = GameController.Current.getScore ();
 		int RabbitScore = temp [0];
 		int ElkScore = temp [1];
 		int MammothScore = temp [2];
@@ -163,7 +162,7 @@ public class SScoreController : MonoBehaviour
 	private void ShowPeopleResult ()
 	{
 		humanSprites.Clear ();
-		Transform peopleCanvas = Camera.main.transform.Find ("ScoreCanvas").Find ("Ludzie");
+		Transform peopleCanvas = GameController.Current.mainCamera.transform.Find ("ScoreCanvas").Find ("Ludzie");
 		Vector3 startPosition = peopleCanvas.position;
 
         int deadPeople = 0;
@@ -245,11 +244,11 @@ public class SScoreController : MonoBehaviour
     public void HideScore(bool switchRunning = true)
     {
         if(switchRunning) GameController.isRunning = true;
-        //Debug.Log("dzialam");
-        GetComponent<GameController>().StartNewRound(switchRunning);
-        GetComponent<GameController>().RandAnimal(70);
 
-        Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
+        GameController.Current.StartNewRound(switchRunning);
+        GameController.Current.RandAnimal(70);
+
+        GameController.Current.mainCamera.transform.Find("ScoreCanvas").gameObject.SetActive(false);
 		for (int i = 0; i < humanSprites.Count; i++)
 		{
 			Destroy (humanSprites [i]);
