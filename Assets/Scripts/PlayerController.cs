@@ -76,14 +76,14 @@ public class PlayerController : MonoBehaviour
             joystickSpriteTransform.localPosition = initialJoystickPosition;
             joystickTouch = default(Touch);
         }
-        throwTouch = default(Touch);
 
         for (int i=0; i<Input.touchCount;i++)
         {
             Debug.Log(Input.touchCount);
             Touch t = Input.GetTouch(i);
-            //if (t.Equals(joystickTouch)) continue;
             Vector3 temp = GameController.Current.mainCamera.ScreenToViewportPoint(t.position);
+
+            //Check if this touch was in joystick area
             if (temp.x < joystickArea.x && temp.y < joystickArea.y)
             {
                 Vector3 touchPos = GameController.Current.mainCamera.ScreenToWorldPoint(new Vector3(t.position.x, t.position.y, GameController.Current.mainCamera.nearClipPlane));
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
                 playerRigidbody.velocity = Vector2.zero;
                 playerAnimator.SetBool("Idling", true);
             }
-            bool touched = (throwTouch.phase != TouchPhase.Ended && throwTouch.phase != TouchPhase.Canceled && !throwTouch.Equals(default(Touch)));
+            bool touched = (!(throwTouch.phase == TouchPhase.Ended || throwTouch.phase == TouchPhase.Canceled) && !throwTouch.Equals(default(Touch)));
 
             if (Input.GetMouseButtonDown(0) || touched)
             {
@@ -201,7 +201,8 @@ public class PlayerController : MonoBehaviour
     {
 
         //oblicz kierunek rzutu
-        Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
+        Vector2 tempHand = transform.Find("HandPosition").position;
+        Vector2 temp1 = new Vector2(tempHand.x, tempHand.y);
         Vector2 temp2 = Vector2.zero;
         Vector2 tempOffset = Vector2.zero;
         float angle = 0f;
@@ -213,6 +214,7 @@ public class PlayerController : MonoBehaviour
             if (!throwTouch.Equals(default(Touch)))
             {
                 throwPosition = throwTouchPosition;
+                throwTouch = default(Touch);
             }
             else
             {
