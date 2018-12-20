@@ -5,9 +5,10 @@ using System;
 
 public class GameController : MonoBehaviour, IGameDataRestorer
 {
+    public static GameController Current;
     public static GameObject spearObject;
     public static List<Vector3> animalsPosition = new List<Vector3>();
-    public PlayerController player;
+    static public PlayerController player;
     public Material[] materialsWithPlayerPosition;
     private SScoreController scoreController;
 
@@ -89,9 +90,15 @@ public class GameController : MonoBehaviour, IGameDataRestorer
     Transform kreski;
     GeneratedMap generatedMap;
 
+    GameController()
+    {
+        Current = this;
+    }
+
     // Use this for initialization
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         livesLeft = 3;
         EndCanvas.gameObject.SetActive(false);
         population = 5;
@@ -108,14 +115,13 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         CalculateDeltaMoveStone();
 
         ResetMeatScript(population);
-
         kreska1 = LifeUIRoot.transform.Find("kreska1").gameObject;
         kreska2 = LifeUIRoot.transform.Find("kreska2").gameObject;
         kreska3 = LifeUIRoot.transform.Find("kreska3").gameObject;
         kreska1.SetActive(true);
         kreska2.SetActive(true);
         kreska3.SetActive(true);
-
+        UpdateLives();
         caveButton = MainCamera.transform.Find("Canvas").Find("CaveButton").gameObject;
         kreski = EndCanvas.transform.Find("Image").Find("Kreseczki");
     }
@@ -147,6 +153,8 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         kreska3.SetActive(true);
         player.Reset();
         timeCounter.SetPositionStartStone();
+        UpdateLives();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     public void AddDay()
@@ -236,9 +244,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
     {
         if (isRunning)
         {
-            UpdateLives();
-            
-            meatScript.SetCurrentMeat(totalScore);
             MessageDispatcher.Update();
             Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, MainCamera.orthographicSize * 16, MainCamera.orthographicSize * 9);
             for (int i = 0; i < materialsWithPlayerPosition.Length; ++i)
@@ -304,7 +309,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         ResetTotalScore();
     }
 
-    public static void SetScoreTo0()
+    public static void SetScoreToZero()
     {
         rabbitScore = 0;
         elkScore = 0;
@@ -315,6 +320,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
     private static void ResetTotalScore()
     {
         totalScore = rabbitScore * 2 + elkScore * 5 + mammothScore * 10;
+        Current.meatScript.SetCurrentMeat(totalScore);
     }
 
     public void StartNewRound(bool switchRunning = true)
@@ -327,7 +333,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
 
         timeCounter.SetPositionStartStone();
 
-        SetScoreTo0();
+        SetScoreToZero();
         ResetMeatScript(population);
     }
 

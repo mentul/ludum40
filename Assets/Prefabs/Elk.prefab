@@ -195,15 +195,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 1
-  animalState: 0
-  minTimeToSpawn: 15
-  maxTimeToSpawn: 40
-  minTimeToVanish: 120
-  maxTimeToVanish: 120
   walkCollider: {fileID: 70573647553682416}
   bodyTrigger: {fileID: 70926467495720098}
+  animalSpriteRenderer: {fileID: 0}
+  animalStateMachine: {fileID: 0}
+  animalRigidbody: {fileID: 0}
+  animalAnimator: {fileID: 0}
   HP: 1
   speed: 2
+  drawDistance: 40
 --- !u!114 &114682205197436936
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,46 +5,67 @@ public class Animal : MonoBehaviour
     public enum AnimalType { rabbit, elk, mammoth }
 
     public AnimalType animalType;
-    public float minTimeToSpawn, maxTimeToSpawn, minTimeToVanish, maxTimeToVanish;
-    protected float timeToSpawn, timeToVanish;
 
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
 
-    protected SpriteRenderer mySprite;
+    public SpriteRenderer animalSpriteRenderer;
+    public StateMachine.StateMachine animalStateMachine;
+    public Rigidbody2D animalRigidbody;
+    public Animator animalAnimator;
 
     public int HP;
     public float speed;
+    bool animalActive = false;
+    public float drawDistance = 50f;
 
     public void Hitted()
     {
-        if (animalType == AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", false);
+        if (animalType == AnimalType.mammoth) animalAnimator.SetBool("Hit", false);
     }
 
     private void Start()
     {
-        timeToSpawn = (float)GeneratedMap.pseudoRandom.NextDouble() * (maxTimeToSpawn - minTimeToSpawn) - minTimeToSpawn;
-        timeToVanish = (float)GeneratedMap.pseudoRandom.NextDouble() * (maxTimeToVanish - minTimeToVanish) - minTimeToVanish;
-        mySprite = GetComponent<SpriteRenderer>();
+        animalAnimator = GetComponent<Animator>();
+        animalStateMachine = GetComponent<StateMachine.StateMachine>();
+        animalSpriteRenderer = GetComponent<SpriteRenderer>();
+        animalRigidbody = GetComponent<Rigidbody2D>();
+        SetAnimalActive(false);
+    }
+
+    void Update()
+    {
+        if (HP > 0)
+        {
+            if (Vector3.Distance(GameController.player.transform.position, transform.position) < drawDistance)
+            {
+                if (!animalActive)
+                {
+                    SetAnimalActive(true);
+                }
+            }
+            else
+            {
+                if (animalActive)
+                {
+                    SetAnimalActive(false);
+                }
+            }
+        }
+    }
+
+    public void SetAnimalActive(bool active = true)
+    {
+        animalActive = active;
+        animalStateMachine.enabled = active;
+        if (animalRigidbody != null) animalRigidbody.isKinematic = !active;
+        animalSpriteRenderer.enabled = active;
+        walkCollider.enabled = active;
+        bodyTrigger.enabled = active;
     }
     
-    public void HideAnimal()
-    {
-        mySprite.enabled = false;
-        walkCollider.enabled = false;
-        bodyTrigger.enabled = false;
-    }
-
-    public void LetAnimalOut()
-    {
-        mySprite.enabled = true;
-        walkCollider.enabled = true;
-        bodyTrigger.enabled = true;
-    }
-
     public void OnHit()
     {
-        if (animalType == AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", true);
         if (--HP == 0)
         {
             //Tutaj bedzie zabijanie zwierzaka
@@ -63,6 +84,8 @@ public class Animal : MonoBehaviour
             StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             --GameController.GlobalCounterAnimal;
         }
+        else if (animalType == AnimalType.mammoth) animalAnimator.SetBool("Hit", true);
+        
     }
 
 
@@ -72,8 +95,8 @@ public class Animal : MonoBehaviour
         if (spear != null && spear.isActive)
         {
             spear.TurnOffTheSpear();
-            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            other.GetComponent<SpriteRenderer>().sprite = spear.secondSprite;
+            spear.myRigidbody.velocity = Vector2.zero;
+            spear.mySpriteRenderer.sprite = spear.secondSprite;
             OnHit();
         }
     }

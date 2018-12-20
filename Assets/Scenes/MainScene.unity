@@ -5524,7 +5524,7 @@ Behaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 821988026}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &840548368
 GameObject:
   m_ObjectHideFlags: 0
@@ -7892,8 +7892,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -10750,7 +10750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90047dba7017dcf47a80e4d2615c47d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 30665766}
   materialsWithPlayerPosition:
   - {fileID: 2100000, guid: 07081932bd7dbd74c97d28ea1f6defe9, type: 2}
   - {fileID: 2100000, guid: 513936ee5e07c4d4eb8e450e06d8cadf, type: 2}

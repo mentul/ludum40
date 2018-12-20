@@ -64,6 +64,7 @@ public class SSpear : MonoBehaviour
         isActive = false;
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         myRigidbody.velocity = Vector2.zero;
+        myCollider.isTrigger = true;
 
         mySpriteRenderer.sprite = secondSprite;
     }

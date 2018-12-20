@@ -30,15 +30,15 @@ public class PlayerController : MonoBehaviour {
     Vector2 initialJoystickPosition;
     public float joystickRadius = 0.6f;
 
-    Animator myAnimator;
-    Rigidbody2D myRigidbody;
-    SpriteRenderer mySpriteRenderer;
+    Animator playerAnimator;
+    Rigidbody2D playerRigidbody;
+    SpriteRenderer playerRenderer;
 
     void Start ()
     {
-        myAnimator = GetComponent<Animator>();
-        myRigidbody = GetComponent<Rigidbody2D>();
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
+        playerAnimator = GetComponent<Animator>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
+        playerRenderer = GetComponent<SpriteRenderer>();
         CustomInput.multiTouchEnabled = true;
         initialJoystickPosition = currentJoystickPosition;
         Reset();
@@ -49,16 +49,17 @@ public class PlayerController : MonoBehaviour {
         SSpear.clearSpears = true;
         hasSpear = true;
         died = false;
-        myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         walkCollider.enabled = true;
         bodyTrigger.enabled = true;
-        myAnimator.SetBool("HasSpear", true);
-        myAnimator.SetBool("Idling", true);
-        myAnimator.SetBool("Reset", true);
+        playerAnimator.SetBool("HasSpear", true);
+        playerAnimator.SetBool("Idling", true);
+        playerAnimator.SetBool("Reset", true);
         regianTime = regainControlTime;
     }
 
     Touch joystickTouch, throwTouch;
+    Vector2 throwTouchPosition;
     Vector2 joystickArea = new Vector2(0.3f, 0.4f);
     void CheckTouch()
     {
@@ -71,19 +72,21 @@ public class PlayerController : MonoBehaviour {
 
         for (int i = 0; i < CustomInput.touchCount; ++i)
         {
-            Debug.Log(CustomInput.touchCount);
+            //Debug.Log(CustomInput.touchCount);
             Touch t = CustomInput.GetTouch(i);
             if (t.Equals(joystickTouch)) continue;
             Vector3 temp = Camera.main.ScreenToViewportPoint(t.position);
+
             if (temp.x < joystickArea.x && temp.y < joystickArea.y)
             {
                 Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(CustomInput.mousePosition.x, CustomInput.mousePosition.y, Camera.main.nearClipPlane));
                 joystickTouch = t;
                 joystickSpriteTransform.position = touchPos;
             }
-            else if (t.phase == TouchPhase.Began)
+            else if (t.phase == TouchPhase.Began && (!t.Equals(joystickTouch)) && throwTouch.Equals(default(Touch)))
             {
                 throwTouch = t;
+                throwTouchPosition = t.position;
             }
         }
 
@@ -120,7 +123,7 @@ public class PlayerController : MonoBehaviour {
             //Jeżeli coś z WSAD to nadaj velocity
             if (CustomInput.GetKey(KeyCode.W) || CustomInput.GetKey(KeyCode.S) || CustomInput.GetKey(KeyCode.A) || CustomInput.GetKey(KeyCode.D))
             {
-                myAnimator.SetBool("Idling", false);
+                playerAnimator.SetBool("Idling", false);
                 Vector2 temp = Vector2.zero;
                 if (CustomInput.GetKey(KeyCode.W))
                 {
@@ -129,7 +132,7 @@ public class PlayerController : MonoBehaviour {
                 if (CustomInput.GetKey(KeyCode.A))
                 {
                     temp += Vector2.left;
-                    mySpriteRenderer.flipX = true;
+                    playerRenderer.flipX = true;
                 }
                 if (CustomInput.GetKey(KeyCode.S))
                 {
@@ -138,42 +141,39 @@ public class PlayerController : MonoBehaviour {
                 if (CustomInput.GetKey(KeyCode.D))
                 {
                     temp += Vector2.right;
-                    mySpriteRenderer.flipX = false;
+                    playerRenderer.flipX = false;
                 }
                 temp.Normalize();
-                myRigidbody.velocity = temp * speed;
+                playerRigidbody.velocity = temp * speed;
             }
             else if (leftAnalog != Vector2.zero)
             {
-                myAnimator.SetBool("Idling", false);
+                playerAnimator.SetBool("Idling", false);
                 Vector2 temp = leftAnalog;
                 if (leftAnalog.x < 0)
-                    mySpriteRenderer.flipX = true;
+                    playerRenderer.flipX = true;
                 else
-                    mySpriteRenderer.flipX = false;
+                    playerRenderer.flipX = false;
                 temp.Normalize();
-                myRigidbody.velocity = temp * speed;
+                playerRigidbody.velocity = temp * speed;
             }
             else //Inaczej wyzeruj velocity
             {
-                myRigidbody.velocity = Vector2.zero;
-                myAnimator.SetBool("Idling", true);
+                playerRigidbody.velocity = Vector2.zero;
+                playerAnimator.SetBool("Idling", true);
             }
 
-            bool touched = (throwTouch.phase != TouchPhase.Ended && throwTouch.phase != TouchPhase.Canceled && !throwTouch.Equals(default(Touch)));
-#if UNITY_EDITOR
-            touched = true;
-#endif
-            if (CustomInput.GetMouseButtonDown(0) && touched)
+            bool touched = (!(throwTouch.phase == TouchPhase.Ended || throwTouch.phase == TouchPhase.Canceled) && !throwTouch.Equals(default(Touch)));
+            
+            if (CustomInput.GetMouseButtonDown(0) || touched)
             {
                 if (hasSpear && canThrowSpear)
                 {
                     hasSpear = false;
                     mouse = true;
-                    myAnimator.SetBool("HasSpear", hasSpear);
-                    myAnimator.SetBool("Throw", true);
+                    playerAnimator.SetBool("HasSpear", hasSpear);
+                    playerAnimator.SetBool("Throw", true);
                 }
-                //ThrowSpear();
             }
             
         }
@@ -181,13 +181,14 @@ public class PlayerController : MonoBehaviour {
  
     public void Throwing()
     {
-        myAnimator.SetBool("Throw", false);
+        playerAnimator.SetBool("Throw", false);
     }
 
     public void ThrowSpear()
     {
         //oblicz kierunek rzutu
-        Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
+        Vector2 tempHand = transform.Find("HandPosition").position;
+        Vector2 temp1 = new Vector2(tempHand.x, tempHand.y);
         Vector2 temp2 = Vector2.zero;
         Vector2 tempOffset = Vector2.zero;
         float angle = 0f;
@@ -196,7 +197,8 @@ public class PlayerController : MonoBehaviour {
             Vector2 throwPosition;
             if (!throwTouch.Equals(default(Touch)))
             {
-                throwPosition = throwTouch.position;
+                throwPosition = throwTouchPosition;
+                throwTouch = default(Touch);
             }
             else
             {
@@ -214,7 +216,7 @@ public class PlayerController : MonoBehaviour {
         angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
         if (tempOffset.y > 0) angle = 360f - angle;
         //stworz
-        GameController.spearObject = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
+        GameController.spearObject = Instantiate(SpearPrefab, tempHand, Quaternion.Euler(0, 0, angle));
         Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), walkCollider, true);
         Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), bodyTrigger, true);
 
@@ -225,7 +227,7 @@ public class PlayerController : MonoBehaviour {
     public void PickUpSpear()
     {
         hasSpear = true;
-        myAnimator.SetBool("HasSpear", hasSpear);
+        playerAnimator.SetBool("HasSpear", hasSpear);
     }
 
     void Die()
@@ -234,15 +236,15 @@ public class PlayerController : MonoBehaviour {
         died = true;
         walkCollider.enabled = false;
         bodyTrigger.enabled = false;
-        myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-        myAnimator.SetBool("Dead", true);
+        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        playerAnimator.SetBool("Dead", true);
         canThrowSpear = false;
     }
 
     public void DeathAnimationOff()
     {
-        myAnimator.SetBool("Dead", false);
-        myAnimator.SetBool("Reset", false);
+        playerAnimator.SetBool("Dead", false);
+        playerAnimator.SetBool("Reset", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
