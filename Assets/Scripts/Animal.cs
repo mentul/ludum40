@@ -3,10 +3,8 @@
 public class Animal : MonoBehaviour
 {
     public enum AnimalType { rabbit, elk, mammoth }
-    public enum AnimalState { hiding, sightseeing, fighting, vanishing }
 
     public AnimalType animalType;
-    public AnimalState animalState;
     public float minTimeToSpawn, maxTimeToSpawn, minTimeToVanish, maxTimeToVanish;
     protected float timeToSpawn, timeToVanish;
 
@@ -25,53 +23,11 @@ public class Animal : MonoBehaviour
 
     private void Start()
     {
-
-        DoInit();
-    }
-
-    public virtual void DoInit()
-    {
         timeToSpawn = (float)GeneratedMap.pseudoRandom.NextDouble() * (maxTimeToSpawn - minTimeToSpawn) - minTimeToSpawn;
         timeToVanish = (float)GeneratedMap.pseudoRandom.NextDouble() * (maxTimeToVanish - minTimeToVanish) - minTimeToVanish;
         mySprite = GetComponent<SpriteRenderer>();
-        //HideAnimal ();
     }
-
-    public virtual void DoUpdate()
-    {
-        switch (animalState)
-        {
-            case AnimalState.hiding:
-                timeToSpawn -= Time.deltaTime;
-
-                if (timeToSpawn <= 0f)
-                {
-                    //LetAnimalOut ();
-                    animalState = AnimalState.sightseeing;
-                }
-                break;
-            case AnimalState.sightseeing:
-                timeToVanish -= Time.deltaTime;
-
-                if (timeToVanish <= 0f)
-                {
-                    animalState = AnimalState.vanishing;
-                }
-                break;
-            case AnimalState.fighting:
-
-                break;
-            case AnimalState.vanishing:
-                Destroy(gameObject);
-                break;
-        }
-    }
-
-    public void OnDestroy()
-    {
-
-    }
-
+    
     public void HideAnimal()
     {
         mySprite.enabled = false;
@@ -89,28 +45,23 @@ public class Animal : MonoBehaviour
     public void OnHit()
     {
         if (animalType == AnimalType.mammoth) GetComponent<Animator>().SetBool("Hit", true);
-        Debug.Log("Au");
-        HP--;
-        if (HP == 0)
+        if (--HP == 0)
         {
             //Tutaj bedzie zabijanie zwierzaka
             if (animalType == AnimalType.rabbit)
             {
                 GameController.setScore(1, 0, 0);
-                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.elk)
             {
                 GameController.setScore(0, 1, 0);
-                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.mammoth)
             {
                 GameController.setScore(0, 0, 1);
-                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
-            //Destroy(gameObject);
-            GameController.GlobalCounterAnimal--;
+            StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
+            --GameController.GlobalCounterAnimal;
         }
     }
 
@@ -120,9 +71,9 @@ public class Animal : MonoBehaviour
         SSpear spear = other.gameObject.GetComponent<SSpear>();
         if (spear != null && spear.isActive)
         {
-            other.gameObject.GetComponent<SSpear>().TurnOffTheSpear();
+            spear.TurnOffTheSpear();
             other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            other.GetComponent<SpriteRenderer>().sprite = other.GetComponent<SSpear>().secondSprite;
+            other.GetComponent<SpriteRenderer>().sprite = spear.secondSprite;
             OnHit();
         }
     }
@@ -131,7 +82,7 @@ public class Animal : MonoBehaviour
         SSpear spear = other.gameObject.GetComponent<SSpear>();
         if (spear != null && spear.isActive)
         {
-            other.gameObject.GetComponent<SSpear>().TurnOffTheSpear();
+            spear.TurnOffTheSpear();
             OnHit();
         }
     }

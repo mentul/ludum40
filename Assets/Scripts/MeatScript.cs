@@ -28,7 +28,7 @@ public class MeatScript : MonoBehaviour
 
     void DrawMeat()
     {
-        for (int i = 0; i < maxMeat; i++)
+        for (int i = 0; i < maxMeat; ++i)
         {
             GameObject temp = Instantiate(MeatGameObject, Vector3.zero, gameObject.transform.rotation);
             temp.transform.SetParent(transform);
@@ -58,7 +58,7 @@ public class MeatScript : MonoBehaviour
         {
             currentMeat = maxMeat;
         }
-        for (int i = 0; i < currentMeat; i++)
+        for (int i = 0; i < currentMeat; ++i)
         {
             meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }

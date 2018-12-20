@@ -7,7 +7,6 @@ namespace Assets.Scripts
     {
         public float wanderTime = 20f;
         public float time;
-        CapsuleCollider2D myCollider;
         public float playerTriggerDistance = 3f;
         PlayerController player;
 
@@ -15,7 +14,6 @@ namespace Assets.Scripts
         {
             GetComponent<Animator>().SetBool("isIdling", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            myCollider = GetComponent<CapsuleCollider2D>();
             Vector2 direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
 
             if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;

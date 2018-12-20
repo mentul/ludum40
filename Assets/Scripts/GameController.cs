@@ -88,7 +88,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         TotalDays = -1;
         
         timeCounter.DoInit();
-        timeCounter.SetMaxRoundTime(maxRoundTime);
 
         CalculateDeltaMoveStone();
 
@@ -115,8 +114,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-
-        timeCounter.SetMaxRoundTime(maxRoundTime);
+        
 
         CalculateDeltaMoveStone();
 

@@ -1,16 +1,11 @@
 ﻿using UnityEngine;
 
 public class TimeCounter : MonoBehaviour {
-
-    int maxRoundTime;
+    
     public GameObject lineCounter;
     public GameObject stoneGameObject;
     private Vector3 positionStartStone;
-
-    public void SetMaxRoundTime (int maxRoundTime)
-    {
-        this.maxRoundTime = maxRoundTime;
-    }
+    
     public void DoInit()
     {
         positionStartStone = stoneGameObject.transform.localPosition;

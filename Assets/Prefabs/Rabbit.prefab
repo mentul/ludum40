@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 70573647553682416}
   - component: {fileID: 70777934740440314}
   - component: {fileID: 50610073128858610}
-  - component: {fileID: 114196711550774802}
+  - component: {fileID: 114385309031295068}
   - component: {fileID: 114525727345220342}
   - component: {fileID: 114054023206605452}
   - component: {fileID: 114456309873499860}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bb20cc4713df749803a980b469447a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114196711550774802
+--- !u!114 &114385309031295068
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227201637065700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff241e8119a2d694c98806a56aedd8a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 30b45b91a8106c54db4148693145f000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   walkCollider: {fileID: 70573647553682416}
   bodyTrigger: {fileID: 70777934740440314}
   HP: 1
-  speed: 0
+  speed: 3
 --- !u!114 &114456309873499860
 MonoBehaviour:
   m_ObjectHideFlags: 1

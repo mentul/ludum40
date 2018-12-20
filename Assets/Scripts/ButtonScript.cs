@@ -4,20 +4,18 @@
 [RequireComponent(typeof(Collider2D))]
 public class ButtonScript : MonoBehaviour
 {
-
     public Sprite idle, hover, dead;
-    public SpriteRenderer renderer;
-    bool over = false;
+    public SpriteRenderer myRenderer;
     
     public void OnEnable()
     {
         if (GameController.livesLeft <= 0)
         {
-            renderer.sprite = dead;
+            myRenderer.sprite = dead;
         }
         else
         {
-            renderer.sprite = idle;
+            myRenderer.sprite = idle;
         }
     }
 
@@ -25,14 +23,14 @@ public class ButtonScript : MonoBehaviour
     {
         if (GameController.livesLeft > 0)
         {
-            renderer.sprite = hover;
+            myRenderer.sprite = hover;
         }
     }
     public void OnMouseExit()
     {
         if (GameController.livesLeft > 0)
         {
-            renderer.sprite = idle;
+            myRenderer.sprite = idle;
         }
     }
     

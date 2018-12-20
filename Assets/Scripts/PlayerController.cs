@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0.5f;
     public Collider2D walkCollider;
     public Collider2D bodyTrigger;
-    //public bool throwing;
 
     public Vector2 leftAnalog, rightAnalog;
 
@@ -54,7 +53,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     Touch joystickTouch, throwTouch;
-    GameObject test = null;
     Vector2 joystickArea = new Vector2(0.3f, 0.4f);
     void CheckTouch()
     {
@@ -65,7 +63,7 @@ public class PlayerController : MonoBehaviour {
         }
         throwTouch = default(Touch);
 
-        for (int i = 0; i < CustomInput.touchCount; i++)
+        for (int i = 0; i < CustomInput.touchCount; ++i)
         {
             Debug.Log(CustomInput.touchCount);
             Touch t = CustomInput.GetTouch(i);

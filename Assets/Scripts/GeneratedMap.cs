@@ -19,8 +19,6 @@ public class GeneratedMap : MonoBehaviour
     public int randomFillPercent;
 
     private BoxCollider2D sizeMap;
-    private Vector2 minVectorMap;
-    private Vector2 maxVectorMap;
     private int[,] map;
     private int width, height, widthColider, heightColider;
     public int scale;
@@ -43,8 +41,6 @@ public class GeneratedMap : MonoBehaviour
     {
         positionPlayerInMap = Vector2.zero;
         sizeMap = gameObject.GetComponent<BoxCollider2D>();
-        minVectorMap = sizeMap.bounds.min;
-        maxVectorMap = sizeMap.bounds.max;
         animalsCount = 0;
         maxAnimalsCount = 1;
 
@@ -88,7 +84,6 @@ public class GeneratedMap : MonoBehaviour
 
     void RandomFillMap(int number, int change = 0)
     {
-        int moveRange = 0;
         if (useRandomSeed)
         {
             pseudoRandom = new System.Random(Time.time.GetHashCode());
@@ -100,7 +95,6 @@ public class GeneratedMap : MonoBehaviour
         }
         else if (change == 3)
         {
-            moveRange = 10;
             randomFillPercent = 5;
         }
 
@@ -319,9 +313,9 @@ public class GeneratedMap : MonoBehaviour
         else
         {
 
-            currentPercentElk = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<AElk>()).ToList().Count / maxAnimal;
-            currentPercentRabbit = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<ARabbit>()).ToList().Count / maxAnimal;
-            currentPercentMammoth = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<AMammoth>()).ToList().Count / maxAnimal;
+            currentPercentElk = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<Animal>().animalType==Animal.AnimalType.elk).ToList().Count / maxAnimal;
+            currentPercentRabbit = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<Animal>().animalType == Animal.AnimalType.rabbit).ToList().Count / maxAnimal;
+            currentPercentMammoth = GameController.animalList.Where(x => x.gameObject.transform.GetComponent<Animal>().animalType == Animal.AnimalType.mammoth).ToList().Count / maxAnimal;
 
             if (currentPercentElk <= PercentElk)
                 listNumber.Add(0);

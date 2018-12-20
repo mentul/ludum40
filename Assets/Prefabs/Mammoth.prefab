@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 70573647553682416}
   - component: {fileID: 70862231046557470}
   - component: {fileID: 50610073128858610}
-  - component: {fileID: 114465392960117168}
+  - component: {fileID: 114096439351498796}
   - component: {fileID: 114320146574022088}
   - component: {fileID: 114805416697664832}
   - component: {fileID: 114308488029229074}
@@ -120,6 +120,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114096439351498796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227201637065700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b45b91a8106c54db4148693145f000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalType: 2
+  animalState: 0
+  minTimeToSpawn: 30
+  maxTimeToSpawn: 60
+  minTimeToVanish: 120
+  maxTimeToVanish: 120
+  walkCollider: {fileID: 70573647553682416}
+  bodyTrigger: {fileID: 70862231046557470}
+  HP: 3
+  speed: 1.5
 --- !u!114 &114185527290679726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,27 +199,6 @@ MonoBehaviour:
   - {fileID: 114599113124820438}
   globalState: {fileID: 114805416697664832}
   initialState: {fileID: 114308488029229074}
---- !u!114 &114465392960117168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227201637065700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fcc491a71d0896438bee203c888ba2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animalType: 2
-  animalState: 0
-  minTimeToSpawn: 30
-  maxTimeToSpawn: 60
-  minTimeToVanish: 120
-  maxTimeToVanish: 120
-  walkCollider: {fileID: 70573647553682416}
-  bodyTrigger: {fileID: 70862231046557470}
-  HP: 3
-  speed: 0
 --- !u!114 &114599113124820438
 MonoBehaviour:
   m_ObjectHideFlags: 1
