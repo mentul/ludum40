@@ -18,7 +18,7 @@ namespace Assets.Scripts
             GetComponent<Animator>().SetBool("isIdling", false);
             GetComponent<Animator>().SetBool("Attack", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * Vector2.right;
+            direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
             GetComponent<Rigidbody2D>().velocity = direction;
             //print(gameObject.name + " entering wander");
             directionTime = timeToChangeDirection;
@@ -35,7 +35,7 @@ namespace Assets.Scripts
             {
                 if (directionTime <= 0)
                 {
-                    direction = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-10, 10)) * direction;
+                    direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(-10, 10)) * direction;
                     GetComponent<Rigidbody2D>().velocity = direction;
                     if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
                     else GetComponent<SpriteRenderer>().flipX = false;

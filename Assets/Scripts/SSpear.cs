@@ -7,10 +7,10 @@ public class SSpear : MonoBehaviour
     static public bool clearSpears=false;
     public Sprite secondSprite;
     public float timeToPickup = 1f;
-    float time = 1f;
+    public float time = 1f;
     public bool isActive = true;
-    private float flyDistance;
-    private Vector2 lastPosition;
+    public float flyDistance;
+    public Vector2 lastPosition;
 
     PlayerController player;
 

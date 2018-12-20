@@ -34,8 +34,12 @@ public class GeneratedMap : MonoBehaviour
     public float currentPercentMammoth;
     public float currentPercentElk;
     public float currentPercentRabbit;
-
+    public static System.Random pseudoRandom;
     // Use this for initialization
+    void Awake()
+    {
+        pseudoRandom = new System.Random(seed.GetHashCode());
+    }
     public void DoInit()
     {
         positionPlayerInMap = Vector2.zero;
@@ -88,10 +92,8 @@ public class GeneratedMap : MonoBehaviour
         int moveRange = 0;
         if (useRandomSeed)
         {
-            seed = Time.time.ToString();
+            pseudoRandom = new System.Random(Time.time.GetHashCode());
         }
-
-        System.Random pseudoRandom = new System.Random(seed.GetHashCode());
 
         if (change == 2)
         {
@@ -128,10 +130,9 @@ public class GeneratedMap : MonoBehaviour
         int moveRange = 0;
         if (useRandomSeed)
         {
-            seed = Time.time.ToString();
+            pseudoRandom = new System.Random(Time.time.GetHashCode());
         }
 
-        System.Random pseudoRandom = new System.Random(seed.GetHashCode());
 
         if (change == 3)
         {
@@ -141,8 +142,8 @@ public class GeneratedMap : MonoBehaviour
 
         do
         {
-            int x = Random.Range(0, width);
-            int y = Random.Range(0, height);
+            int x = pseudoRandom.Next(0, width);
+            int y = pseudoRandom.Next(0, height);
 
             if (map[x, y] == 0)
             {
@@ -219,13 +220,13 @@ public class GeneratedMap : MonoBehaviour
                 {
                     // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
-                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
+                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
                     Instantiate(gameObjectTree[randomTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
 
                 }
                 else if (map[x, y] == 2)
                 {
-                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
+                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
                     Instantiate(gameObjectSmallTree[randomSmallTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
 
                 }
@@ -249,10 +250,11 @@ public class GeneratedMap : MonoBehaviour
                 {
                     // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
-                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.2f, 0.2f), 0f) * scale);
+                    position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
                     GameObject temp = Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation);
                     temp.transform.SetParent(this.transform);
                     GameController.animalList.Add(temp);
+                    GameController.animalsPosition.Add(position);
                 }
             }
         }
@@ -293,12 +295,12 @@ public class GeneratedMap : MonoBehaviour
 
     public int randomTrees()
     {
-        return Random.Range(0, gameObjectTree.Count);
+        return pseudoRandom.Next(0, gameObjectTree.Count);
     }
 
     public int randomSmallTrees()
     {
-        return Random.Range(0, gameObjectSmallTree.Count);
+        return pseudoRandom.Next(0, gameObjectSmallTree.Count);
     }
 
     public int randomAnimals()
@@ -334,7 +336,7 @@ public class GeneratedMap : MonoBehaviour
         }
         int random = 0;
 
-        random = Random.Range(0, listNumber.Count);
+        random = pseudoRandom.Next(0, listNumber.Count);
         //Debug.Log(currentPercentElk + " " + currentPercentRabbit + " " + currentPercentMammoth + " " + random + " " + listNumber.Count + " " + maxAnimal);
 
 

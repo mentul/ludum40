@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
 	public void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.N))
+		if (CustomInput.GetKeyDown (KeyCode.N))
 			PlayMusic ();
 	}
 

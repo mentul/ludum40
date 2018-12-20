@@ -7,7 +7,7 @@ namespace Assets.Scripts
     {
         public float wanderTime = 20f;
         public float time;
-        CapsuleCollider2D collider;
+        CapsuleCollider2D myCollider;
         public float playerTriggerDistance = 3f;
         PlayerController player;
 
@@ -15,8 +15,8 @@ namespace Assets.Scripts
         {
             GetComponent<Animator>().SetBool("isIdling", false);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            collider = GetComponent<CapsuleCollider2D>();
-            Vector2 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
+            myCollider = GetComponent<CapsuleCollider2D>();
+            Vector2 direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
             /*while (Physics2D.CapsuleCast(transform.position, collider.size, collider.direction, 0f, direction, 0.1f))
             {
                 direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;

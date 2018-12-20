@@ -27,7 +27,11 @@ namespace Assets.Scripts
 
         public override void Exit()
         {
-            throw new NotImplementedException();
+            GetComponent<Animator>().SetBool("Die", false);
+            foreach (var item in GetComponents<CapsuleCollider2D>())
+            {
+                item.enabled = true;
+            }
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)

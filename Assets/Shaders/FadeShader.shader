@@ -1,4 +1,6 @@
-﻿Shader "Custom/FadeShader" {
+﻿// Upgrade NOTE: upgraded instancing buffer 'Props' to new syntax.
+
+Shader "Custom/FadeShader" {
 
 	Properties{
 		[Toggle] _InvertFade("InvertFade", Int) = 0
@@ -24,9 +26,9 @@
 			float3 screenPos;
 		};
 
-		UNITY_INSTANCING_CBUFFER_START(Props)
+		UNITY_INSTANCING_BUFFER_START(Props)
 			// put more per-instance properties here
-		UNITY_INSTANCING_CBUFFER_END
+		UNITY_INSTANCING_BUFFER_END(Props)
 
 		void surf(Input IN, inout SurfaceOutput o) {
 			// Albedo comes from a texture tinted by color

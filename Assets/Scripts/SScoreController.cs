@@ -30,7 +30,7 @@ public class SScoreController : MonoBehaviour
             {
                 if (time <= 0)
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (CustomInput.GetMouseButtonDown(0))
                     {
                         FindObjectOfType<GameController>().ShowEndScreen();
                         HideScore();
