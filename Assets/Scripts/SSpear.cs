@@ -21,10 +21,9 @@ public class SSpear : MonoBehaviour
         myCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = GameController.player;
         flyDistance = 0f;
         lastPosition = transform.position;
-        time = timeToPickup;
         isActive = true;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), false);
     }
@@ -39,27 +38,24 @@ public class SSpear : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-            flyDistance += Vector2.Distance(transform.position, lastPosition);
+            if (isActive)
+            {
+                flyDistance += Vector2.Distance(transform.position, lastPosition);
 
-            lastPosition = transform.position;
-            myRigidbody.velocity = myRigidbody.velocity;
-            if ((myRigidbody.velocity.magnitude < 1f && myRigidbody.velocity.magnitude != 0f) || flyDistance >= 15f)
-            {
-                TurnOffTheSpear();
-                time = 0f;
+                lastPosition = transform.position;
+                myRigidbody.velocity = myRigidbody.velocity;
+                if ((myRigidbody.velocity.magnitude < 1f && myRigidbody.velocity.magnitude != 0f) || flyDistance >= 15f)
+                {
+                    TurnOffTheSpear();
+                }
             }
-            if (time <= 0)
-            {
-                Physics2D.IgnoreCollision(myCollider, player.walkCollider, false);
-                Physics2D.IgnoreCollision(myCollider, player.bodyTrigger, false);
-                time = timeToPickup;
-            }
-            else time -= Time.deltaTime;
         }
     }
 
     public void TurnOffTheSpear()
     {
+        Physics2D.IgnoreCollision(myCollider, player.walkCollider, false);
+        Physics2D.IgnoreCollision(myCollider, player.bodyTrigger, false);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), true);
         isActive = false;
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
