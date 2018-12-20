@@ -588,7 +588,7 @@ public class CustomInput : MonoBehaviour
         keysPressed.Clear();
         keysPressedDown.Clear();
         keysPressedUp.Clear();
-        for (int i = 0; i < allKeys.Length; i++)
+        for (int i = 0; i < allKeys.Length; ++i)
         {
             if (Input.GetKey(allKeys[i]))
                 keysPressed.Add(allKeys[i]);

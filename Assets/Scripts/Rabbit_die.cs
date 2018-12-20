@@ -7,13 +7,13 @@ namespace Assets.Scripts
     {
         public override void Enter()
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            myRigidbody.velocity = Vector2.zero;
             
             foreach (var item in GetComponents<CapsuleCollider2D>())
             {
                 item.enabled = false;
             }
-            GetComponent<Animator>().SetBool("Die", true);
+            myAnimator.SetBool("Die", true);
 
         }
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts
 
         public override void Exit()
         {
-            GetComponent<Animator>().SetBool("Die", false);
+            myAnimator.SetBool("Die", false);
             foreach (var item in GetComponents<CapsuleCollider2D>())
             {
                 item.enabled = true;

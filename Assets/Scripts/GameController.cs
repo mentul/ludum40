@@ -74,6 +74,21 @@ public class GameController : MonoBehaviour, IGameDataRestorer
     private int TotalDays;
     public GameObject EndCanvas;
 
+    static Camera _mainCamera;
+    static public Camera MainCamera
+    {
+        get
+        {
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            return _mainCamera;
+        }
+    }
+
+    GameObject kreska1, kreska2, kreska3;
+    GameObject caveButton;
+    Transform kreski;
+    GeneratedMap generatedMap;
+
     // Use this for initialization
     void Start()
     {
@@ -82,7 +97,8 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         population = 5;
         GlobalCounterAnimal = 0;
         isRunning = false;
-        GeneratedMap.GetComponent<GeneratedMap>().DoInit();
+        generatedMap = GeneratedMap.GetComponent<GeneratedMap>();
+        generatedMap.DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
@@ -93,9 +109,15 @@ public class GameController : MonoBehaviour, IGameDataRestorer
 
         ResetMeatScript(population);
 
-        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+        kreska1 = LifeUIRoot.transform.Find("kreska1").gameObject;
+        kreska2 = LifeUIRoot.transform.Find("kreska2").gameObject;
+        kreska3 = LifeUIRoot.transform.Find("kreska3").gameObject;
+        kreska1.SetActive(true);
+        kreska2.SetActive(true);
+        kreska3.SetActive(true);
+
+        caveButton = MainCamera.transform.Find("Canvas").Find("CaveButton").gameObject;
+        kreski = EndCanvas.transform.Find("Image").Find("Kreseczki");
     }
 
     public void SetIsRunning(bool isRunning)
@@ -110,7 +132,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         population = 5;
         GlobalCounterAnimal = 0;
         isRunning = true;
-        GeneratedMap.GetComponent<GeneratedMap>().DoInit();
+        generatedMap.DoInit();
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
@@ -120,31 +142,31 @@ public class GameController : MonoBehaviour, IGameDataRestorer
 
         ResetMeatScript(population);
 
-        LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(true);
-        LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(true);
+        kreska1.SetActive(true);
+        kreska2.SetActive(true);
+        kreska3.SetActive(true);
         player.Reset();
         timeCounter.SetPositionStartStone();
     }
 
     public void AddDay()
     {
-        TotalDays++;
+        ++TotalDays;
     }
 
     public void UpdateLives()
     {
         if (livesLeft < 1)
         {
-            LifeUIRoot.transform.Find("kreska1").gameObject.SetActive(false);
+            kreska1.gameObject.SetActive(false);
         }
         if (livesLeft < 2)
         {
-            LifeUIRoot.transform.Find("kreska2").gameObject.SetActive(false);
+            kreska2.SetActive(false);
         }
         if (livesLeft < 3)
         {
-            LifeUIRoot.transform.Find("kreska3").gameObject.SetActive(false);
+            kreska3.SetActive(false);
         }
     }
 
@@ -161,7 +183,7 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         }
         animalList.Clear();
         animalsPosition.Clear();
-        GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(count, player.gameObject.transform.position);
+        generatedMap.GenerateAnimal(count, player.gameObject.transform.position);
     }
 
     void CalculateDeltaMoveStone()
@@ -178,30 +200,30 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         int ilePiatek = TotalDays / 5;
         int reszta = TotalDays - (5 * ilePiatek);
 
-        for (int i = 0; i < 24; i++)
+        for (int i = 0; i < 24; ++i)
         {
-            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(false);
-            for (int j = 0; j < 5; j++)
+            kreski.GetChild(i).gameObject.SetActive(false);
+            for (int j = 0; j < 5; ++j)
             {
-                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(false);
+                kreski.GetChild(i).GetChild(j).gameObject.SetActive(false);
             }
         }
 
-        for (int i = 0; i < ilePiatek; i++)
+        for (int i = 0; i < ilePiatek; ++i)
         {
-            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).gameObject.SetActive(true);
-            for (int j = 0; j < 5; j++)
+            kreski.GetChild(i).gameObject.SetActive(true);
+            for (int j = 0; j < 5; ++j)
             {
-                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(i).GetChild(j).gameObject.SetActive(true);
+                kreski.GetChild(i).GetChild(j).gameObject.SetActive(true);
             }
         }
 
         if (ilePiatek < 6 && reszta != 0)
         {
-            EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).gameObject.SetActive(true);
-            for (int j = 0; j < reszta; j++)
+            kreski.GetChild(ilePiatek).gameObject.SetActive(true);
+            for (int j = 0; j < reszta; ++j)
             {
-                EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
+                kreski.GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
             }
         }
 
@@ -215,12 +237,11 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         if (isRunning)
         {
             UpdateLives();
-
-
-            meatScript.SetCuurenMeat(totalScore);
+            
+            meatScript.SetCurrentMeat(totalScore);
             MessageDispatcher.Update();
-            Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, Camera.main.orthographicSize * 16, Camera.main.orthographicSize * 9);
-            for (int i = 0; i < materialsWithPlayerPosition.Length; i++)
+            Vector4 playerPos = new Vector4(player.transform.position.x, player.transform.position.y, MainCamera.orthographicSize * 16, MainCamera.orthographicSize * 9);
+            for (int i = 0; i < materialsWithPlayerPosition.Length; ++i)
             {
                 materialsWithPlayerPosition[i].SetVector("_PlayerPosition", playerPos);
                 materialsWithPlayerPosition[i].SetFloat("_PlayerSpeed", player.speed);
@@ -232,11 +253,11 @@ public class GameController : MonoBehaviour, IGameDataRestorer
 
             if (totalScore >= population)
             {
-                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(true);
+                caveButton.SetActive(true);
             }
             else
             {
-                Camera.main.transform.Find("Canvas").Find("CaveButton").gameObject.SetActive(false);
+                caveButton.SetActive(false);
             }
 
             if (roundTime < 0)
@@ -246,13 +267,12 @@ public class GameController : MonoBehaviour, IGameDataRestorer
                 scoreController.ShowScore();
                 timeCounter.SetPositionStartStone();
                 player.Reset();
-
             }
 
             if (player.died)
             {
                 bool touched = false;
-                for (int i = 0; i < CustomInput.touchCount; i++)
+                for (int i = 0; i < CustomInput.touchCount; ++i)
                 {
                     if (CustomInput.GetTouch(i).phase == TouchPhase.Began) touched = true;
                 }
@@ -437,15 +457,15 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         timeCounter.stoneGameObject.transform.localPosition = storedStonePosition;
 
         meatScript.DoInit(storedMaxMeat);
-        meatScript.SetCuurenMeat(storedCurrentMeat);
+        meatScript.SetCurrentMeat(storedCurrentMeat);
 
-        for (int i = 0; i < animalList.Count && i < storedAnimalsPositions.Count; i++)
+        for (int i = 0; i < animalList.Count && i < storedAnimalsPositions.Count; ++i)
         {
             animalList[i].transform.position = storedAnimalsPositions[i];
         }
         animalsPosition = new List<Vector3>(storedAnimalsPositions);
 
-        for (int i = 0; i < animalList.Count && i < storedAnimalsStates.Count; i++)
+        for (int i = 0; i < animalList.Count && i < storedAnimalsStates.Count; ++i)
         {
             StateMachine.StateMachine sm = animalList[i].GetComponent<StateMachine.StateMachine>();
             if (sm != null)

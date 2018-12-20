@@ -11,10 +11,16 @@ public class SSpear : MonoBehaviour
     public Vector2 lastPosition;
 
     PlayerController player;
+    public BoxCollider2D myCollider;
+    public Rigidbody2D myRigidbody;
+    public SpriteRenderer mySpriteRenderer;
 
     // Use this for initialization
     void Start()
     {
+        myCollider = GetComponent<BoxCollider2D>();
+        myRigidbody = GetComponent<Rigidbody2D>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         flyDistance = 0f;
         lastPosition = transform.position;
@@ -36,16 +42,16 @@ public class SSpear : MonoBehaviour
             flyDistance += Vector2.Distance(transform.position, lastPosition);
 
             lastPosition = transform.position;
-            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
-            if ((GetComponent<Rigidbody2D>().velocity.magnitude < 1f && GetComponent<Rigidbody2D>().velocity.magnitude != 0f) || flyDistance >= 15f)
+            myRigidbody.velocity = myRigidbody.velocity;
+            if ((myRigidbody.velocity.magnitude < 1f && myRigidbody.velocity.magnitude != 0f) || flyDistance >= 15f)
             {
                 TurnOffTheSpear();
                 time = 0f;
             }
             if (time <= 0)
             {
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.walkCollider, false);
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), player.bodyTrigger, false);
+                Physics2D.IgnoreCollision(myCollider, player.walkCollider, false);
+                Physics2D.IgnoreCollision(myCollider, player.bodyTrigger, false);
                 time = timeToPickup;
             }
             else time -= Time.deltaTime;
@@ -56,25 +62,27 @@ public class SSpear : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("SpearPicking"), true);
         isActive = false;
-        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        myRigidbody.velocity = Vector2.zero;
 
-        GetComponent<SpriteRenderer>().sprite = secondSprite;
+        mySpriteRenderer.sprite = secondSprite;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+        if (playerController != null)
         {
-            collision.gameObject.GetComponent<PlayerController>().PickUpSpear();
+            playerController.PickUpSpear();
             Destroy(gameObject);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<PlayerController>() != null)
+        PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+        if (playerController != null)
         {
-            other.gameObject.GetComponent<PlayerController>().PickUpSpear();
+            playerController.PickUpSpear();
             Destroy(gameObject);
         }
     }

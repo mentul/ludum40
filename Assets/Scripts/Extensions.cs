@@ -14,13 +14,13 @@ public static class Extensions
     {
         if (checkIfAlreadyInArray)
         {
-            for (int i = 0; i < tab.Length; i++)
+            for (int i = 0; i < tab.Length; ++i)
             {
                 if (tab[i].Equals(obj)) return tab;
             }
         }
         T[] newTab = new T[tab.Length + 1];
-        for (int i = 0; i < tab.Length; i++)
+        for (int i = 0; i < tab.Length; ++i)
         {
             newTab[i] = tab[i];
         }
@@ -38,18 +38,18 @@ public static class Extensions
     public static T[] Remove<T>(this T[] tab, T obj)
     {
         int elementCount = 0;
-        for (int i = 0; i < tab.Length; i++)
+        for (int i = 0; i < tab.Length; ++i)
         {
             if (tab[i].Equals(obj)) elementCount++;
         }
         T[] newTab = new T[tab.Length - elementCount];
         int j = 0;
-        for (int i = 0; i < tab.Length; i++)
+        for (int i = 0; i < tab.Length; ++i)
         {
             if (!tab[i].Equals(obj))
             {
                 newTab[j] = tab[i];
-                j++;
+                ++j;
             }
         }
         //newTab[newTab.Length - 1] = obj;
@@ -103,7 +103,7 @@ public static class Extensions
     public static float RoundToClosestFloat(this float toRound, int precision = 1)
     {
         float tempToRound = toRound;
-        for (int i = 0; i < precision; i++)
+        for (int i = 0; i < precision; ++i)
         {
             tempToRound *= 10;
         }
@@ -118,7 +118,7 @@ public static class Extensions
             tempToRound = ceiling;
         }
 
-        for (int i = 0; i < precision; i++)
+        for (int i = 0; i < precision; ++i)
         {
             tempToRound *= 0.1f;
         }
@@ -135,7 +135,7 @@ public static class Extensions
     static private void SetVisibility(GameObject targetObject, bool visibility)
     {
         if (targetObject.GetComponent<Renderer>() != null) targetObject.GetComponent<Renderer>().enabled = visibility;
-        for (int i = 0; i < targetObject.transform.childCount; i++)
+        for (int i = 0; i < targetObject.transform.childCount; ++i)
         {
             SetVisibility(targetObject.transform.GetChild(i).gameObject, visibility);
         }
@@ -158,7 +158,7 @@ public static class Extensions
     static public void RemoveComponentIncludingChildren<T>(this GameObject gameObject) where T : UnityEngine.Object
     {
         gameObject.RemoveComponent<T>();
-        for (int i = 0; i < gameObject.transform.childCount; i++)
+        for (int i = 0; i < gameObject.transform.childCount; ++i)
         {
             if (gameObject.transform.GetChild(i))
             {

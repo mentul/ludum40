@@ -72,7 +72,7 @@ public class GeneratedMap : MonoBehaviour
         map = new int[width, height];
         RandomFillMap(1);
 
-        for (int i = 0; i < smooth; i++)
+        for (int i = 0; i < smooth; ++i)
         {
             SmoothMap();
         }

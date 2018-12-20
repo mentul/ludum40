@@ -21,8 +21,9 @@ namespace StateMachine
 
         static public void Send(GameObject gameObject, Message msg, int seconds = 0)
         {
-            if (gameObject.GetComponent<StateMachine>() == null) return;
-            if (seconds <= 0) gameObject.GetComponent<StateMachine>().HandleMessage(msg);
+            StateMachine stateMachine = gameObject.GetComponent<StateMachine>();
+            if (stateMachine == null) return;
+            if (seconds <= 0) stateMachine.HandleMessage(msg);
             else
             {
                 delayedMessage message = new delayedMessage();

@@ -66,7 +66,7 @@ public struct IndexedDataList<T>
 
     IndexedData<T> GetIndexedDataByIndex(int index)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; ++i)
         {
             if (list[i].index == index) return list[i];
         }
@@ -75,14 +75,14 @@ public struct IndexedDataList<T>
 
     void SetIndexedDataByIndex(int index, T data)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; ++i)
         {
             if (list[i].index == index) list[i].SetData(data);
         }
     }
     void RemoveIndexedDataByIndex(int index)
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; ++i)
         {
             if (list[i].index == index)
             {
@@ -105,7 +105,7 @@ public struct IndexedDataList<T>
         {
             if (indexes.Contains(index))
             {
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < list.Count; ++i)
                 {
                     if (list[i].index == index) return list[i].data;
                 }

@@ -8,14 +8,12 @@ namespace Assets.Scripts
         public float eatTime = 10f;
         public float time;
         public float playerTriggerDistance = 3f;
-        PlayerController player;
 
         public override void Enter()
         {
-            GetComponent<Animator>().SetBool("isIdling", true);
-            GetComponent<Animator>().SetBool("Attack", false);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            myAnimator.SetBool("isIdling", true);
+            myAnimator.SetBool("Attack", false);
+            myRigidbody.velocity = Vector2.zero;
             time = eatTime;
         }
 

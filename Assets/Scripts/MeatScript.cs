@@ -41,7 +41,7 @@ public class MeatScript : MonoBehaviour
         this.maxMeat = maxMeat;
     }
 
-    public void SetCuurenMeat(int currentMeat)
+    public void SetCurrentMeat(int currentMeat)
     {
         this.currentMeat = currentMeat;
         DoUpdate();

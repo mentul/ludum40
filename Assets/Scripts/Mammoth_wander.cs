@@ -10,16 +10,14 @@ namespace Assets.Scripts
         public float timeToChangeDirection = 1f;
         float directionTime = 2f;
         public float playerTriggerDistance = 3f;
-        PlayerController player;
         Vector2 direction;
 
         public override void Enter()
         {
-            GetComponent<Animator>().SetBool("isIdling", false);
-            GetComponent<Animator>().SetBool("Attack", false);
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            myAnimator.SetBool("isIdling", false);
+            myAnimator.SetBool("Attack", false);
             direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
-            GetComponent<Rigidbody2D>().velocity = direction;
+            myRigidbody.velocity = direction;
             directionTime = timeToChangeDirection;
             time = wanderTime;
         }
@@ -35,9 +33,9 @@ namespace Assets.Scripts
                 if (directionTime <= 0)
                 {
                     direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(-10, 10)) * direction;
-                    GetComponent<Rigidbody2D>().velocity = direction;
-                    if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
-                    else GetComponent<SpriteRenderer>().flipX = false;
+                    myRigidbody.velocity = direction;
+                    if (direction.x < 0f) mySpriteRenderer.flipX = true;
+                    else mySpriteRenderer.flipX = false;
                 }
                 else directionTime -= Time.deltaTime;
                 if (time > 0) time -= Time.deltaTime;

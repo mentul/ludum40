@@ -66,19 +66,19 @@ public class SScoreController : MonoBehaviour
 		ilePiatek = RabbitScore / 5;
 		reszta = RabbitScore - (5 * ilePiatek);
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 6; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (i).gameObject.SetActive (false);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (i).GetChild (j).gameObject.SetActive (false);
 			}
 		}
 
-		for (int i = 0; i < ilePiatek; i++)
+		for (int i = 0; i < ilePiatek; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (i).gameObject.SetActive (true);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (i).GetChild (j).gameObject.SetActive (true);
 			}
@@ -87,7 +87,7 @@ public class SScoreController : MonoBehaviour
 		if (ilePiatek < 6 && reszta != 0)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (ilePiatek).gameObject.SetActive (true);
-			for (int j = 0; j < reszta; j++)
+			for (int j = 0; j < reszta; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("KrolikScore").GetChild (ilePiatek).GetChild (j).gameObject.SetActive (true);
 			}
@@ -98,19 +98,19 @@ public class SScoreController : MonoBehaviour
 		ilePiatek = ElkScore / 5;
 		reszta = ElkScore - (5 * ilePiatek);
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 6; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (i).gameObject.SetActive (false);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (i).GetChild (j).gameObject.SetActive (false);
 			}
 		}
 
-		for (int i = 0; i < ilePiatek; i++)
+		for (int i = 0; i < ilePiatek; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (i).gameObject.SetActive (true);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (i).GetChild (j).gameObject.SetActive (true);
 			}
@@ -119,7 +119,7 @@ public class SScoreController : MonoBehaviour
 		if (ilePiatek < 6 && reszta != 0)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (ilePiatek).gameObject.SetActive (true);
-			for (int j = 0; j < reszta; j++)
+			for (int j = 0; j < reszta; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("JelenScore").GetChild (ilePiatek).GetChild (j).gameObject.SetActive (true);
 			}
@@ -130,19 +130,19 @@ public class SScoreController : MonoBehaviour
 		ilePiatek = MammothScore / 5;
 		reszta = MammothScore - (5 * ilePiatek);
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 6; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (i).gameObject.SetActive (false);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (i).GetChild (j).gameObject.SetActive (false);
 			}
 		}
 
-		for (int i = 0; i < ilePiatek; i++)
+		for (int i = 0; i < ilePiatek; ++i)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (i).gameObject.SetActive (true);
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (i).GetChild (j).gameObject.SetActive (true);
 			}
@@ -151,7 +151,7 @@ public class SScoreController : MonoBehaviour
 		if (ilePiatek < 6 && reszta != 0)
 		{
 			scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (ilePiatek).gameObject.SetActive (true);
-			for (int j = 0; j < reszta; j++)
+			for (int j = 0; j < reszta; ++j)
 			{
 				scoreCanvas.Find ("Wynik").Find ("PunktyZwierzat").Find ("MamutScore").GetChild (ilePiatek).GetChild (j).gameObject.SetActive (true);
 			}
@@ -175,7 +175,7 @@ public class SScoreController : MonoBehaviour
 		float distXAlive = 1f, distXDead = 1.5f, distY = 2f;
 
 		float row = 0f, column = -1f;
-		for (int i = 0; i < people; i++)
+		for (int i = 0; i < people; ++i)
 		{
 			if (i < people - deadPeople)
 			{
@@ -221,7 +221,7 @@ public class SScoreController : MonoBehaviour
 
 			row = 13f;
 			column = -1f;
-			for (int i = 0; i < newPeople; i++)
+			for (int i = 0; i < newPeople; ++i)
 			{
 				column += distXAlive;
 				if (column >= maxInRow)
@@ -249,7 +249,7 @@ public class SScoreController : MonoBehaviour
         GetComponent<GameController>().RandAnimal(70);
 
         Camera.main.transform.Find("ScoreCanvas").gameObject.SetActive(false);
-		for (int i = 0; i < humanSprites.Count; i++)
+		for (int i = 0; i < humanSprites.Count; ++i)
 		{
 			Destroy (humanSprites [i]);
 		}
