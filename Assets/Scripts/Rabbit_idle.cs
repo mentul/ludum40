@@ -15,7 +15,6 @@ namespace Assets.Scripts
             GetComponent<Animator>().SetBool("isIdling", true);
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //print(gameObject.name + " entering idle");
             time = eatTime;
         }
 
@@ -31,18 +30,15 @@ namespace Assets.Scripts
                 {
                     stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_wander)));
                 }
-                //print(gameObject.name + " executing idle");
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting idle");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

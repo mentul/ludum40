@@ -33,12 +33,10 @@ namespace Assets.Scripts
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting idle");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

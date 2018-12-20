@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
@@ -19,13 +17,7 @@ public class AudioManager : MonoBehaviour
 		currentClip = -1;
 		PlayMusic ();
 	}
-
-	public void Update ()
-	{
-		if (CustomInput.GetKeyDown (KeyCode.N))
-			PlayMusic ();
-	}
-
+    
 	public void PlayMusic ()
 	{
 		music.Stop ();

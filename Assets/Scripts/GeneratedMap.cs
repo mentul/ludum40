@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -43,7 +42,7 @@ public class GeneratedMap : MonoBehaviour
     public void DoInit()
     {
         positionPlayerInMap = Vector2.zero;
-        sizeMap = this.gameObject.GetComponent<BoxCollider2D>();
+        sizeMap = gameObject.GetComponent<BoxCollider2D>();
         minVectorMap = sizeMap.bounds.min;
         maxVectorMap = sizeMap.bounds.max;
         animalsCount = 0;
@@ -221,13 +220,13 @@ public class GeneratedMap : MonoBehaviour
                     // position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0));
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
-                    Instantiate(gameObjectTree[randomTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
+                    Instantiate(gameObjectTree[randomTrees()], position, gameObject.transform.rotation).transform.SetParent(transform);
 
                 }
                 else if (map[x, y] == 2)
                 {
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
-                    Instantiate(gameObjectSmallTree[randomSmallTrees()], position, gameObject.transform.rotation).transform.SetParent(this.transform);
+                    Instantiate(gameObjectSmallTree[randomSmallTrees()], position, gameObject.transform.rotation).transform.SetParent(transform);
 
                 }
 
@@ -252,7 +251,7 @@ public class GeneratedMap : MonoBehaviour
 
                     position = (new Vector3(x, y, 0) * scale - new Vector3(widthColider / 2, heightColider / 2, 0) + new Vector3((float)pseudoRandom.NextDouble()-0.5f, (float)pseudoRandom.NextDouble()*0.4f-0.2f, 0f) * scale);
                     GameObject temp = Instantiate(gameObjectAnimals[randomAnimals()], position, gameObject.transform.rotation);
-                    temp.transform.SetParent(this.transform);
+                    temp.transform.SetParent(transform);
                     GameController.animalList.Add(temp);
                     GameController.animalsPosition.Add(position);
                 }

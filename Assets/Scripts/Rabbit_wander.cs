@@ -17,14 +17,10 @@ namespace Assets.Scripts
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             myCollider = GetComponent<CapsuleCollider2D>();
             Vector2 direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
-            /*while (Physics2D.CapsuleCast(transform.position, collider.size, collider.direction, 0f, direction, 0.1f))
-            {
-                direction = Quaternion.Euler(0, 0, Random.Range(0, 360)) * Vector2.right;
-            }*/
+
             if (direction.x < 0f) GetComponent<SpriteRenderer>().flipX = true;
             else GetComponent<SpriteRenderer>().flipX = false;
             GetComponent<Rigidbody2D>().velocity = direction*GetComponent<Animal>().speed;
-            //print(gameObject.name + " entering wander");
             time = wanderTime;
         }
 
@@ -40,18 +36,15 @@ namespace Assets.Scripts
                 {
                     stateMachine.ChangeState(GetStateOfType(typeof(Rabbit_idle)));
                 }
-                //print(gameObject.name + " executing wander");
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting wander");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

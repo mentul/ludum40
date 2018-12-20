@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AElk : Animal
+﻿public class AElk : Animal
 {
 
 	public override void DoInit ()

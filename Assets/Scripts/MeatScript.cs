@@ -1,23 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MeatScript : MonoBehaviour
 {
-
     public int maxMeat { get; private set; }
     public int currentMeat { get; private set; }
     public GameObject MeatGameObject;
     public GameObject ToMuchMeat;
 
     private List<GameObject> meatGameObjcetList = new List<GameObject>();
-
-
+    
     // Use this for initialization
     public void DoInit(int maxMeat)
     {
-
         foreach (var item in meatGameObjcetList)
         {
             Destroy(item.gameObject);
@@ -35,11 +31,9 @@ public class MeatScript : MonoBehaviour
         for (int i = 0; i < maxMeat; i++)
         {
             GameObject temp = Instantiate(MeatGameObject, Vector3.zero, gameObject.transform.rotation);
-            temp.transform.SetParent(this.transform);
+            temp.transform.SetParent(transform);
             meatGameObjcetList.Add(temp);
-
         }
-
     }
 
     public void SetMAxMeat(int maxMeat)
@@ -56,7 +50,6 @@ public class MeatScript : MonoBehaviour
     // Update is called once per frame
     public void DoUpdate()
     {
-
         if (currentMeat > maxMeat)
         {
             ToMuchMeat.gameObject.SetActive(true);
@@ -65,15 +58,9 @@ public class MeatScript : MonoBehaviour
         {
             currentMeat = maxMeat;
         }
-        //else
-        //{
         for (int i = 0; i < currentMeat; i++)
         {
             meatGameObjcetList[i].transform.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
-        //}
-
-
-
     }
 }

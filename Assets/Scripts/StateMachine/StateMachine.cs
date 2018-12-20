@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace StateMachine
 {
@@ -33,8 +32,8 @@ namespace StateMachine
         
         public void Start()
         {
-            this.initialState.StateMachine = this;
-            this.globalState.StateMachine = this;
+            initialState.StateMachine = this;
+            globalState.StateMachine = this;
             if (initialState == null) currentState = globalState;
             else currentState = initialState;
             currentState.StateMachine = this;

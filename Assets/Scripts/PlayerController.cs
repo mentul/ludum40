@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using StateMachine;
+﻿using UnityEngine;
 using Assets.Scripts;
 
 public class PlayerController : MonoBehaviour {
@@ -103,21 +100,19 @@ public class PlayerController : MonoBehaviour {
         if (GameController.isRunning)
         {
             if (died) return;
-            if (!PlayerController.canThrowSpear)
+            if (!canThrowSpear)
             {
                 regianTime -= Time.deltaTime;
                 if (regianTime <= 0)
                 {
                     SSpear.clearSpears = false;
-                    PlayerController.canThrowSpear = true;
+                    canThrowSpear = true;
                     regianTime = regainControlTime;
                 }
             }
 
             CheckTouch();
-
-            //leftAnalog = new Vector2(Input.GetAxis("HorizontalLeft"), Input.GetAxis("VerticalLeft"));
-            //rightAnalog = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight") * 4);
+            
             //Jeżeli coś z WSAD to nadaj velocity
             if (CustomInput.GetKey(KeyCode.W) || CustomInput.GetKey(KeyCode.S) || CustomInput.GetKey(KeyCode.A) || CustomInput.GetKey(KeyCode.D))
             {
@@ -176,34 +171,17 @@ public class PlayerController : MonoBehaviour {
                 }
                 //ThrowSpear();
             }
-
-            if (CustomInput.GetKeyDown("joystick 1 button 7"))
-            {
-                if (hasSpear && canThrowSpear)
-                {
-                    hasSpear = false;
-                    mouse = false;
-                    GetComponent<Animator>().SetBool("HasSpear", hasSpear);
-                    GetComponent<Animator>().SetBool("Throw", true);
-                }
-                //ThrowSpear();
-            }
-            if (CustomInput.GetKey(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
+            
         }
     }
  
     public void Throwing()
     {
         GetComponent<Animator>().SetBool("Throw", false);
-        //ThrowSpear();
     }
 
     public void ThrowSpear()
     {
-        
         //oblicz kierunek rzutu
         Vector2 temp1 = new Vector2(transform.Find("HandPosition").position.x, transform.Find("HandPosition").position.y);
         Vector2 temp2 = Vector2.zero;
@@ -223,25 +201,21 @@ public class PlayerController : MonoBehaviour {
             temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(throwPosition.x, throwPosition.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(throwPosition.x, throwPosition.y, Camera.main.nearClipPlane)).y);
 
             tempOffset = temp2 - temp1;
-
         }
         else
         {
-            //temp2 = new Vector2(Camera.main.ScreenToWorldPoint(new Vector3(temp1.x+rightAnalog.x, temp1.y + rightAnalog.y, Camera.main.nearClipPlane)).x, Camera.main.ScreenToWorldPoint(new Vector3(temp1.x + rightAnalog.x, temp1.y + rightAnalog.y, Camera.main.nearClipPlane)).y);
             tempOffset = rightAnalog;
-
         }
         //obroc kamere do kierunku rzutu
         angle = Vector3.Angle(tempOffset.normalized, Vector3.left);
         if (tempOffset.y > 0) angle = 360f - angle;
         //stworz
         GameController.spearObject = Instantiate(SpearPrefab, transform.Find("HandPosition").position, Quaternion.Euler(0, 0, angle));
-        Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), this.walkCollider, true);
-        Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), this.bodyTrigger, true);
+        Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), walkCollider, true);
+        Physics2D.IgnoreCollision(GameController.spearObject.GetComponent<Collider2D>(), bodyTrigger, true);
 
         //rzuc
         GameController.spearObject.GetComponent<Rigidbody2D>().velocity = tempOffset.normalized * speed * 2f;
-        
     }
 
     public void PickUpSpear()

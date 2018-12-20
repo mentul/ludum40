@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SScoreController : MonoBehaviour
@@ -245,7 +244,7 @@ public class SScoreController : MonoBehaviour
     public void HideScore(bool switchRunning = true)
     {
         if(switchRunning) GameController.isRunning = true;
-        //Debug.Log("dzialam");
+
         GetComponent<GameController>().StartNewRound(switchRunning);
         GetComponent<GameController>().RandAnimal(70);
 

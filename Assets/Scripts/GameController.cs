@@ -1,5 +1,4 @@
 ﻿using StateMachine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -87,14 +86,10 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         scoreController = GetComponent<SScoreController>();
         roundTime = initialRoundTime;
         TotalDays = -1;
-
-        //rabbitScore = 3;
-        //elkScore = 17;
-        //mammothScore = 33;
-
+        
         timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
-        //timeCounter.DoLine();
+
         CalculateDeltaMoveStone();
 
         ResetMeatScript(population);
@@ -121,8 +116,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         roundTime = initialRoundTime;
         TotalDays = -1;
 
-
-        //timeCounter.DoInit();
         timeCounter.SetMaxRoundTime(maxRoundTime);
 
         CalculateDeltaMoveStone();
@@ -181,12 +174,9 @@ public class GameController : MonoBehaviour, IGameDataRestorer
 
     public void ShowEndScreen()
     {
-        //EndEnvas.gameObject.transform.Find()
         EndCanvas.gameObject.SetActive(true);
 
         //TotalDays
-
-        //
         int ilePiatek = TotalDays / 5;
         int reszta = TotalDays - (5 * ilePiatek);
 
@@ -216,7 +206,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
                 EndCanvas.transform.Find("Image").Find("Kreseczki").GetChild(ilePiatek).GetChild(j).gameObject.SetActive(true);
             }
         }
-        //
 
         isRunning = false;
 
@@ -227,7 +216,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
     {
         if (isRunning)
         {
-
             UpdateLives();
 
 
@@ -278,30 +266,6 @@ public class GameController : MonoBehaviour, IGameDataRestorer
                     player.Reset();
                 }
             }
-#if UNITY_EDITOR
-
-            if (CustomInput.GetKeyDown(KeyCode.Alpha4))
-            {
-                Time.timeScale = 4f;
-            }
-            else if (CustomInput.GetKeyDown(KeyCode.Alpha3))
-            {
-                Time.timeScale = 3f;
-            }
-            else if (CustomInput.GetKeyDown(KeyCode.Alpha2))
-            {
-                Time.timeScale = 2f;
-            }
-            else if (CustomInput.GetKeyDown(KeyCode.Alpha1))
-            {
-                Time.timeScale = 1f;
-            }
-
-#endif
-
-            timeCounter.DoUpdate();
-
-
         }
     }
 
@@ -340,20 +304,11 @@ public class GameController : MonoBehaviour, IGameDataRestorer
         PlayerController.canThrowSpear = false;
         GlobalCounterAnimal = 0;
         if (switchRunning) isRunning = true;
-        //GeneratedMap.GetComponent<GeneratedMap>().DoInit();
-        //scoreController = GetComponent<SScoreController>();
+
         roundTime = initialRoundTime;
 
-        //rabbitScore = 3;
-        //elkScore = 17;
-        //mammothScore = 33;
-
-        //timeCounter.DoInit();
-        //timeCounter.SetMaxRoundTime(maxRoundTime);
-        //timeCounter.DoLine();
-        //CalculateDeltaMoveStone();
         timeCounter.SetPositionStartStone();
-        //GeneratedMap.GetComponent<GeneratedMap>().GenerateAnimal(40);
+
         SetScoreTo0();
         ResetMeatScript(population);
     }

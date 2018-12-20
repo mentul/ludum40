@@ -20,7 +20,6 @@ namespace Assets.Scripts
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             direction = Quaternion.Euler(0, 0, GeneratedMap.pseudoRandom.Next(0, 360)) * Vector2.right;
             GetComponent<Rigidbody2D>().velocity = direction;
-            //print(gameObject.name + " entering wander");
             directionTime = timeToChangeDirection;
             time = wanderTime;
         }
@@ -46,18 +45,15 @@ namespace Assets.Scripts
                 {
                     stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
                 }
-                //print(gameObject.name + " executing wander");
             }
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting wander");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

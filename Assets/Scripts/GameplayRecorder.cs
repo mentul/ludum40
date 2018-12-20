@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public struct IndexedData<T>
 {
@@ -449,29 +447,4 @@ public class GameplayRecorder : MonoBehaviour
 
     }
 
-}
-
-public static class Extensions
-{
-
-    public static Vector3 ParseVector3(string str)
-    {
-        Vector3 ret = Vector3.zero;
-        char[] toTrim = { ' ', '(', ')' };
-        string[] splittedLine = str.Trim(toTrim).Split(',');
-        ret.x = float.Parse(splittedLine[0].Trim(toTrim));
-        ret.y = float.Parse(splittedLine[1].Trim(toTrim));
-        ret.z = float.Parse(splittedLine[2].Trim(toTrim));
-        return ret;
-    }
-
-    public static Vector2 ParseVector2(string str)
-    {
-        Vector2 ret = Vector2.zero;
-        char[] toTrim = { ' ', '(', ')' };
-        string[] splittedLine = str.Trim(toTrim).Split(',');
-        ret.x = float.Parse(splittedLine[0].Trim(toTrim));
-        ret.y = float.Parse(splittedLine[1].Trim(toTrim));
-        return ret;
-    }
 }

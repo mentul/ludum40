@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SSpear : MonoBehaviour
 {
@@ -36,7 +34,7 @@ public class SSpear : MonoBehaviour
                 return;
             }
             flyDistance += Vector2.Distance(transform.position, lastPosition);
-            //Debug.Log(Vector2.Distance(transform.position, lastPosition));
+
             lastPosition = transform.position;
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
             if ((GetComponent<Rigidbody2D>().velocity.magnitude < 1f && GetComponent<Rigidbody2D>().velocity.magnitude != 0f) || flyDistance >= 15f)
@@ -60,9 +58,8 @@ public class SSpear : MonoBehaviour
         isActive = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        //Sprite temp = GetComponent<SpriteRenderer>().sprite;
+
         GetComponent<SpriteRenderer>().sprite = secondSprite;
-        //secondSprite = temp;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

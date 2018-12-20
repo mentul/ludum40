@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using StateMachine;
+﻿using StateMachine;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -22,7 +19,6 @@ namespace Assets.Scripts
 
         public override void Execute()
         {
-            //throw new NotImplementedException();
         }
 
         public override void Exit()
@@ -36,7 +32,6 @@ namespace Assets.Scripts
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            //throw new NotImplementedException();
             return true;
         }
     }

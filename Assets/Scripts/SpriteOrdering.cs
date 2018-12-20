@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpriteOrdering : MonoBehaviour {
-    SpriteRenderer renderer;
+    SpriteRenderer myRenderer;
     Vector3 pivot;
     PlayerController player;
     Animal animal;
@@ -26,8 +24,8 @@ public class SpriteOrdering : MonoBehaviour {
         {
             pivot = transform.position;
         }
-        renderer = GetComponent<SpriteRenderer>();
-        renderer.sortingOrder = (int)((1f-Camera.main.WorldToViewportPoint(pivot).y)*100f);
+        myRenderer = GetComponent<SpriteRenderer>();
+        myRenderer.sortingOrder = (int)((1f-Camera.main.WorldToViewportPoint(pivot).y)*100f);
 	}
 	
 	void Update () {
@@ -49,7 +47,7 @@ public class SpriteOrdering : MonoBehaviour {
             {
                 pivot = transform.position;
             }
-            renderer.sortingOrder = (int)((1f - Camera.main.WorldToViewportPoint(pivot).y) * 100f);
+            myRenderer.sortingOrder = (int)((1f - Camera.main.WorldToViewportPoint(pivot).y) * 100f);
         }
 	}
 }

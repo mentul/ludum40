@@ -29,21 +29,15 @@ namespace Assets.Scripts
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 stateMachine.ChangeState(GetStateOfType(typeof(Mammoth_idle)));
             }
-            else
-            {
-                //GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * speedBoost;
-            }
             time -= Time.deltaTime;
         }
 
         public override void Exit()
         {
-            //print(gameObject.name + " exiting idle");
         }
 
         public override bool OnMessage(GameObject gameObject, Message msg)
         {
-            print(gameObject.name + " received " + msg.Subject);
             switch (msg.Subject)
             {
                 case "DIE":

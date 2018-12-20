@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
@@ -64,7 +62,7 @@ public class Animal : MonoBehaviour
 
                 break;
             case AnimalState.vanishing:
-                Destroy(this.gameObject);
+                Destroy(gameObject);
                 break;
         }
     }
@@ -99,17 +97,17 @@ public class Animal : MonoBehaviour
             if (animalType == AnimalType.rabbit)
             {
                 GameController.setScore(1, 0, 0);
-                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
+                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.elk)
             {
                 GameController.setScore(0, 1, 0);
-                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
+                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
             else if (animalType == AnimalType.mammoth)
             {
                 GameController.setScore(0, 0, 1);
-                StateMachine.MessageDispatcher.Send(this.gameObject, new StateMachine.Message("DIE"));
+                StateMachine.MessageDispatcher.Send(gameObject, new StateMachine.Message("DIE"));
             }
             //Destroy(gameObject);
             GameController.GlobalCounterAnimal--;
